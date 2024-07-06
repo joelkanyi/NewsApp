@@ -15,6 +15,7 @@ jetbrainsKotlinJvm = "2.0.0"
 javaxInject = "1"
 truth = "1.4.3"
 mockk = "1.12.0"
+retrofit = "2.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +40,9 @@ androidx-paging-common = { group = "androidx.paging", name = "paging-common", ve
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging_version" }
 
 javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInject" }
+
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-gson-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 
 # Testing
 truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }

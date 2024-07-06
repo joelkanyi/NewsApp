@@ -35,5 +35,10 @@ android {
 dependencies {
     implementation(libs.androidx.paging.common)
     implementation(libs.javax.inject)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson.converter)
+    testImplementation(libs.junit)
+
+    // Domain
     implementation(projects.domain)
 }
