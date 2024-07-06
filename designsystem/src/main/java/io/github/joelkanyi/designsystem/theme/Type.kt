@@ -1,4 +1,4 @@
-package io.github.joelkanyi.news_app.ui.theme
+package io.github.joelkanyi.designsystem.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
