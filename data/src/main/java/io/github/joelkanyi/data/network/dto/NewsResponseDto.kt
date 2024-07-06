@@ -2,6 +2,7 @@ package io.github.joelkanyi.data.network.dto
 
 
 import com.google.gson.annotations.SerializedName
+import io.github.joelkanyi.domain.model.News
 
 data class NewsResponseDto(
     @SerializedName("articles")
@@ -34,6 +35,19 @@ data class NewsResponseDto(
             val id: String,
             @SerializedName("name")
             val name: String
+        )
+    }
+
+    companion object {
+        fun ArticleDto.toNews() = News(
+            author = author,
+            content = content,
+            description = description,
+            publishedAt = publishedAt,
+            source = source.name,
+            title = title,
+            url = url,
+            imageUrl = urlToImage
         )
     }
 }
