@@ -8,6 +8,13 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.3"
 activityCompose = "1.9.0"
 composeBom = "2024.06.00"
+appcompat = "1.7.0"
+material = "1.12.0"
+paging_version = "3.3.0"
+jetbrainsKotlinJvm = "2.0.0"
+javaxInject = "1"
+truth = "1.4.3"
+mockk = "1.12.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -24,6 +31,18 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+androidx-paging = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging_version" }
+androidx-paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "paging_version" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging_version" }
+
+javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInject" }
+
+# Testing
+truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -31,4 +50,6 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 
 # Compose Compiler
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 

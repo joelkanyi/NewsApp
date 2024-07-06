@@ -1,3 +1,5 @@
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     repositories {
         google {
@@ -21,3 +23,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "News-App"
 include(":app")
+include(":domain")
