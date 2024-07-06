@@ -49,5 +49,16 @@ data class NewsResponseDto(
             url = url,
             imageUrl = urlToImage
         )
+
+        fun News.toNewsDto() = ArticleDto(
+            author = author,
+            content = content,
+            description = description,
+            publishedAt = publishedAt,
+            source = ArticleDto.SourceDto("", source),
+            title = title,
+            url = url,
+            urlToImage = imageUrl
+        )
     }
 }

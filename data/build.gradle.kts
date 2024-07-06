@@ -37,7 +37,14 @@ dependencies {
     implementation(libs.javax.inject)
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson.converter)
+
+    implementation(libs.coroutines.android)
+    implementation(libs.coroutines.core)
+
     testImplementation(libs.junit)
+    testImplementation(libs.truth)
+    testImplementation(libs.mockk)
+    testImplementation(libs.coroutines.test)
 
     // Domain
     implementation(projects.domain)
