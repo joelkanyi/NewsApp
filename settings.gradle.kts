@@ -25,3 +25,5 @@ rootProject.name = "News-App"
 include(":app")
 include(":domain")
 include(":data")
+include(":presentation")
+include(":designsystem")
