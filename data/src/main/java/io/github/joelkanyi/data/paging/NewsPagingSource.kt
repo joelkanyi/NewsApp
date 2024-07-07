@@ -22,7 +22,7 @@ class NewsPagingSource(
                 country = country,
                 category = category,
                 pageSize = params.loadSize,
-                page = nextPage
+                page = nextPage,
             )
 
             LoadResult.Page(

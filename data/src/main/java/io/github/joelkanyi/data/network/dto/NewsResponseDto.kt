@@ -14,40 +14,40 @@ data class NewsResponseDto(
 ) {
     data class ArticleDto(
         @SerializedName("author")
-        val author: String,
+        val author: String?,
         @SerializedName("content")
-        val content: String,
+        val content: String?,
         @SerializedName("description")
-        val description: String,
+        val description: String?,
         @SerializedName("publishedAt")
-        val publishedAt: String,
+        val publishedAt: String?,
         @SerializedName("source")
-        val source: SourceDto,
+        val source: SourceDto?,
         @SerializedName("title")
-        val title: String,
+        val title: String?,
         @SerializedName("url")
-        val url: String,
+        val url: String?,
         @SerializedName("urlToImage")
-        val urlToImage: String
+        val urlToImage: String?
     ) {
         data class SourceDto(
             @SerializedName("id")
-            val id: String,
+            val id: String?,
             @SerializedName("name")
-            val name: String
+            val name: String?
         )
     }
 
     companion object {
         fun ArticleDto.toNews() = News(
-            author = author,
-            content = content,
-            description = description,
-            publishedAt = publishedAt,
-            source = source.name,
-            title = title,
-            url = url,
-            imageUrl = urlToImage
+            author = author.orEmpty(),
+            content = content.orEmpty(),
+            description = description.orEmpty(),
+            publishedAt = publishedAt.orEmpty(),
+            source = source?.name.orEmpty(),
+            title = title.orEmpty(),
+            url = url.orEmpty(),
+            imageUrl = urlToImage.orEmpty()
         )
 
         fun News.toNewsDto() = ArticleDto(
@@ -55,7 +55,7 @@ data class NewsResponseDto(
             content = content,
             description = description,
             publishedAt = publishedAt,
-            source = ArticleDto.SourceDto("", source),
+            source = ArticleDto.SourceDto(null, source),
             title = title,
             url = url,
             urlToImage = imageUrl
