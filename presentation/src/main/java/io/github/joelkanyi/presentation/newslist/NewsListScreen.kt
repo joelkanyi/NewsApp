@@ -1,8 +1,6 @@
 package io.github.joelkanyi.presentation.newslist
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -15,11 +13,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -29,8 +25,6 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -45,30 +39,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
-import coil.compose.SubcomposeAsyncImage
-import coil.request.ImageRequest
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonParseException
 import io.github.joelkanyi.designsystem.components.BottomSheet
 import io.github.joelkanyi.designsystem.theme.NewsAppTheme
-import io.github.joelkanyi.domain.model.News
+import io.github.joelkanyi.presentation.components.NewsList
 import io.github.joelkanyi.presentation.newsdetails.NewsDetails
 import io.github.joelkanyi.presentation.search.SearchNews
-import io.github.joelkanyi.presentation.utils.ErrorResponse
 import kotlinx.serialization.Serializable
-import retrofit2.HttpException
-import java.io.IOException
-import java.io.Reader
 
 @Serializable
 object NewsList
@@ -174,81 +155,12 @@ fun NewsListScreenContent(
         Box(
             modifier = Modifier.padding(innerPadding)
         ) {
-            LazyColumn(
-                contentPadding = PaddingValues(horizontal = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                items(newsPaging.itemCount) {
-                    val news = newsPaging[it]
-                    if (news != null) {
-                        NewsItem(
-                            news = news,
-                            onClick = {
-                                onAction(NewsListUiAction.NavigateToNewsDetails(news))
-                            },
-                        )
-                    }
+            NewsList(
+                newsPaging,
+                onClickNews = {
+                    onAction(NewsListUiAction.NavigateToNewsDetails(it))
                 }
-                newsPaging.loadState.let { loadState ->
-                    when {
-                        loadState.refresh is LoadState.Loading -> {
-                            item {
-                                Box(
-                                    modifier = Modifier.fillParentMaxSize(),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    CircularProgressIndicator()
-                                }
-                            }
-                        }
-
-                        loadState.refresh is LoadState.NotLoading && newsPaging.itemCount < 1 -> {
-                            item {
-                                Box(
-                                    modifier = Modifier.fillParentMaxSize(),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(
-                                        text = "No news available",
-                                        style = MaterialTheme.typography.titleMedium
-                                    )
-                                }
-                            }
-                        }
-
-                        loadState.refresh is LoadState.Error -> {
-                            val error = loadState.refresh as LoadState.Error
-                            item {
-                                Box(
-                                    modifier = Modifier.fillParentMaxSize(),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(
-                                        text = error.getPagingError(),
-                                        style = MaterialTheme.typography.titleMedium
-                                    )
-                                }
-                            }
-                        }
-
-                        loadState.append is LoadState.Loading -> {
-                            item {
-                                Box(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    CircularProgressIndicator(
-                                        modifier = Modifier
-                                            .size(16.dp)
-                                            .align(Alignment.Center),
-                                        strokeWidth = 2.dp,
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            )
         }
     }
 
@@ -293,90 +205,6 @@ fun NewsListScreenContent(
                 onAction(NewsListUiAction.SelectCountry(it))
             }
         )
-    }
-}
-
-@Composable
-fun NewsItem(
-    news: News,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Card(
-        modifier = modifier,
-        onClick = onClick,
-    ) {
-        Row(
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            SubcomposeAsyncImage(
-                modifier = Modifier
-                    .height(100.dp)
-                    .fillMaxWidth(.32f),
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(news.imageUrl)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = news.title,
-                contentScale = ContentScale.Crop,
-                loading = {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(24.dp),
-                            strokeWidth = 2.dp
-                        )
-                    }
-                },
-                error = {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Image(
-                            painter = painterResource(id = io.github.joelkanyi.designsystem.R.drawable.image_placeholder),
-                            contentDescription = "Error loading image",
-                            modifier = Modifier.size(48.dp)
-                        )
-                    }
-                }
-            )
-
-            Column(
-                modifier = Modifier
-                    .padding(end = 8.dp)
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                Text(
-                    text = news.title,
-                    style = MaterialTheme.typography.titleMedium,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = news.publishedAt,
-                        style = MaterialTheme.typography.bodySmall,
-                    )
-
-                    Text(
-                        text = news.source,
-                        style = MaterialTheme.typography.bodySmall,
-                    )
-                }
-            }
-        }
     }
 }
 
@@ -588,22 +416,6 @@ fun CountryItem(
     }
 }
 
-fun LoadState.Error.getPagingError(): String {
-    return when (val err = this.error) {
-        is HttpException -> {
-            errorMessage(err)
-        }
-
-        is IOException -> {
-            "Network error"
-        }
-
-        else -> {
-            "Unknown error"
-        }
-    }
-}
-
 @Preview
 @Composable
 fun NewsListScreenPreview() {
@@ -613,25 +425,4 @@ fun NewsListScreenPreview() {
             onAction = {}
         )
     }
-}
-
-
-fun errorMessage(httpException: HttpException): String {
-    val errorResponse = convertErrorBody<ErrorResponse>(httpException)
-    Log.e("errorMessage", "Error Response: $errorResponse")
-    return errorResponse?.message ?: "Unknown error"
-}
-
-inline fun <reified T> convertErrorBody(throwable: HttpException): T? {
-    return try {
-        throwable.response()?.errorBody()?.charStream()?.use { it.readerToObject() }
-    } catch (e: JsonParseException) {
-        null
-    }
-}
-
-inline fun <reified T> Reader.readerToObject(): T {
-    val gson = GsonBuilder()
-        .create()
-    return gson.fromJson(this, T::class.java)
 }
