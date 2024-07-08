@@ -22,6 +22,7 @@ class NewsListViewModel @Inject constructor(
     fun getNews(
         country: String? = null,
         category: String? = null,
+        searchQuery: String? = null
     ) {
         viewModelScope.launch {
             _uiState.update {
@@ -29,6 +30,7 @@ class NewsListViewModel @Inject constructor(
                     news = getNewsUseCase(
                         country = country?.toISO3166Alpha2(),
                         category = category?.lowercase(),
+                        searchQuery = searchQuery,
                     ).cachedIn(viewModelScope)
                 )
             }

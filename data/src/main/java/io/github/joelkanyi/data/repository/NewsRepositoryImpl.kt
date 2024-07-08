@@ -16,7 +16,8 @@ class NewsRepositoryImpl @Inject constructor(
 ) : NewsRepository {
     override suspend fun getNews(
         country: String?,
-        category: String?
+        category: String?,
+        searchQuery: String?,
     ): Flow<PagingData<News>> {
         return Pager(
             config = PagingConfig(
@@ -28,6 +29,7 @@ class NewsRepositoryImpl @Inject constructor(
                     newsApi = newsApi,
                     country = country,
                     category = category,
+                    searchQuery = searchQuery,
                 )
             }
         ).flow

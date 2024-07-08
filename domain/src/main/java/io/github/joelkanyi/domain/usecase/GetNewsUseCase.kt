@@ -7,7 +7,12 @@ class GetNewsUseCase @Inject constructor(
     private val repository: NewsRepository,
 ) {
     suspend operator fun invoke(
-        country: String? = "us",
-        category: String? = null,
-    ) = repository.getNews(country, category)
+        country: String?,
+        category: String?,
+        searchQuery: String?,
+    ) = repository.getNews(
+        country = country,
+        category = category,
+        searchQuery = searchQuery
+    )
 }
