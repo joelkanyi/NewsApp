@@ -57,7 +57,7 @@ fun SearchNewsScreen(
             if (searchString.trim().isNotEmpty()) {
                 viewModel.getNews(searchString)
             }
-        }
+        },
     )
 }
 
@@ -86,20 +86,22 @@ fun SearchNewsScreenContent(
                         placeholder = {
                             Text(
                                 text = "Search...",
-                                style = MaterialTheme.typography.bodyMedium.copy(
-                                    color = MaterialTheme.colorScheme.onBackground.copy(.5f)
-                                ),
+                                style =
+                                    MaterialTheme.typography.bodyMedium.copy(
+                                        color = MaterialTheme.colorScheme.onBackground.copy(.5f),
+                                    ),
                             )
                         },
                         textStyle = MaterialTheme.typography.bodyMedium,
-                        colors = TextFieldDefaults.colors(
-                            disabledContainerColor = Color.Transparent,
-                            focusedContainerColor = Color.Transparent,
-                            unfocusedContainerColor = Color.Transparent,
-                            disabledIndicatorColor = Color.Transparent,
-                            focusedIndicatorColor = Color.Transparent,
-                            unfocusedIndicatorColor = Color.Transparent,
-                        ),
+                        colors =
+                            TextFieldDefaults.colors(
+                                disabledContainerColor = Color.Transparent,
+                                focusedContainerColor = Color.Transparent,
+                                unfocusedContainerColor = Color.Transparent,
+                                disabledIndicatorColor = Color.Transparent,
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent,
+                            ),
                     )
                 },
                 navigationIcon = {
@@ -127,24 +129,25 @@ fun SearchNewsScreenContent(
                     }
                 },
             )
-        }
+        },
     ) { innerPadding ->
 
         val newsPaging = uiState.news?.collectAsLazyPagingItems()
 
         Box(
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize()
+            modifier =
+                Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize(),
         ) {
             if (newsPaging != null) {
                 NewsList(
                     newsPaging,
                     onClickNews = {
                         onClickNews(it)
-                    }
+                    },
                 )
-            }  else {
+            } else {
                 EmptyStateComponent(
                     modifier = Modifier.align(Alignment.Center),
                     message = "No news available",

@@ -10,7 +10,6 @@ import io.github.joelkanyi.domain.repository.NewsRepository
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
-
     @Binds
     abstract fun bindRepository(repository: NewsRepositoryImpl): NewsRepository
 }

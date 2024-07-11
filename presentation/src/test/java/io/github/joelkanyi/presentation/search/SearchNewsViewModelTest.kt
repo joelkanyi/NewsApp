@@ -42,43 +42,46 @@ class SearchNewsViewModelTest {
     }
 
     @Test
-    fun `test updateSearchValue should update search value`() = runTest {
-        // Given
-        val expectedString = "searchQuery"
+    fun `test updateSearchValue should update search value`() =
+        runTest {
+            // Given
+            val expectedString = "searchQuery"
 
-        // When
-        viewModel.updateSearchValue(expectedString)
+            // When
+            viewModel.updateSearchValue(expectedString)
 
-        // Then
-        viewModel.uiState.test {
-            val state = awaitItem()
-            assertThat(state.searchValue).isEqualTo(expectedString)
+            // Then
+            viewModel.uiState.test {
+                val state = awaitItem()
+                assertThat(state.searchValue).isEqualTo(expectedString)
+            }
         }
-    }
 
     @Test
-    fun `test initial ui state should have default values`() = runTest {
-        viewModel.uiState.test {
-            val state = awaitItem()
-            assertThat(state.searchValue).isEmpty()
-            assertThat(state.news).isNull()
+    fun `test initial ui state should have default values`() =
+        runTest {
+            viewModel.uiState.test {
+                val state = awaitItem()
+                assertThat(state.searchValue).isEmpty()
+                assertThat(state.news).isNull()
+            }
         }
-    }
 
     @Test
-    fun `test getNews should update news with debounce`() = runTest {
-        val news = sampleNews()
-        coEvery { searchNewsUseCase.invoke(any()) } returns flowOf(news)
+    fun `test getNews should update news with debounce`() =
+        runTest {
+            val news = sampleNews()
+            coEvery { searchNewsUseCase.invoke(any()) } returns flowOf(news)
 
-        viewModel.getNews("searchQuery")
+            viewModel.getNews("searchQuery")
 
-        advanceUntilIdle()
+            advanceUntilIdle()
 
-        viewModel.uiState.test {
-            val state = awaitItem()
-            assertThat(state.news).isNotNull()
+            viewModel.uiState.test {
+                val state = awaitItem()
+                assertThat(state.news).isNotNull()
+            }
         }
-    }
 
     private fun sampleNews(): PagingData<News> {
         return PagingData.from(
@@ -91,9 +94,9 @@ class SearchNewsViewModelTest {
                     publishedAt = "publishedAt",
                     content = "content",
                     source = "source",
-                    author = "author"
-                )
-            )
+                    author = "author",
+                ),
+            ),
         )
     }
 }

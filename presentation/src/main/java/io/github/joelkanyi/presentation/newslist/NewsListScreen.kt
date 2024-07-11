@@ -60,7 +60,7 @@ object NewsList
 @Composable
 fun NewsListScreen(
     navController: NavController,
-    viewModel: NewsListViewModel = hiltViewModel()
+    viewModel: NewsListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -105,7 +105,7 @@ fun NewsListScreen(
                     viewModel.setFiltersBottomSheetState(false)
                     viewModel.getNews(
                         country = action.country,
-                        category = action.category
+                        category = action.category,
                     )
                 }
             }
@@ -121,9 +121,10 @@ fun NewsListScreenContent(
 ) {
     val newsPaging = uiState.news?.collectAsLazyPagingItems()
 
-    val bottomSheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true,
-    )
+    val bottomSheetState =
+        rememberModalBottomSheetState(
+            skipPartiallyExpanded = true,
+        )
 
     Scaffold(
         topBar = {
@@ -152,21 +153,22 @@ fun NewsListScreenContent(
                             contentDescription = "Filters",
                         )
                     }
-                }
+                },
             )
-        }
+        },
     ) { innerPadding ->
         Box(
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize()
+            modifier =
+                Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize(),
         ) {
             if (newsPaging != null) {
                 NewsList(
                     newsPaging,
                     onClickNews = {
                         onAction(NewsListUiAction.NavigateToNewsDetails(it))
-                    }
+                    },
                 )
             } else {
                 EmptyStateComponent(
@@ -179,9 +181,10 @@ fun NewsListScreenContent(
 
     if (uiState.showNewsFilters) {
         BottomSheet(
-            modifier = Modifier
-                .testTag("news_filters")
-                .fillMaxHeight(.5f),
+            modifier =
+                Modifier
+                    .testTag("news_filters")
+                    .fillMaxHeight(.5f),
             bottomSheetState = bottomSheetState,
             shape = RoundedCornerShape(0),
             onDismissRequest = {
@@ -201,10 +204,10 @@ fun NewsListScreenContent(
                     onAction(
                         NewsListUiAction.ApplyFilters(
                             country = uiState.selectedCountry,
-                            category = uiState.selectedCategory
-                        )
+                            category = uiState.selectedCategory,
+                        ),
                     )
-                }
+                },
             )
         }
     }
@@ -218,11 +221,10 @@ fun NewsListScreenContent(
             },
             onSelectCountry = {
                 onAction(NewsListUiAction.SelectCountry(it))
-            }
+            },
         )
     }
 }
-
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -235,14 +237,15 @@ fun NewsFiltersContent(
     onApplyFilter: () -> Unit,
 ) {
     LazyColumn(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier =
+            modifier
+                .fillMaxWidth(),
         contentPadding = PaddingValues(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         item {
             Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 Text(
                     text = "Select Country",
@@ -250,15 +253,16 @@ fun NewsFiltersContent(
                 )
 
                 Row(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .clickable { onClickSelectCountry() },
+                    modifier =
+                        modifier
+                            .fillMaxWidth()
+                            .clickable { onClickSelectCountry() },
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
                         text = selectedCountry ?: "Select country",
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.bodyMedium,
                     )
                     Icon(
                         imageVector = Icons.Default.ArrowDropDown,
@@ -270,7 +274,7 @@ fun NewsFiltersContent(
 
         item {
             Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 Text(
                     text = "Select Category",
@@ -287,7 +291,7 @@ fun NewsFiltersContent(
                             name = category,
                             onClick = {
                                 onSelectCategory(category)
-                            }
+                            },
                         )
                     }
                 }
@@ -301,7 +305,7 @@ fun NewsFiltersContent(
         item {
             Button(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = onApplyFilter
+                onClick = onApplyFilter,
             ) {
                 Text(
                     text = "Okay",
@@ -312,7 +316,6 @@ fun NewsFiltersContent(
     }
 }
 
-
 @Composable
 fun CategoryItem(
     name: String,
@@ -321,42 +324,48 @@ fun CategoryItem(
     modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier
-            .border(
-                BorderStroke(
-                    width = .5.dp,
-                    color = if (isSelected) {
-                        MaterialTheme.colorScheme.primary
-                    } else {
-                        MaterialTheme.colorScheme.onSurface
-                    }
+        modifier =
+            modifier
+                .border(
+                    BorderStroke(
+                        width = .5.dp,
+                        color =
+                            if (isSelected) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.onSurface
+                            },
+                    ),
                 )
-            )
-            .background(
-                color = if (isSelected) {
-                    MaterialTheme.colorScheme.primary.copy(.1f)
-                } else {
-                    Color.Transparent
+                .background(
+                    color =
+                        if (isSelected) {
+                            MaterialTheme.colorScheme.primary.copy(.1f)
+                        } else {
+                            Color.Transparent
+                        },
+                )
+                .clickable {
+                    onClick()
                 },
-            )
-            .clickable {
-                onClick()
-            },
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            modifier = Modifier.padding(
-                vertical = 6.dp,
-                horizontal = 16.dp,
-            ),
+            modifier =
+                Modifier.padding(
+                    vertical = 6.dp,
+                    horizontal = 16.dp,
+                ),
             text = name,
-            style = MaterialTheme.typography.bodyMedium.copy(
-                color = if (isSelected) {
-                    MaterialTheme.colorScheme.primary
-                } else {
-                    MaterialTheme.colorScheme.onSurface
-                }
-            ),
+            style =
+                MaterialTheme.typography.bodyMedium.copy(
+                    color =
+                        if (isSelected) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.onSurface
+                        },
+                ),
         )
     }
 }
@@ -367,24 +376,26 @@ fun CountriesDialog(
     selectedCountry: String?,
     onDismiss: () -> Unit,
     onSelectCountry: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     AlertDialog(
-        modifier = Modifier
-            .testTag("countries_dialog")
-            .fillMaxHeight(.5f),
+        modifier =
+            Modifier
+                .testTag("countries_dialog")
+                .fillMaxHeight(.5f),
         onDismissRequest = onDismiss,
         title = {
             Text(
                 text = "Select Country",
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
         },
         text = {
             LazyColumn(
-                modifier = modifier
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                modifier =
+                    modifier
+                        .fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 countries.forEach { country ->
                     item {
@@ -393,13 +404,13 @@ fun CountriesDialog(
                             onClick = {
                                 onSelectCountry(country)
                             },
-                            isSelected = country == selectedCountry
+                            isSelected = country == selectedCountry,
                         )
                     }
                 }
             }
         },
-        confirmButton = {}
+        confirmButton = {},
     )
 }
 
@@ -408,20 +419,21 @@ fun CountryItem(
     onClick: () -> Unit,
     isSelected: Boolean,
     country: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable {
-                onClick()
-            },
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clickable {
+                    onClick()
+                },
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = country,
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyMedium,
         )
         if (isSelected) {
             Icon(
@@ -439,7 +451,7 @@ fun NewsListScreenPreview() {
     NewsAppTheme {
         NewsListScreenContent(
             uiState = NewsListUiState(),
-            onAction = {}
+            onAction = {},
         )
     }
 }

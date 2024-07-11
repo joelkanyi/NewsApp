@@ -11,27 +11,30 @@ import io.github.joelkanyi.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class NewsRepositoryImpl @Inject constructor(
-    private val newsApi: NewsApi,
-) : NewsRepository {
-    override fun getNews(
-        country: String?,
-        category: String?,
-        searchQuery: String?,
-    ): Flow<PagingData<News>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = PAGE_SIZE,
-                enablePlaceholders = false,
-            ),
-            pagingSourceFactory = {
-                NewsPagingSource(
-                    newsApi = newsApi,
-                    country = country,
-                    category = category,
-                    searchQuery = searchQuery,
-                )
-            }
-        ).flow
+class NewsRepositoryImpl
+    @Inject
+    constructor(
+        private val newsApi: NewsApi,
+    ) : NewsRepository {
+        override fun getNews(
+            country: String?,
+            category: String?,
+            searchQuery: String?,
+        ): Flow<PagingData<News>> {
+            return Pager(
+                config =
+                    PagingConfig(
+                        pageSize = PAGE_SIZE,
+                        enablePlaceholders = false,
+                    ),
+                pagingSourceFactory = {
+                    NewsPagingSource(
+                        newsApi = newsApi,
+                        country = country,
+                        category = category,
+                        searchQuery = searchQuery,
+                    )
+                },
+            ).flow
+        }
     }
-}

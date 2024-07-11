@@ -1,5 +1,3 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -30,7 +28,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -76,7 +74,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //Dagger - Hilt
+    // Dagger - Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     ksp(libs.androidx.hilt.compiler)

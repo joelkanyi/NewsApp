@@ -8,4 +8,22 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.hilt.android) apply false
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ktlint)
+}
+
+subprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    ktlint {
+        debug.set(true)
+        verbose.set(true)
+        android.set(false)
+        outputToConsole.set(true)
+        outputColorName.set("RED")
+        ignoreFailures.set(true)
+        enableExperimentalRules.set(true)
+        filter {
+            exclude("**/generated/**")
+            include("**/kotlin/**")
+        }
+    }
 }

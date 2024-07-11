@@ -14,33 +14,36 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchNewsViewModel @Inject constructor(
-    private val searchNewsUseCase: SearchNewsUseCase,
-) : ViewModel() {
-    private val _uiState = MutableStateFlow(SearchNewsUiState())
-    val uiState = _uiState.asStateFlow()
+class SearchNewsViewModel
+    @Inject
+    constructor(
+        private val searchNewsUseCase: SearchNewsUseCase,
+    ) : ViewModel() {
+        private val _uiState = MutableStateFlow(SearchNewsUiState())
+        val uiState = _uiState.asStateFlow()
 
-    private var searchJob: Job? = null
+        private var searchJob: Job? = null
 
-    fun getNews(searchQuery: String) {
-        searchJob?.cancel()
-        searchJob = viewModelScope.launch {
-            delay(DEBOUNCE_PERIOD)
+        fun getNews(searchQuery: String) {
+            searchJob?.cancel()
+            searchJob =
+                viewModelScope.launch {
+                    delay(DEBOUNCE_PERIOD)
+                    _uiState.update {
+                        it.copy(
+                            news = searchNewsUseCase(searchQuery).cachedIn(viewModelScope),
+                        )
+                    }
+                }
+        }
+
+        fun updateSearchValue(value: String) {
             _uiState.update {
-                it.copy(
-                    news = searchNewsUseCase(searchQuery).cachedIn(viewModelScope)
-                )
+                it.copy(searchValue = value)
             }
         }
-    }
 
-    fun updateSearchValue(value: String) {
-        _uiState.update {
-            it.copy(searchValue = value)
+        companion object {
+            const val DEBOUNCE_PERIOD = 500L
         }
     }
-
-    companion object {
-        const val DEBOUNCE_PERIOD = 500L
-    }
-}

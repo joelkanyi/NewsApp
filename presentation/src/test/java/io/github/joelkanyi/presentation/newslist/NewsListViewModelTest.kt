@@ -41,73 +41,79 @@ class NewsListViewModelTest {
     }
 
     @Test
-    fun `test selectCategory updates state with value`() = runTest {
-        val expectedCategory = "business"
+    fun `test selectCategory updates state with value`() =
+        runTest {
+            val expectedCategory = "business"
 
-        viewModel.selectCategory("business")
+            viewModel.selectCategory("business")
 
-        viewModel.uiState.test {
-            val state = awaitItem()
-            assertThat(state.selectedCategory).isEqualTo(expectedCategory)
+            viewModel.uiState.test {
+                val state = awaitItem()
+                assertThat(state.selectedCategory).isEqualTo(expectedCategory)
+            }
         }
-    }
 
     @Test
-    fun `test selectCountry updates state with value`() = runTest {
-        val expectedCountry = "kenya"
+    fun `test selectCountry updates state with value`() =
+        runTest {
+            val expectedCountry = "kenya"
 
-        viewModel.selectCountry("kenya")
+            viewModel.selectCountry("kenya")
 
-        viewModel.uiState.test {
-            val state = awaitItem()
-            assertThat(state.selectedCountry).isEqualTo(expectedCountry)
+            viewModel.uiState.test {
+                val state = awaitItem()
+                assertThat(state.selectedCountry).isEqualTo(expectedCountry)
+            }
         }
-    }
 
     @Test
-    fun `test setCountriesDialogState updates state with value`() = runTest {
-        viewModel.setCountriesDialogState(true)
+    fun `test setCountriesDialogState updates state with value`() =
+        runTest {
+            viewModel.setCountriesDialogState(true)
 
-        viewModel.uiState.test {
-            val state = awaitItem()
-            assertThat(state.showCountryDialog).isEqualTo(true)
+            viewModel.uiState.test {
+                val state = awaitItem()
+                assertThat(state.showCountryDialog).isEqualTo(true)
+            }
         }
-    }
 
     @Test
-    fun `test setFiltersBottomSheetState updates state with value`() = runTest {
-        viewModel.setFiltersBottomSheetState(false)
+    fun `test setFiltersBottomSheetState updates state with value`() =
+        runTest {
+            viewModel.setFiltersBottomSheetState(false)
 
-        viewModel.uiState.test {
-            val state = awaitItem()
-            assertThat(state.showNewsFilters).isEqualTo(false)
+            viewModel.uiState.test {
+                val state = awaitItem()
+                assertThat(state.showNewsFilters).isEqualTo(false)
+            }
         }
-    }
 
     @Test
-    fun `test initial state has default values`() = runTest {
-        viewModel.uiState.test {
-            val state = awaitItem()
-            assertThat(state.selectedCategory).isNull()
-            assertThat(state.showNewsFilters).isFalse()
-            assertThat(state.showCountryDialog).isFalse()
-            assertThat(state.selectedCountry).isEqualTo(newsCountries.first())
-            // assertThat(state.news).isNull()
+    fun `test initial state has default values`() =
+        runTest {
+            viewModel.uiState.test {
+                val state = awaitItem()
+                assertThat(state.selectedCategory).isNull()
+                assertThat(state.showNewsFilters).isFalse()
+                assertThat(state.showCountryDialog).isFalse()
+                assertThat(state.selectedCountry).isEqualTo(newsCountries.first())
+                // assertThat(state.news).isNull()
+            }
         }
-    }
 
     @Test
-    fun `test getNews updates state with news`() = runTest {
-        val news = sampleNews()
-        coEvery { getNewsUseCase.invoke(any(), any()) } returns flowOf(news)
+    fun `test getNews updates state with news`() =
+        runTest {
+            val news = sampleNews()
+            coEvery { getNewsUseCase.invoke(any(), any()) } returns flowOf(news)
 
-        viewModel.getNews("US", "Business")
+            viewModel.getNews("US", "Business")
 
-        viewModel.uiState.test {
-            val uiState = awaitItem()
-            assertThat(uiState.news).isNotNull()
+            viewModel.uiState.test {
+                val uiState = awaitItem()
+                assertThat(uiState.news).isNotNull()
+            }
         }
-    }
 
     private fun sampleNews(): PagingData<News> {
         return PagingData.from(
@@ -120,10 +126,9 @@ class NewsListViewModelTest {
                     publishedAt = "publishedAt",
                     content = "content",
                     source = "source",
-                    author = "author"
-                )
-            )
+                    author = "author",
+                ),
+            ),
         )
     }
 }
-

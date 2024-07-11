@@ -1,17 +1,7 @@
 package io.github.joelkanyi.presentation.newslist
 
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
-import androidx.compose.ui.test.performClick
-import androidx.navigation.compose.ComposeNavigator
-import androidx.navigation.testing.TestNavHostController
-import io.github.joelkanyi.designsystem.theme.NewsAppTheme
-import io.github.joelkanyi.presentation.navigation.AppNavHost
-import io.github.joelkanyi.presentation.search.SearchNews
-import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
 
 class NewsListScreenTest {
     @get:Rule

@@ -21,11 +21,11 @@ import io.github.joelkanyi.presentation.utils.getPagingError
 @Composable
 fun NewsList(
     newsPaging: LazyPagingItems<News>,
-    onClickNews: (News) -> Unit
+    onClickNews: (News) -> Unit,
 ) {
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         items(newsPaging.itemCount) {
             val news = newsPaging[it]
@@ -44,7 +44,7 @@ fun NewsList(
                     item {
                         Box(
                             modifier = Modifier.fillParentMaxSize(),
-                            contentAlignment = Alignment.Center
+                            contentAlignment = Alignment.Center,
                         ) {
                             CircularProgressIndicator()
                         }
@@ -55,7 +55,7 @@ fun NewsList(
                     item {
                         Box(
                             modifier = Modifier.fillParentMaxSize(),
-                            contentAlignment = Alignment.Center
+                            contentAlignment = Alignment.Center,
                         ) {
                             EmptyStateComponent(
                                 message = "No data available",
@@ -69,7 +69,7 @@ fun NewsList(
                     item {
                         Box(
                             modifier = Modifier.fillParentMaxSize(),
-                            contentAlignment = Alignment.Center
+                            contentAlignment = Alignment.Center,
                         ) {
                             ErrorStateComponent(
                                 message = error.getPagingError(),
@@ -82,12 +82,13 @@ fun NewsList(
                     item {
                         Box(
                             modifier = Modifier.fillMaxWidth(),
-                            contentAlignment = Alignment.Center
+                            contentAlignment = Alignment.Center,
                         ) {
                             CircularProgressIndicator(
-                                modifier = Modifier
-                                    .size(16.dp)
-                                    .align(Alignment.Center),
+                                modifier =
+                                    Modifier
+                                        .size(16.dp)
+                                        .align(Alignment.Center),
                                 strokeWidth = 2.dp,
                             )
                         }

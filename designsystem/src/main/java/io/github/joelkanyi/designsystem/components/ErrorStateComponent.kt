@@ -23,7 +23,7 @@ fun ErrorStateComponent(
         Text(
             text = message,
             style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
     }
 }

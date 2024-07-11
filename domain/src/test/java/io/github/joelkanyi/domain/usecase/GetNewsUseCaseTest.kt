@@ -27,19 +27,19 @@ class GetNewsUseCaseTest {
     }
 
     @Test
-    fun `get news from repository`() = runBlocking {
-        // Given
-        val news = sampleNews()
-        coEvery { repository.getNews(any(), any(), any()) } returns flowOf(news)
+    fun `get news from repository`() =
+        runBlocking {
+            // Given
+            val news = sampleNews()
+            coEvery { repository.getNews(any(), any(), any()) } returns flowOf(news)
 
-        // When
-        val result = getNewsUseCase(null, null).first()
+            // When
+            val result = getNewsUseCase(null, null).first()
 
-        // Then
-        assertThat(result).isEqualTo(news)
-        coVerify { repository.getNews(any(), any(), any()) }
-    }
-
+            // Then
+            assertThat(result).isEqualTo(news)
+            coVerify { repository.getNews(any(), any(), any()) }
+        }
 
     private fun sampleNews(): PagingData<News> {
         return PagingData.from(
@@ -52,9 +52,9 @@ class GetNewsUseCaseTest {
                     publishedAt = "publishedAt",
                     content = "content",
                     source = "source",
-                    author = "author"
-                )
-            )
+                    author = "author",
+                ),
+            ),
         )
     }
 }

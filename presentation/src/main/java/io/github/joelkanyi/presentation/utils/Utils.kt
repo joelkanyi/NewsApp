@@ -43,7 +43,6 @@ fun String.toISO3166Alpha2(): String {
     }
 }
 
-
 fun errorMessage(httpException: HttpException): String {
     val errorResponse = convertErrorBody<ErrorResponse>(httpException)
     return errorResponse?.message ?: "An unknown error occurred, please try again"
@@ -58,8 +57,9 @@ inline fun <reified T> convertErrorBody(throwable: HttpException): T? {
 }
 
 inline fun <reified T> Reader.readerToObject(): T {
-    val gson = GsonBuilder()
-        .create()
+    val gson =
+        GsonBuilder()
+            .create()
     return gson.fromJson(this, T::class.java)
 }
 
@@ -78,7 +78,6 @@ fun LoadState.Error.getPagingError(): String {
         }
     }
 }
-
 
 @SuppressLint("NewApi")
 fun String.toRelativeTime(): String {

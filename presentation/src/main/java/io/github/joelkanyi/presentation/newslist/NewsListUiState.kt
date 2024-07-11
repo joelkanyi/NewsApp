@@ -13,42 +13,43 @@ data class NewsListUiState(
     val initialized: Boolean = false,
 )
 
+val newsCategories =
+    listOf(
+        // "All News",
+        "Business",
+        "Entertainment",
+        "General",
+        "Health",
+        "Science",
+        "Sports",
+        "Technology",
+    )
 
-val newsCategories = listOf(
-    // "All News",
-    "Business",
-    "Entertainment",
-    "General",
-    "Health",
-    "Science",
-    "Sports",
-    "Technology"
-)
-
-val newsCountries = listOf(
-    "United States",
-    "United Kingdom",
-    "Australia",
-    "Canada",
-    "Kenya",
-    "India",
-    "Germany",
-    "France",
-    "Italy",
-    "Netherlands",
-    "Norway",
-    "Sweden",
-    "China",
-    "Japan",
-    "South Korea",
-    "Russia",
-    "Brazil",
-    "Argentina",
-    "Mexico",
-    "South Africa",
-    "Nigeria",
-    "Egypt",
-    "Saudi Arabia",
-    "United Arab Emirates",
-    "Kuwait",
-)
+val newsCountries =
+    listOf(
+        "United States",
+        "United Kingdom",
+        "Australia",
+        "Canada",
+        "Kenya",
+        "India",
+        "Germany",
+        "France",
+        "Italy",
+        "Netherlands",
+        "Norway",
+        "Sweden",
+        "China",
+        "Japan",
+        "South Korea",
+        "Russia",
+        "Brazil",
+        "Argentina",
+        "Mexico",
+        "South Africa",
+        "Nigeria",
+        "Egypt",
+        "Saudi Arabia",
+        "United Arab Emirates",
+        "Kuwait",
+    )

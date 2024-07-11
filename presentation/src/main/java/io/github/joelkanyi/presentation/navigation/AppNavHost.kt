@@ -21,51 +21,59 @@ import kotlin.reflect.typeOf
 @Composable
 fun AppNavHost(
     navController: NavHostController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = NewsList
+        startDestination = NewsList,
     ) {
-        val NewsParameterType = object : NavType<News>(
-            isNullableAllowed = false
-        ) {
-            override fun put(bundle: Bundle, key: String, value: News) {
-                bundle.putString(key, Gson().toJson(value))
-            }
+        val NewsParameterType =
+            object : NavType<News>(
+                isNullableAllowed = false,
+            ) {
+                override fun put(
+                    bundle: Bundle,
+                    key: String,
+                    value: News,
+                ) {
+                    bundle.putString(key, Gson().toJson(value))
+                }
 
-            override fun get(bundle: Bundle, key: String): News {
-                return Gson().fromJson(bundle.getString(key), News::class.java)
-            }
+                override fun get(
+                    bundle: Bundle,
+                    key: String,
+                ): News {
+                    return Gson().fromJson(bundle.getString(key), News::class.java)
+                }
 
-            override fun parseValue(value: String): News {
-                return Gson().fromJson(value, News::class.java)
-            }
+                override fun parseValue(value: String): News {
+                    return Gson().fromJson(value, News::class.java)
+                }
 
-            // Only required when using Navigation 2.4.0-alpha07 and lower
-            override val name = "News"
-        }
+                // Only required when using Navigation 2.4.0-alpha07 and lower
+                override val name = "News"
+            }
 
         composable<NewsList> {
             NewsListScreen(
-                navController = navController
+                navController = navController,
             )
         }
 
         composable<NewsDetails>(
-            typeMap = mapOf(typeOf<News>() to NewsParameterType)
+            typeMap = mapOf(typeOf<News>() to NewsParameterType),
         ) { backStackEntry ->
             val news = backStackEntry.toRoute<News>()
             NewsDetailsScreen(
                 navController = navController,
-                news = news
+                news = news,
             )
         }
 
         composable<SearchNews> {
             SearchNewsScreen(
-                navController = navController
+                navController = navController,
             )
         }
     }

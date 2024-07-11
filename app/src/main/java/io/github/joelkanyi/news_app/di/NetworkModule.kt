@@ -22,7 +22,7 @@ object NetworkModule {
             .addInterceptor(
                 HttpLoggingInterceptor().apply {
                     level = HttpLoggingInterceptor.Level.BODY
-                }
+                },
             )
             .build()
     }
@@ -36,7 +36,6 @@ object NetworkModule {
             .client(okHttpClient)
             .build()
     }
-
 
     @Provides
     @Singleton

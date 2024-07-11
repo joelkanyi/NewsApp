@@ -31,15 +31,13 @@ fun NewsDetailsScreen(
     NewsDetailsScreenContent(
         onClickBack = {
             navController.navigateUp()
-        }
+        },
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NewsDetailsScreenContent(
-    onClickBack: () -> Unit,
-) {
+fun NewsDetailsScreenContent(onClickBack: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -52,14 +50,15 @@ fun NewsDetailsScreenContent(
                 },
                 title = {
                     Text(text = "News Details")
-                }
+                },
             )
-        }
+        },
     ) {
         Box(
-            modifier = Modifier
-                .padding(it)
-                .fillMaxSize(),
+            modifier =
+                Modifier
+                    .padding(it)
+                    .fillMaxSize(),
             contentAlignment = Alignment.Center,
         ) {
             Text(
@@ -74,7 +73,7 @@ fun NewsDetailsScreenContent(
 fun NewsDetailsScreenPreview() {
     NewsAppTheme {
         NewsDetailsScreenContent(
-            onClickBack = {}
+            onClickBack = {},
         )
     }
 }

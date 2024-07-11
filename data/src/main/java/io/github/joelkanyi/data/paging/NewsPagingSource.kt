@@ -19,18 +19,19 @@ class NewsPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, News> {
         return try {
             val nextPage = params.key ?: FIRST_PAGE_INDEX
-            val response = newsApi.fetchNews(
-                country = country,
-                category = category,
-                searchQuery = searchQuery,
-                pageSize = params.loadSize,
-                page = nextPage,
-            )
+            val response =
+                newsApi.fetchNews(
+                    country = country,
+                    category = category,
+                    searchQuery = searchQuery,
+                    pageSize = params.loadSize,
+                    page = nextPage,
+                )
 
             LoadResult.Page(
                 data = response.articles.map { it.toNews() },
                 prevKey = if (nextPage == FIRST_PAGE_INDEX) null else nextPage - 1,
-                nextKey = if (response.articles.isEmpty()) null else nextPage + 1
+                nextKey = if (response.articles.isEmpty()) null else nextPage + 1,
             )
         } catch (exception: Exception) {
             return LoadResult.Error(exception)

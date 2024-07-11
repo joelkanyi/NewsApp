@@ -9,62 +9,70 @@ import org.junit.Test
 
 class NewsPagingSourceTest {
     private val newsFactory = NewsFactory()
-    private val fakeNews = listOf(
-        newsFactory.createNews(),
-        newsFactory.createNews(),
-        newsFactory.createNews(),
-    )
+    private val fakeNews =
+        listOf(
+            newsFactory.createNews(),
+            newsFactory.createNews(),
+            newsFactory.createNews(),
+        )
 
-
-    private val fakeNewsApi = FakeNewsApi().apply {
-        addNews(fakeNews)
-    }
+    private val fakeNewsApi =
+        FakeNewsApi().apply {
+            addNews(fakeNews)
+        }
 
     @Test
-    fun `load returns LoadResult Page`() = runTest {
-        val pagingSource = NewsPagingSource(
-            newsApi = fakeNewsApi,
-            country = null,
-            category = null,
-            searchQuery = null
-        )
+    fun `load returns LoadResult Page`() =
+        runTest {
+            val pagingSource =
+                NewsPagingSource(
+                    newsApi = fakeNewsApi,
+                    country = null,
+                    category = null,
+                    searchQuery = null,
+                )
 
-        val expected = PagingSource.LoadResult.Page(
-            data = fakeNews,
-            prevKey = null,
-            nextKey = 1
-        )
+            val expected =
+                PagingSource.LoadResult.Page(
+                    data = fakeNews,
+                    prevKey = null,
+                    nextKey = 1,
+                )
 
-        val actual = pagingSource.load(
-            PagingSource.LoadParams.Refresh(
-                key = null,
-                loadSize = 3,
-                placeholdersEnabled = false
-            )
-        )
+            val actual =
+                pagingSource.load(
+                    PagingSource.LoadParams.Refresh(
+                        key = null,
+                        loadSize = 3,
+                        placeholdersEnabled = false,
+                    ),
+                )
 
-        assertThat(actual).isEqualTo(expected)
-    }
+            assertThat(actual).isEqualTo(expected)
+        }
 
     @Test
-    fun `load returns LoadResult Error`() = runTest {
-        fakeNewsApi.shouldThrowException = true
+    fun `load returns LoadResult Error`() =
+        runTest {
+            fakeNewsApi.shouldThrowException = true
 
-        val pagingSource = NewsPagingSource(
-            newsApi = fakeNewsApi,
-            country = null,
-            category = null,
-            searchQuery = null
-        )
+            val pagingSource =
+                NewsPagingSource(
+                    newsApi = fakeNewsApi,
+                    country = null,
+                    category = null,
+                    searchQuery = null,
+                )
 
-        val result = pagingSource.load(
-            PagingSource.LoadParams.Refresh(
-                key = null,
-                loadSize = 3,
-                placeholdersEnabled = false
-            )
-        )
+            val result =
+                pagingSource.load(
+                    PagingSource.LoadParams.Refresh(
+                        key = null,
+                        loadSize = 3,
+                        placeholdersEnabled = false,
+                    ),
+                )
 
-        assertThat(result is PagingSource.LoadResult.Error).isTrue()
-    }
+            assertThat(result is PagingSource.LoadResult.Error).isTrue()
+        }
 }
