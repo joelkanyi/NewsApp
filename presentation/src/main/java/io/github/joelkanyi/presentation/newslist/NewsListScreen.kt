@@ -40,6 +40,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -178,7 +179,9 @@ fun NewsListScreenContent(
 
     if (uiState.showNewsFilters) {
         BottomSheet(
-            modifier = Modifier.fillMaxHeight(.5f),
+            modifier = Modifier
+                .testTag("news_filters")
+                .fillMaxHeight(.5f),
             bottomSheetState = bottomSheetState,
             shape = RoundedCornerShape(0),
             onDismissRequest = {
@@ -367,7 +370,9 @@ fun CountriesDialog(
     modifier: Modifier = Modifier
 ) {
     AlertDialog(
-        modifier = Modifier.fillMaxHeight(.5f),
+        modifier = Modifier
+            .testTag("countries_dialog")
+            .fillMaxHeight(.5f),
         onDismissRequest = onDismiss,
         title = {
             Text(
