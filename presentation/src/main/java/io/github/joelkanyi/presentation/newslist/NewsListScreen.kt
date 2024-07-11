@@ -70,11 +70,11 @@ fun NewsListScreen(
                 }
 
                 NewsListUiAction.DismissFilters -> {
-                    viewModel.toggleFilters(false)
+                    viewModel.setFiltersBottomSheetState(false)
                 }
 
                 NewsListUiAction.ShowFilters -> {
-                    viewModel.toggleFilters(true)
+                    viewModel.setFiltersBottomSheetState(true)
                 }
 
                 NewsListUiAction.NavigateToSearchNews -> {
@@ -82,14 +82,15 @@ fun NewsListScreen(
                 }
 
                 NewsListUiAction.ShowCountriesDialog -> {
-                    viewModel.toggleCountriesDialog(true)
+                    viewModel.setCountriesDialogState(true)
                 }
 
                 NewsListUiAction.DismissCountriesDialog -> {
-                    viewModel.toggleCountriesDialog(false)
+                    viewModel.setCountriesDialogState(false)
                 }
 
                 is NewsListUiAction.SelectCountry -> {
+                    viewModel.setCountriesDialogState(false)
                     viewModel.selectCountry(action.country)
                 }
 
@@ -98,7 +99,7 @@ fun NewsListScreen(
                 }
 
                 is NewsListUiAction.ApplyFilters -> {
-                    viewModel.toggleFilters(false)
+                    viewModel.setFiltersBottomSheetState(false)
                     viewModel.getNews(
                         country = action.country,
                         category = action.category

@@ -5,7 +5,7 @@ import io.github.joelkanyi.domain.model.News
 import kotlinx.coroutines.flow.Flow
 
 interface NewsRepository {
-    suspend fun getNews(
+    fun getNews(
         country: String?,
         category: String?,
         searchQuery: String?,

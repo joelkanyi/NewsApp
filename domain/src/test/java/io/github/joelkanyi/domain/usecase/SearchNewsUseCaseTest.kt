@@ -14,16 +14,16 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
-class GetNewsUseCaseTest {
+class SearchNewsUseCaseTest {
     @RelaxedMockK
     private lateinit var repository: NewsRepository
 
-    private lateinit var getNewsUseCase: GetNewsUseCase
+    private lateinit var searchNewsUseCase: SearchNewsUseCase
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        getNewsUseCase = GetNewsUseCase(repository)
+        searchNewsUseCase = SearchNewsUseCase(repository)
     }
 
     @Test
@@ -33,7 +33,7 @@ class GetNewsUseCaseTest {
         coEvery { repository.getNews(any(), any(), any()) } returns flowOf(news)
 
         // When
-        val result = getNewsUseCase(null, null).first()
+        val result = searchNewsUseCase("search").first()
 
         // Then
         assertThat(result).isEqualTo(news)
