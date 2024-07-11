@@ -6,6 +6,7 @@ import io.github.joelkanyi.domain.model.News
 
 class FakeNewsApi : NewsApi {
     private val news = mutableListOf<NewsResponseDto.ArticleDto>()
+    var shouldThrowException = false
 
     fun addNews(news: List<News>) {
         this.news.addAll(news.map { it.toNewsDto() })
@@ -15,12 +16,18 @@ class FakeNewsApi : NewsApi {
         country: String?,
         category: String?,
         pageSize: Int,
-        page: Int
+        page: Int,
+        searchQuery: String?,
+        apiKey: String
     ): NewsResponseDto {
-        return NewsResponseDto(
-            articles = news,
-            status = "ok",
-            totalResults = news.size
-        )
+        return if (shouldThrowException) {
+            throw Exception("Fake exception")
+        } else {
+            NewsResponseDto(
+                articles = news,
+                status = "ok",
+                totalResults = news.size
+            )
+        }
     }
 }

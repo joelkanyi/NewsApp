@@ -27,7 +27,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
             NewsAppTheme {
                 val navController = rememberNavController()
                 NavHost(navController, startDestination = NewsList) {

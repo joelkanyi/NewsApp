@@ -1,6 +1,7 @@
 package io.github.joelkanyi.presentation.search
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -19,6 +20,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -27,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
+import io.github.joelkanyi.designsystem.components.EmptyStateComponent
 import io.github.joelkanyi.designsystem.theme.NewsAppTheme
 import io.github.joelkanyi.domain.model.News
 import io.github.joelkanyi.presentation.components.NewsList
@@ -51,7 +54,7 @@ fun SearchNewsScreen(
         },
         onSearchValueChange = { searchString ->
             viewModel.updateSearchValue(searchString)
-            if (searchString.isNotEmpty()) {
+            if (searchString.trim().isNotEmpty()) {
                 viewModel.getNews(searchString)
             }
         }
@@ -127,17 +130,26 @@ fun SearchNewsScreenContent(
         }
     ) { innerPadding ->
 
-        val newsPaging = uiState.news.collectAsLazyPagingItems()
+        val newsPaging = uiState.news?.collectAsLazyPagingItems()
 
         Box(
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
         ) {
-            NewsList(
-                newsPaging,
-                onClickNews = {
-                    onClickNews(it)
-                }
-            )
+            if (newsPaging != null) {
+                NewsList(
+                    newsPaging,
+                    onClickNews = {
+                        onClickNews(it)
+                    }
+                )
+            }  else {
+                EmptyStateComponent(
+                    modifier = Modifier.align(Alignment.Center),
+                    message = "No news available",
+                )
+            }
         }
     }
 }

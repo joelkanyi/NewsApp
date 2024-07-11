@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -45,6 +46,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import io.github.joelkanyi.designsystem.components.BottomSheet
+import io.github.joelkanyi.designsystem.components.EmptyStateComponent
 import io.github.joelkanyi.designsystem.theme.NewsAppTheme
 import io.github.joelkanyi.presentation.components.NewsList
 import io.github.joelkanyi.presentation.newsdetails.NewsDetails
@@ -116,7 +118,7 @@ fun NewsListScreenContent(
     uiState: NewsListUiState,
     onAction: (NewsListUiAction) -> Unit,
 ) {
-    val newsPaging = uiState.news.collectAsLazyPagingItems()
+    val newsPaging = uiState.news?.collectAsLazyPagingItems()
 
     val bottomSheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true,
@@ -127,7 +129,7 @@ fun NewsListScreenContent(
             TopAppBar(
                 title = {
                     Text(
-                        text = "News App",
+                        text = uiState.selectedCategory ?: "All News",
                         style = MaterialTheme.typography.titleMedium,
                     )
                 },
@@ -146,7 +148,7 @@ fun NewsListScreenContent(
                     }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Default.Sort,
-                            contentDescription = "More options",
+                            contentDescription = "Filters",
                         )
                     }
                 }
@@ -154,14 +156,23 @@ fun NewsListScreenContent(
         }
     ) { innerPadding ->
         Box(
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
         ) {
-            NewsList(
-                newsPaging,
-                onClickNews = {
-                    onAction(NewsListUiAction.NavigateToNewsDetails(it))
-                }
-            )
+            if (newsPaging != null) {
+                NewsList(
+                    newsPaging,
+                    onClickNews = {
+                        onAction(NewsListUiAction.NavigateToNewsDetails(it))
+                    }
+                )
+            } else {
+                EmptyStateComponent(
+                    modifier = Modifier.align(Alignment.Center),
+                    message = "No news available",
+                )
+            }
         }
     }
 

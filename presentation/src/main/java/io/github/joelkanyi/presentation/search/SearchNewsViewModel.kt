@@ -23,16 +23,13 @@ class SearchNewsViewModel @Inject constructor(
     private var searchJob: Job? = null
 
     fun getNews(searchQuery: String) {
-        viewModelScope.launch {
-            searchJob?.cancel()
-
-            searchJob = viewModelScope.launch {
-                delay(DEBOUNCE_PERIOD)
-                _uiState.update {
-                    it.copy(
-                        news = searchNewsUseCase(searchQuery).cachedIn(viewModelScope)
-                    )
-                }
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            delay(DEBOUNCE_PERIOD)
+            _uiState.update {
+                it.copy(
+                    news = searchNewsUseCase(searchQuery).cachedIn(viewModelScope)
+                )
             }
         }
     }
@@ -44,6 +41,6 @@ class SearchNewsViewModel @Inject constructor(
     }
 
     companion object {
-        private const val DEBOUNCE_PERIOD = 300L
+        const val DEBOUNCE_PERIOD = 500L
     }
 }

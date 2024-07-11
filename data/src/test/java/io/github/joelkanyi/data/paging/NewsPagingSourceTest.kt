@@ -15,6 +15,7 @@ class NewsPagingSourceTest {
         newsFactory.createNews(),
     )
 
+
     private val fakeNewsApi = FakeNewsApi().apply {
         addNews(fakeNews)
     }
@@ -24,7 +25,8 @@ class NewsPagingSourceTest {
         val pagingSource = NewsPagingSource(
             newsApi = fakeNewsApi,
             country = null,
-            category = null
+            category = null,
+            searchQuery = null
         )
 
         val expected = PagingSource.LoadResult.Page(
@@ -42,5 +44,27 @@ class NewsPagingSourceTest {
         )
 
         assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun `load returns LoadResult Error`() = runTest {
+        fakeNewsApi.shouldThrowException = true
+
+        val pagingSource = NewsPagingSource(
+            newsApi = fakeNewsApi,
+            country = null,
+            category = null,
+            searchQuery = null
+        )
+
+        val result = pagingSource.load(
+            PagingSource.LoadParams.Refresh(
+                key = null,
+                loadSize = 3,
+                placeholdersEnabled = false
+            )
+        )
+
+        assertThat(result is PagingSource.LoadResult.Error).isTrue()
     }
 }

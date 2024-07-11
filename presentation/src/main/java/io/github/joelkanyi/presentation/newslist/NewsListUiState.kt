@@ -3,14 +3,14 @@ package io.github.joelkanyi.presentation.newslist
 import androidx.paging.PagingData
 import io.github.joelkanyi.domain.model.News
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 
 data class NewsListUiState(
-    val news: Flow<PagingData<News>> = flowOf(PagingData.empty()),
+    val news: Flow<PagingData<News>>? = null,
     val showNewsFilters: Boolean = false,
     val showCountryDialog: Boolean = false,
     val selectedCountry: String? = newsCountries.first(),
     val selectedCategory: String? = null,
+    val initialized: Boolean = false,
 )
 
 
