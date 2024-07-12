@@ -2,7 +2,6 @@ package io.github.joelkanyi.presentation.newslist
 
 import io.github.joelkanyi.presentation.model.NewsUiModel
 
-
 sealed interface NewsListUiAction {
     data object ShowFilters : NewsListUiAction
 

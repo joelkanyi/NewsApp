@@ -32,7 +32,7 @@ fun AppNavHost(
         }
 
         composable<NewsDetails>(
-            typeMap = mapOf(typeOf<NewsUiModel>() to NewsUiModelParameterType)
+            typeMap = mapOf(typeOf<NewsUiModel>() to NewsUiModelParameterType),
         ) { backStackEntry ->
             val news = backStackEntry.toRoute<NewsDetails>().news
             NewsDetailsScreen(

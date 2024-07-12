@@ -5,7 +5,6 @@ import io.github.joelkanyi.domain.model.News
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 @Parcelize
 data class NewsUiModel(

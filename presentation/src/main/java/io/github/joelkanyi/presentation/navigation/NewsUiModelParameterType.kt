@@ -7,14 +7,21 @@ import io.github.joelkanyi.presentation.model.NewsUiModel
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-
 object NewsUiModelParameterType : NavType<NewsUiModel>(
-    isNullableAllowed = false
+    isNullableAllowed = false,
 ) {
-    override fun put(bundle: Bundle, key: String, value: NewsUiModel) {
+    override fun put(
+        bundle: Bundle,
+        key: String,
+        value: NewsUiModel,
+    ) {
         bundle.putParcelable(key, value)
     }
-    override fun get(bundle: Bundle, key: String): NewsUiModel? {
+
+    override fun get(
+        bundle: Bundle,
+        key: String,
+    ): NewsUiModel? {
         return bundle.getParcelable(key)
     }
 
