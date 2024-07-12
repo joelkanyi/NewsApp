@@ -21,21 +21,22 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import io.github.joelkanyi.designsystem.theme.NewsAppTheme
 import io.github.joelkanyi.presentation.components.NewsImage
 import io.github.joelkanyi.presentation.model.NewsUiModel
 import io.github.joelkanyi.presentation.utils.toHumanReadableDateTIme
 import kotlinx.serialization.Serializable
+import timber.log.Timber
 
 @Serializable
 data class NewsDetails(val news: NewsUiModel)
@@ -44,8 +45,10 @@ data class NewsDetails(val news: NewsUiModel)
 fun NewsDetailsScreen(
     news: NewsUiModel,
     navController: NavController,
+    viewModel: NewsDetailsViewModel = hiltViewModel(),
 ) {
-    val addedToFavorites by remember { mutableStateOf(false) }
+    val addedToFavorites by viewModel.isFavorite(news).collectAsState(false)
+    Timber.e("addedToFavorites: $addedToFavorites")
 
     NewsDetailsScreenContent(
         news = news,
@@ -54,7 +57,13 @@ fun NewsDetailsScreen(
             navController.navigateUp()
         },
         onClickShare = { },
-        onClickFavorite = { },
+        onClickFavorite = {
+            if (addedToFavorites) {
+                viewModel.removeFavorite(news)
+            } else {
+                viewModel.addFavorite(news)
+            }
+        },
     )
 }
 

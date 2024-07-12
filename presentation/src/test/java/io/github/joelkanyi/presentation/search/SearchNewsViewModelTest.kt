@@ -4,7 +4,7 @@ import androidx.paging.PagingData
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import io.github.joelkanyi.domain.model.News
-import io.github.joelkanyi.domain.usecase.SearchNewsUseCase
+import io.github.joelkanyi.domain.usecase.news.SearchNewsUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.RelaxedMockK

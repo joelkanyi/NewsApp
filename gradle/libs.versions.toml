@@ -29,6 +29,7 @@ material3 = "1.3.0-beta04"
 ktlint = "12.1.1"
 detekt = "1.23.6"
 timber = "5.0.1"
+room = "2.6.1"
 
 # project configs
 compileSdk = "34"
@@ -85,11 +86,14 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
 # Testing
 truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
-androidx-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "lifecycleRuntimeKtx" }
 navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "compose-navigation" }
 
 [plugins]

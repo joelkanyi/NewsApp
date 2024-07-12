@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.github.joelkanyi.domain.usecase.SearchNewsUseCase
+import io.github.joelkanyi.domain.usecase.news.SearchNewsUseCase
 import io.github.joelkanyi.presentation.model.NewsUiModel.Companion.toUiModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

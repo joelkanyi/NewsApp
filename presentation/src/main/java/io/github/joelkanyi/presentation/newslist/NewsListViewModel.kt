@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.github.joelkanyi.domain.usecase.GetNewsUseCase
+import io.github.joelkanyi.domain.usecase.news.GetNewsUseCase
 import io.github.joelkanyi.presentation.model.NewsUiModel.Companion.toUiModel
 import io.github.joelkanyi.presentation.utils.toISO3166Alpha2
 import kotlinx.coroutines.flow.MutableStateFlow

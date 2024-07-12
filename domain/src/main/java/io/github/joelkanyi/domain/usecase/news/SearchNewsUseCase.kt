@@ -1,4 +1,4 @@
-package io.github.joelkanyi.domain.usecase
+package io.github.joelkanyi.domain.usecase.news
 
 import io.github.joelkanyi.domain.repository.NewsRepository
 import javax.inject.Inject

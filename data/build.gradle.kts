@@ -18,6 +18,10 @@ android {
         // Read API_KEY from environment variable or gradle.properties
         val apiKey: String = System.getenv("API_KEY") ?: project.findProperty("API_KEY") as String
         buildConfigField("String", "API_KEY", "\"$apiKey\"")
+
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
     }
 
     buildTypes {
@@ -65,4 +69,9 @@ dependencies {
     ksp(libs.androidx.hilt.compiler)
 
     implementation(libs.timber)
+
+    // Room
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    implementation(libs.room.ktx)
 }

@@ -30,5 +30,18 @@ data class NewsUiModel(
                 imageUrl = imageUrl,
             )
         }
+
+        fun NewsUiModel.toNews(): News {
+            return News(
+                author = author,
+                content = content,
+                description = description,
+                publishedAt = publishedAt,
+                source = source,
+                title = title,
+                url = url,
+                imageUrl = imageUrl,
+            )
+        }
     }
 }
