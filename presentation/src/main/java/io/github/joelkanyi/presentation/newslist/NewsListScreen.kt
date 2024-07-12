@@ -148,7 +148,7 @@ fun NewsListScreenContent(
                             contentDescription = "Filters"
                         )
                     }
-                }
+                },
             )
         }
     ) { innerPadding ->

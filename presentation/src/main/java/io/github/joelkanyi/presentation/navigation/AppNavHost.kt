@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import io.github.joelkanyi.presentation.favorites.FavoritesScreen
 import io.github.joelkanyi.presentation.model.NewsUiModel
 import io.github.joelkanyi.presentation.newsdetails.NewsDetailsScreen
 import io.github.joelkanyi.presentation.newslist.NewsListScreen
@@ -40,6 +41,12 @@ fun AppNavHost(
 
         composable<Destinations.SearchNews> {
             SearchNewsScreen(
+                navController = navController
+            )
+        }
+
+        composable<Destinations.Favorites> {
+            FavoritesScreen(
                 navController = navController
             )
         }

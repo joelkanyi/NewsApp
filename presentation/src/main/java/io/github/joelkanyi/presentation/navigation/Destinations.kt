@@ -12,4 +12,7 @@ sealed class Destinations {
 
     @Serializable
     data class NewsDetails(val news: NewsUiModel)
+
+    @Serializable
+    data object Favorites
 }
