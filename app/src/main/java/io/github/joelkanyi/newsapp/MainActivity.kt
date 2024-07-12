@@ -22,7 +22,9 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -48,12 +50,15 @@ class MainActivity : ComponentActivity() {
                     currentRoute in BottomNavigation.entries.map { it.route::class.qualifiedName }
 
                 Scaffold(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .testTag("scaffold")
+                        .fillMaxSize(),
                     bottomBar = {
                         if (showBottomNavigation) {
                             Column {
                                 HorizontalDivider(thickness = .2.dp)
                                 BottomAppBar(
+                                    modifier = Modifier.testTag("bottom_navigation"),
                                     containerColor = MaterialTheme.colorScheme.surface,
                                     tonalElevation = 0.dp,
                                     contentPadding = PaddingValues(0.dp)
@@ -65,17 +70,19 @@ class MainActivity : ComponentActivity() {
                                             }
 
                                             NavigationBarItem(
+                                                modifier = Modifier
+                                                    .testTag("hello"),
                                                 selected = isSelected,
                                                 label = {
                                                     Text(
-                                                        text = navigationItem.label,
+                                                        text = stringResource(id = navigationItem.label),
                                                         style = MaterialTheme.typography.labelSmall
                                                     )
                                                 },
                                                 icon = {
                                                     Icon(
                                                         painter = painterResource(id = if (isSelected) navigationItem.selectedIcon else navigationItem.unselectedIcon),
-                                                        contentDescription = navigationItem.label,
+                                                        contentDescription = stringResource(id = navigationItem.label),
                                                     )
                                                 },
                                                 onClick = {

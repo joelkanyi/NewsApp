@@ -17,12 +17,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import io.github.joelkanyi.designsystem.components.EmptyStateComponent
 import io.github.joelkanyi.designsystem.theme.NewsAppTheme
+import io.github.joelkanyi.presentation.R
 import io.github.joelkanyi.presentation.components.NewsItem
 import io.github.joelkanyi.presentation.model.NewsUiModel
 import io.github.joelkanyi.presentation.navigation.Destinations
@@ -48,6 +51,9 @@ fun FavoritesScreenContent(
     onNewsClick: (NewsUiModel) -> Unit,
 ) {
     Scaffold(
+        modifier = Modifier
+            .testTag(stringResource(R.string.favorites_screen))
+            .fillMaxSize(),
         topBar = {
             TopAppBar(
                 title = {

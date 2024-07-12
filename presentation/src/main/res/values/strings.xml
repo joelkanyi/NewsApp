@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="news_list_screen">news_list_screen</string>
+    <string name="search_icon">Search Icon</string>
+    <string name="search">Search</string>
+    <string name="filters_icon">Filters Icon</string>
+    <string name="filters">Filters</string>
+    <string name="search_news_screen">search_news_screen</string>
+    <string name="news">News</string>
+    <string name="favorites">Favorites</string>
+    <string name="favorites_screen">favorites_screen</string>
+    <string name="back_icon">Back Icon</string>
+</resources>

@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -23,7 +24,7 @@ fun BottomSheet(
 ) {
     val scope = rememberCoroutineScope()
     ModalBottomSheet(
-        modifier = modifier,
+        modifier = modifier.testTag("bottom_sheet"),
         containerColor = containerColor,
         onDismissRequest = {
             scope.launch {

@@ -41,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -49,6 +50,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import io.github.joelkanyi.designsystem.components.BottomSheet
 import io.github.joelkanyi.designsystem.components.EmptyStateComponent
 import io.github.joelkanyi.designsystem.theme.NewsAppTheme
+import io.github.joelkanyi.presentation.R
 import io.github.joelkanyi.presentation.components.NewsList
 import io.github.joelkanyi.presentation.navigation.Destinations
 
@@ -122,6 +124,9 @@ fun NewsListScreenContent(
         )
 
     Scaffold(
+        modifier = Modifier
+            .testTag(stringResource(R.string.news_list_screen))
+            .fillMaxSize(),
         topBar = {
             TopAppBar(
                 title = {
@@ -131,21 +136,25 @@ fun NewsListScreenContent(
                     )
                 },
                 actions = {
-                    IconButton(onClick = {
-                        onAction(NewsListUiAction.NavigateToSearchNews)
-                    }) {
+                    IconButton(
+                        modifier = Modifier.testTag(stringResource(R.string.search_icon)),
+                        onClick = {
+                            onAction(NewsListUiAction.NavigateToSearchNews)
+                        }) {
                         Icon(
                             imageVector = Icons.Default.Search,
-                            contentDescription = "Search"
+                            contentDescription = stringResource(R.string.search)
                         )
                     }
 
-                    IconButton(onClick = {
-                        onAction(NewsListUiAction.ShowFilters)
-                    }) {
+                    IconButton(
+                        modifier = Modifier.testTag(stringResource(R.string.filters_icon)),
+                        onClick = {
+                            onAction(NewsListUiAction.ShowFilters)
+                        }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Default.Sort,
-                            contentDescription = "Filters"
+                            contentDescription = stringResource(R.string.filters)
                         )
                     }
                 },

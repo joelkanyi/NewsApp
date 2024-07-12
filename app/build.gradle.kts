@@ -17,7 +17,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "io.github.joelkanyi.AppTestRunner"
+
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -79,6 +80,9 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     ksp(libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+    kspTest(libs.hilt.android.compiler)
+    kspAndroidTest(libs.hilt.android.compiler)
+    androidTestImplementation(libs.hilt.android.testing)
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson.converter)
@@ -88,6 +92,7 @@ dependencies {
     implementation(libs.okhttp.logging.interceptor)
 
     implementation(libs.compose.navigation)
+    androidTestImplementation(libs.navigation.testing)
 
     implementation(libs.kotlinx.serialization.json)
 

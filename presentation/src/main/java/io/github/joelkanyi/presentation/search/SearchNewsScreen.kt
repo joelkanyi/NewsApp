@@ -25,14 +25,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import io.github.joelkanyi.designsystem.components.EmptyStateComponent
 import io.github.joelkanyi.designsystem.theme.NewsAppTheme
+import io.github.joelkanyi.presentation.R
 import io.github.joelkanyi.presentation.components.NewsList
 import io.github.joelkanyi.presentation.model.NewsUiModel
+import io.github.joelkanyi.presentation.navigation.Destinations
 
 @Composable
 fun SearchNewsScreen(
@@ -44,6 +48,7 @@ fun SearchNewsScreen(
     SearchNewsScreenContent(
         uiState = uiState,
         onClickNews = {
+            navController.navigate(Destinations.NewsDetails(it))
         },
         onClickBack = {
             navController.navigateUp()
@@ -66,6 +71,9 @@ fun SearchNewsScreenContent(
     onSearchValueChange: (String) -> Unit
 ) {
     Scaffold(
+        modifier = Modifier
+            .testTag(stringResource(R.string.search_news_screen))
+            .fillMaxSize(),
         topBar = {
             val focusRequester = remember { FocusRequester() }
 
@@ -102,6 +110,7 @@ fun SearchNewsScreenContent(
                 },
                 navigationIcon = {
                     IconButton(
+                        modifier = Modifier.testTag(stringResource(R.string.back_icon)),
                         onClick = {
                             onClickBack()
                         }

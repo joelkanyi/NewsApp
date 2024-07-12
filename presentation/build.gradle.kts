@@ -87,7 +87,6 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.coroutines.test)
     testImplementation(libs.turbine)
-    androidTestImplementation(libs.navigation.testing)
 
     implementation(libs.timber)
 }
