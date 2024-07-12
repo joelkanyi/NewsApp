@@ -15,7 +15,7 @@ data class NewsUiModel(
     val source: String,
     val publishedAt: String,
     val author: String,
-    val url: String,
+    val url: String
 ) : Parcelable {
     companion object {
         fun News.toUiModel(): NewsUiModel {
@@ -27,7 +27,7 @@ data class NewsUiModel(
                 source = source,
                 title = title,
                 url = url,
-                imageUrl = imageUrl,
+                imageUrl = imageUrl
             )
         }
 
@@ -40,7 +40,7 @@ data class NewsUiModel(
                 source = source,
                 title = title,
                 url = url,
-                imageUrl = imageUrl,
+                imageUrl = imageUrl
             )
         }
     }

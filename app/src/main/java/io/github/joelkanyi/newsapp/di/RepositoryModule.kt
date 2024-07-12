@@ -1,4 +1,4 @@
-package io.github.joelkanyi.news_app.di
+package io.github.joelkanyi.newsapp.di
 
 import dagger.Binds
 import dagger.Module

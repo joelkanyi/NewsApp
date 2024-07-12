@@ -1,4 +1,4 @@
-package io.github.joelkanyi.news_app.di
+package io.github.joelkanyi.newsapp.di
 
 import android.content.Context
 import androidx.room.Room
@@ -17,12 +17,12 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideDatabase(
-        @ApplicationContext context: Context,
+        @ApplicationContext context: Context
     ): NewsDatabase {
         return Room.databaseBuilder(
             context,
             NewsDatabase::class.java,
-            DATABASE_NAME,
+            DATABASE_NAME
         ).build()
     }
 

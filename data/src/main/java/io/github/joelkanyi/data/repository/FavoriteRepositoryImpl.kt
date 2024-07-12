@@ -9,28 +9,26 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class FavoriteRepositoryImpl
-    @Inject
-    constructor(
-        private val newsDao: NewsDao,
-    ) : FavoriteRepository {
-        override suspend fun addFavorite(news: News) {
-            newsDao.insert(news.toEntity())
-        }
+class FavoriteRepositoryImpl @Inject constructor(
+    private val newsDao: NewsDao
+) : FavoriteRepository {
+    override suspend fun addFavorite(news: News) {
+        newsDao.insert(news.toEntity())
+    }
 
-        override suspend fun removeFavorite(news: News) {
-            newsDao.delete(news.toEntity())
-        }
+    override suspend fun removeFavorite(news: News) {
+        newsDao.delete(news.toEntity())
+    }
 
-        override fun getFavorites(): Flow<List<News>> {
-            return newsDao.getAll().map { newsList ->
-                newsList.map {
-                    it.toNews()
-                }
+    override fun getFavorites(): Flow<List<News>> {
+        return newsDao.getAll().map { newsList ->
+            newsList.map {
+                it.toNews()
             }
         }
-
-        override fun isFavorite(news: News): Flow<Boolean> {
-            return newsDao.isFavorite(news.title)
-        }
     }
+
+    override fun isFavorite(news: News): Flow<Boolean> {
+        return newsDao.isFavorite(news.title)
+    }
+}

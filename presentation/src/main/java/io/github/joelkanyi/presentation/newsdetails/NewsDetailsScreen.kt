@@ -45,7 +45,7 @@ data class NewsDetails(val news: NewsUiModel)
 fun NewsDetailsScreen(
     news: NewsUiModel,
     navController: NavController,
-    viewModel: NewsDetailsViewModel = hiltViewModel(),
+    viewModel: NewsDetailsViewModel = hiltViewModel()
 ) {
     val addedToFavorites by viewModel.isFavorite(news).collectAsState(false)
     Timber.e("addedToFavorites: $addedToFavorites")
@@ -63,7 +63,7 @@ fun NewsDetailsScreen(
             } else {
                 viewModel.addFavorite(news)
             }
-        },
+        }
     )
 }
 
@@ -74,7 +74,7 @@ fun NewsDetailsScreenContent(
     addedToFavorites: Boolean,
     onClickBack: () -> Unit,
     onClickShare: () -> Unit,
-    onClickFavorite: () -> Unit,
+    onClickFavorite: () -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
@@ -89,7 +89,7 @@ fun NewsDetailsScreenContent(
                     }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
+                            contentDescription = "Back"
                         )
                     }
                 },
@@ -100,7 +100,7 @@ fun NewsDetailsScreenContent(
                     }) {
                         Icon(
                             imageVector = Icons.Filled.Share,
-                            contentDescription = "Share",
+                            contentDescription = "Share"
                         )
                     }
 
@@ -109,53 +109,53 @@ fun NewsDetailsScreenContent(
                     }) {
                         Icon(
                             imageVector =
-                                if (addedToFavorites) {
-                                    Icons.Default.Favorite
-                                } else {
-                                    Icons.Default.FavoriteBorder
-                                },
-                            contentDescription = "Favorite",
+                            if (addedToFavorites) {
+                                Icons.Default.Favorite
+                            } else {
+                                Icons.Default.FavoriteBorder
+                            },
+                            contentDescription = "Favorite"
                         )
                     }
-                },
+                }
             )
-        },
+        }
     ) {
         LazyColumn(
             modifier =
-                Modifier
-                    .padding(it)
-                    .fillMaxSize(),
+            Modifier
+                .padding(it)
+                .fillMaxSize(),
             contentPadding = PaddingValues(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             item {
                 Text(
                     text = news.title,
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.headlineMedium
                 )
             }
 
             item {
                 Text(
                     text =
-                        if (news.author.isEmpty()) {
-                            news.source
-                        } else {
-                            "By ${news.author}, ${news.source}"
-                        },
+                    if (news.author.isEmpty()) {
+                        news.source
+                    } else {
+                        "By ${news.author}, ${news.source}"
+                    },
                     style =
-                        MaterialTheme.typography.bodySmall.copy(
-                            fontWeight = FontWeight.SemiBold,
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-                        ),
+                    MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                    )
                 )
                 Text(
                     text = news.publishedAt.toHumanReadableDateTIme(),
                     style =
-                        MaterialTheme.typography.bodySmall.copy(
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-                        ),
+                    MaterialTheme.typography.bodySmall.copy(
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                    )
                 )
             }
 
@@ -164,9 +164,9 @@ fun NewsDetailsScreenContent(
                     imageUrl = news.imageUrl,
                     contentDescription = news.title,
                     modifier =
-                        Modifier
-                            .height(300.dp)
-                            .fillMaxWidth(),
+                    Modifier
+                        .height(300.dp)
+                        .fillMaxWidth()
                 )
             }
 
@@ -174,17 +174,17 @@ fun NewsDetailsScreenContent(
                 Text(
                     text = news.description,
                     style =
-                        MaterialTheme.typography.bodySmall.copy(
-                            fontSize = 10.sp,
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-                        ),
+                    MaterialTheme.typography.bodySmall.copy(
+                        fontSize = 10.sp,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                    )
                 )
             }
 
             item {
                 Text(
                     text = news.content,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }
@@ -198,19 +198,19 @@ fun NewsDetailsScreenPreview() {
         NewsDetailsScreenContent(
             addedToFavorites = true,
             news =
-                NewsUiModel(
-                    title = "Title",
-                    description = "Description",
-                    content = "Content",
-                    imageUrl = "https://example.com/image.jpg",
-                    source = "Source",
-                    publishedAt = "2021-09-01T12:00:00Z",
-                    author = "Author",
-                    url = "https://example.com",
-                ),
+            NewsUiModel(
+                title = "Title",
+                description = "Description",
+                content = "Content",
+                imageUrl = "https://example.com/image.jpg",
+                source = "Source",
+                publishedAt = "2021-09-01T12:00:00Z",
+                author = "Author",
+                url = "https://example.com"
+            ),
             onClickBack = {},
             onClickShare = {},
-            onClickFavorite = {},
+            onClickFavorite = {}
         )
     }
 }

@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "io.github.joelkanyi.news_app"
+    namespace = "io.github.joelkanyi.newsapp"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "io.github.joelkanyi.news_app"
+        applicationId = "io.github.joelkanyi.newsapp"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
@@ -28,7 +28,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
+                "proguard-rules.pro"
             )
         }
     }

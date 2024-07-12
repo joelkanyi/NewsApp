@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 data class SearchNewsUiState(
     val searchValue: String = "",
-    val news: Flow<PagingData<NewsUiModel>>? = null,
+    val news: Flow<PagingData<NewsUiModel>>? = null
 )

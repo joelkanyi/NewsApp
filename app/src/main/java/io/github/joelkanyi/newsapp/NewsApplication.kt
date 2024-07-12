@@ -1,7 +1,8 @@
-package io.github.joelkanyi.news_app
+package io.github.joelkanyi.newsapp
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
+import io.github.joelkanyi.data.BuildConfig
 import timber.log.Timber
 
 @HiltAndroidApp

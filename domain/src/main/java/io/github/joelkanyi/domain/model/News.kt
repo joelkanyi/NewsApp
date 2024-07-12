@@ -11,5 +11,5 @@ data class News(
     val source: String,
     val publishedAt: String,
     val author: String,
-    val url: String,
+    val url: String
 )

@@ -10,7 +10,7 @@ data class NewsListUiState(
     val showCountryDialog: Boolean = false,
     val selectedCountry: String? = newsCountries.first(),
     val selectedCategory: String? = null,
-    val initialized: Boolean = false,
+    val initialized: Boolean = false
 )
 
 val newsCategories =
@@ -22,7 +22,7 @@ val newsCategories =
         "Health",
         "Science",
         "Sports",
-        "Technology",
+        "Technology"
     )
 
 val newsCountries =
@@ -51,5 +51,5 @@ val newsCountries =
         "Egypt",
         "Saudi Arabia",
         "United Arab Emirates",
-        "Kuwait",
+        "Kuwait"
     )

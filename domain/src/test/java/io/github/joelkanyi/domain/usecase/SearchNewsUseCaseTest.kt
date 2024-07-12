@@ -53,9 +53,9 @@ class SearchNewsUseCaseTest {
                     publishedAt = "publishedAt",
                     content = "content",
                     source = "source",
-                    author = "author",
-                ),
-            ),
+                    author = "author"
+                )
+            )
         )
     }
 }

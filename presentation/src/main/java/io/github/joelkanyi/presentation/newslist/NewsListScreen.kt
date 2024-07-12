@@ -60,7 +60,7 @@ object NewsList
 @Composable
 fun NewsListScreen(
     navController: NavController,
-    viewModel: NewsListViewModel = hiltViewModel(),
+    viewModel: NewsListViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -105,11 +105,11 @@ fun NewsListScreen(
                     viewModel.setFiltersBottomSheetState(false)
                     viewModel.getNews(
                         country = action.country,
-                        category = action.category,
+                        category = action.category
                     )
                 }
             }
-        },
+        }
     )
 }
 
@@ -117,13 +117,13 @@ fun NewsListScreen(
 @Composable
 fun NewsListScreenContent(
     uiState: NewsListUiState,
-    onAction: (NewsListUiAction) -> Unit,
+    onAction: (NewsListUiAction) -> Unit
 ) {
     val newsPaging = uiState.news?.collectAsLazyPagingItems()
 
     val bottomSheetState =
         rememberModalBottomSheetState(
-            skipPartiallyExpanded = true,
+            skipPartiallyExpanded = true
         )
 
     Scaffold(
@@ -132,7 +132,7 @@ fun NewsListScreenContent(
                 title = {
                     Text(
                         text = uiState.selectedCategory ?: "All News",
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.titleMedium
                     )
                 },
                 actions = {
@@ -141,7 +141,7 @@ fun NewsListScreenContent(
                     }) {
                         Icon(
                             imageVector = Icons.Default.Search,
-                            contentDescription = "Search",
+                            contentDescription = "Search"
                         )
                     }
 
@@ -150,30 +150,30 @@ fun NewsListScreenContent(
                     }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Default.Sort,
-                            contentDescription = "Filters",
+                            contentDescription = "Filters"
                         )
                     }
-                },
+                }
             )
-        },
+        }
     ) { innerPadding ->
         Box(
             modifier =
-                Modifier
-                    .padding(innerPadding)
-                    .fillMaxSize(),
+            Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
         ) {
             if (newsPaging != null) {
                 NewsList(
                     newsPaging,
                     onClickNews = {
                         onAction(NewsListUiAction.NavigateToNewsDetails(it))
-                    },
+                    }
                 )
             } else {
                 EmptyStateComponent(
                     modifier = Modifier.align(Alignment.Center),
-                    message = "No news available",
+                    message = "No news available"
                 )
             }
         }
@@ -182,14 +182,14 @@ fun NewsListScreenContent(
     if (uiState.showNewsFilters) {
         BottomSheet(
             modifier =
-                Modifier
-                    .testTag("news_filters")
-                    .fillMaxHeight(.5f),
+            Modifier
+                .testTag("news_filters")
+                .fillMaxHeight(.5f),
             bottomSheetState = bottomSheetState,
             shape = RoundedCornerShape(0),
             onDismissRequest = {
                 onAction(NewsListUiAction.DismissFilters)
-            },
+            }
         ) {
             NewsFiltersContent(
                 selectedCountry = uiState.selectedCountry,
@@ -204,10 +204,10 @@ fun NewsListScreenContent(
                     onAction(
                         NewsListUiAction.ApplyFilters(
                             country = uiState.selectedCountry,
-                            category = uiState.selectedCategory,
-                        ),
+                            category = uiState.selectedCategory
+                        )
                     )
-                },
+                }
             )
         }
     }
@@ -221,7 +221,7 @@ fun NewsListScreenContent(
             },
             onSelectCountry = {
                 onAction(NewsListUiAction.SelectCountry(it))
-            },
+            }
         )
     }
 }
@@ -234,39 +234,39 @@ fun NewsFiltersContent(
     selectedCategory: String?,
     onClickSelectCountry: () -> Unit,
     onSelectCategory: (String) -> Unit,
-    onApplyFilter: () -> Unit,
+    onApplyFilter: () -> Unit
 ) {
     LazyColumn(
         modifier =
-            modifier
-                .fillMaxWidth(),
+        modifier
+            .fillMaxWidth(),
         contentPadding = PaddingValues(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
             Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Text(
                     text = "Select Country",
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.titleMedium
                 )
 
                 Row(
                     modifier =
-                        modifier
-                            .fillMaxWidth()
-                            .clickable { onClickSelectCountry() },
+                    modifier
+                        .fillMaxWidth()
+                        .clickable { onClickSelectCountry() },
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         text = selectedCountry ?: "Select country",
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.bodyMedium
                     )
                     Icon(
                         imageVector = Icons.Default.ArrowDropDown,
-                        contentDescription = null,
+                        contentDescription = null
                     )
                 }
             }
@@ -274,16 +274,16 @@ fun NewsFiltersContent(
 
         item {
             Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
                     text = "Select Category",
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.titleMedium
                 )
 
                 FlowRow(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     newsCategories.forEach { category ->
                         CategoryItem(
@@ -291,7 +291,7 @@ fun NewsFiltersContent(
                             name = category,
                             onClick = {
                                 onSelectCategory(category)
-                            },
+                            }
                         )
                     }
                 }
@@ -305,11 +305,11 @@ fun NewsFiltersContent(
         item {
             Button(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = onApplyFilter,
+                onClick = onApplyFilter
             ) {
                 Text(
                     text = "Okay",
-                    style = MaterialTheme.typography.labelMedium,
+                    style = MaterialTheme.typography.labelMedium
                 )
             }
         }
@@ -321,51 +321,51 @@ fun CategoryItem(
     name: String,
     isSelected: Boolean,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Box(
         modifier =
-            modifier
-                .border(
-                    BorderStroke(
-                        width = .5.dp,
-                        color =
-                            if (isSelected) {
-                                MaterialTheme.colorScheme.primary
-                            } else {
-                                MaterialTheme.colorScheme.onSurface
-                            },
-                    ),
-                )
-                .background(
+        modifier
+            .border(
+                BorderStroke(
+                    width = .5.dp,
                     color =
-                        if (isSelected) {
-                            MaterialTheme.colorScheme.primary.copy(.1f)
-                        } else {
-                            Color.Transparent
-                        },
+                    if (isSelected) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.onSurface
+                    }
                 )
-                .clickable {
-                    onClick()
-                },
-        contentAlignment = Alignment.Center,
+            )
+            .background(
+                color =
+                if (isSelected) {
+                    MaterialTheme.colorScheme.primary.copy(.1f)
+                } else {
+                    Color.Transparent
+                }
+            )
+            .clickable {
+                onClick()
+            },
+        contentAlignment = Alignment.Center
     ) {
         Text(
             modifier =
-                Modifier.padding(
-                    vertical = 6.dp,
-                    horizontal = 16.dp,
-                ),
+            Modifier.padding(
+                vertical = 6.dp,
+                horizontal = 16.dp
+            ),
             text = name,
             style =
-                MaterialTheme.typography.bodyMedium.copy(
-                    color =
-                        if (isSelected) {
-                            MaterialTheme.colorScheme.primary
-                        } else {
-                            MaterialTheme.colorScheme.onSurface
-                        },
-                ),
+            MaterialTheme.typography.bodyMedium.copy(
+                color =
+                if (isSelected) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.onSurface
+                }
+            )
         )
     }
 }
@@ -376,26 +376,26 @@ fun CountriesDialog(
     selectedCountry: String?,
     onDismiss: () -> Unit,
     onSelectCountry: (String) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     AlertDialog(
         modifier =
-            Modifier
-                .testTag("countries_dialog")
-                .fillMaxHeight(.5f),
+        Modifier
+            .testTag("countries_dialog")
+            .fillMaxHeight(.5f),
         onDismissRequest = onDismiss,
         title = {
             Text(
                 text = "Select Country",
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleMedium
             )
         },
         text = {
             LazyColumn(
                 modifier =
-                    modifier
-                        .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 countries.forEach { country ->
                     item {
@@ -404,13 +404,13 @@ fun CountriesDialog(
                             onClick = {
                                 onSelectCountry(country)
                             },
-                            isSelected = country == selectedCountry,
+                            isSelected = country == selectedCountry
                         )
                     }
                 }
             }
         },
-        confirmButton = {},
+        confirmButton = {}
     )
 }
 
@@ -419,27 +419,27 @@ fun CountryItem(
     onClick: () -> Unit,
     isSelected: Boolean,
     country: String,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier =
-            modifier
-                .fillMaxWidth()
-                .clickable {
-                    onClick()
-                },
+        modifier
+            .fillMaxWidth()
+            .clickable {
+                onClick()
+            },
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = country,
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.bodyMedium
         )
         if (isSelected) {
             Icon(
                 imageVector = Icons.Default.Check,
                 contentDescription = null,
-                tint = Color.Green,
+                tint = Color.Green
             )
         }
     }
@@ -451,7 +451,7 @@ fun NewsListScreenPreview() {
     NewsAppTheme {
         NewsListScreenContent(
             uiState = NewsListUiState(),
-            onAction = {},
+            onAction = {}
         )
     }
 }

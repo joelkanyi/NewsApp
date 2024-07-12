@@ -41,7 +41,7 @@ object SearchNews
 @Composable
 fun SearchNewsScreen(
     navController: NavController,
-    viewModel: SearchNewsViewModel = hiltViewModel(),
+    viewModel: SearchNewsViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -57,7 +57,7 @@ fun SearchNewsScreen(
             if (searchString.trim().isNotEmpty()) {
                 viewModel.getNews(searchString)
             }
-        },
+        }
     )
 }
 
@@ -67,7 +67,7 @@ fun SearchNewsScreenContent(
     uiState: SearchNewsUiState,
     onClickBack: () -> Unit,
     onClickNews: (NewsUiModel) -> Unit,
-    onSearchValueChange: (String) -> Unit,
+    onSearchValueChange: (String) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -87,32 +87,32 @@ fun SearchNewsScreenContent(
                             Text(
                                 text = "Search...",
                                 style =
-                                    MaterialTheme.typography.bodyMedium.copy(
-                                        color = MaterialTheme.colorScheme.onBackground.copy(.5f),
-                                    ),
+                                MaterialTheme.typography.bodyMedium.copy(
+                                    color = MaterialTheme.colorScheme.onBackground.copy(.5f)
+                                )
                             )
                         },
                         textStyle = MaterialTheme.typography.bodyMedium,
                         colors =
-                            TextFieldDefaults.colors(
-                                disabledContainerColor = Color.Transparent,
-                                focusedContainerColor = Color.Transparent,
-                                unfocusedContainerColor = Color.Transparent,
-                                disabledIndicatorColor = Color.Transparent,
-                                focusedIndicatorColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color.Transparent,
-                            ),
+                        TextFieldDefaults.colors(
+                            disabledContainerColor = Color.Transparent,
+                            focusedContainerColor = Color.Transparent,
+                            unfocusedContainerColor = Color.Transparent,
+                            disabledIndicatorColor = Color.Transparent,
+                            focusedIndicatorColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color.Transparent
+                        )
                     )
                 },
                 navigationIcon = {
                     IconButton(
                         onClick = {
                             onClickBack()
-                        },
+                        }
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                            contentDescription = null,
+                            contentDescription = null
                         )
                     }
                 },
@@ -120,37 +120,37 @@ fun SearchNewsScreenContent(
                     IconButton(
                         onClick = {
                             onSearchValueChange("")
-                        },
+                        }
                     ) {
                         Icon(
                             imageVector = Icons.Default.Close,
-                            contentDescription = null,
+                            contentDescription = null
                         )
                     }
-                },
+                }
             )
-        },
+        }
     ) { innerPadding ->
 
         val newsPaging = uiState.news?.collectAsLazyPagingItems()
 
         Box(
             modifier =
-                Modifier
-                    .padding(innerPadding)
-                    .fillMaxSize(),
+            Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
         ) {
             if (newsPaging != null) {
                 NewsList(
                     newsPaging,
                     onClickNews = {
                         onClickNews(it)
-                    },
+                    }
                 )
             } else {
                 EmptyStateComponent(
                     modifier = Modifier.align(Alignment.Center),
-                    message = "No news available",
+                    message = "No news available"
                 )
             }
         }
@@ -165,7 +165,7 @@ fun SearchNewsScreenPreview() {
             uiState = SearchNewsUiState(),
             onClickBack = {},
             onClickNews = {},
-            onSearchValueChange = {},
+            onSearchValueChange = {}
         )
     }
 }

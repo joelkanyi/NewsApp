@@ -13,17 +13,17 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ErrorStateComponent(
     modifier: Modifier = Modifier,
-    message: String = "An error occurred, please try again later.",
+    message: String = "An error occurred, please try again later."
 ) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
             text = message,
             style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center,
+            textAlign = TextAlign.Center
         )
     }
 }

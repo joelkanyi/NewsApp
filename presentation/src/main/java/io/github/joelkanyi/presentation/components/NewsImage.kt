@@ -19,43 +19,46 @@ import coil.request.ImageRequest
 fun NewsImage(
     imageUrl: String,
     modifier: Modifier = Modifier,
-    contentDescription: String? = null,
+    contentDescription: String? = null
 ) {
     SubcomposeAsyncImage(
         modifier = modifier,
         model =
-            ImageRequest.Builder(LocalContext.current)
-                .data(imageUrl)
-                .crossfade(true)
-                .build(),
+        ImageRequest.Builder(LocalContext.current)
+            .data(imageUrl)
+            .crossfade(true)
+            .build(),
         contentDescription = contentDescription,
         contentScale = ContentScale.Crop,
         loading = {
             Box(
                 modifier =
-                    Modifier
-                        .fillMaxSize(),
-                contentAlignment = Alignment.Center,
+                Modifier
+                    .fillMaxSize(),
+                contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(24.dp),
-                    strokeWidth = 2.dp,
+                    strokeWidth = 2.dp
                 )
             }
         },
         error = {
             Box(
                 modifier =
-                    Modifier
-                        .fillMaxSize(),
-                contentAlignment = Alignment.Center,
+                Modifier
+                    .fillMaxSize(),
+                contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = io.github.joelkanyi.designsystem.R.drawable.image_placeholder),
+                    painter =
+                    painterResource(
+                        id = io.github.joelkanyi.designsystem.R.drawable.image_placeholder
+                    ),
                     contentDescription = "Error loading image",
-                    modifier = Modifier.size(48.dp),
+                    modifier = Modifier.size(48.dp)
                 )
             }
-        },
+        }
     )
 }

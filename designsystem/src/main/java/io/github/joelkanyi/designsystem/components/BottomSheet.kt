@@ -19,7 +19,7 @@ fun BottomSheet(
     modifier: Modifier = Modifier,
     shape: CornerBasedShape = MaterialTheme.shapes.medium,
     containerColor: Color = MaterialTheme.colorScheme.background,
-    content: @Composable () -> Unit,
+    content: @Composable () -> Unit
 ) {
     val scope = rememberCoroutineScope()
     ModalBottomSheet(
@@ -32,7 +32,7 @@ fun BottomSheet(
             }
         },
         sheetState = bottomSheetState,
-        shape = shape,
+        shape = shape
     ) {
         content()
     }

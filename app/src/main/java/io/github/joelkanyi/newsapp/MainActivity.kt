@@ -1,4 +1,4 @@
-package io.github.joelkanyi.news_app
+package io.github.joelkanyi.newsapp
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

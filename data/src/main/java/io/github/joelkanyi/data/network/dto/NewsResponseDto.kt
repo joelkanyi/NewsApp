@@ -9,7 +9,7 @@ data class NewsResponseDto(
     @SerializedName("status")
     val status: String,
     @SerializedName("totalResults")
-    val totalResults: Int,
+    val totalResults: Int
 ) {
     data class ArticleDto(
         @SerializedName("author")
@@ -27,13 +27,13 @@ data class NewsResponseDto(
         @SerializedName("url")
         val url: String?,
         @SerializedName("urlToImage")
-        val urlToImage: String?,
+        val urlToImage: String?
     ) {
         data class SourceDto(
             @SerializedName("id")
             val id: String?,
             @SerializedName("name")
-            val name: String?,
+            val name: String?
         )
     }
 
@@ -47,7 +47,7 @@ data class NewsResponseDto(
                 source = source?.name.orEmpty(),
                 title = title.orEmpty(),
                 url = url.orEmpty(),
-                imageUrl = urlToImage.orEmpty(),
+                imageUrl = urlToImage.orEmpty()
             )
 
         fun News.toNewsDto() =
@@ -59,7 +59,7 @@ data class NewsResponseDto(
                 source = ArticleDto.SourceDto(null, source),
                 title = title,
                 url = url,
-                urlToImage = imageUrl,
+                urlToImage = imageUrl
             )
     }
 }

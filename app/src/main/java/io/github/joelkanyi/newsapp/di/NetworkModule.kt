@@ -1,4 +1,4 @@
-package io.github.joelkanyi.news_app.di
+package io.github.joelkanyi.newsapp.di
 
 import dagger.Module
 import dagger.Provides
@@ -22,7 +22,7 @@ object NetworkModule {
             .addInterceptor(
                 HttpLoggingInterceptor().apply {
                     level = HttpLoggingInterceptor.Level.BODY
-                },
+                }
             )
             .build()
     }

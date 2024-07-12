@@ -13,17 +13,17 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun EmptyStateComponent(
     modifier: Modifier = Modifier,
-    message: String = "No data available",
+    message: String = "No data available"
 ) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
             text = message,
             style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center,
+            textAlign = TextAlign.Center
         )
     }
 }

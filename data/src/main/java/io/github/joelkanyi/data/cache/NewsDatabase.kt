@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase
 @Database(
     entities = [NewsEntity::class],
     version = 1,
-    exportSchema = true,
+    exportSchema = true
 )
 abstract class NewsDatabase : RoomDatabase() {
     abstract fun newsDao(): NewsDao

@@ -18,10 +18,26 @@ subprojects {
     ktlint {
         debug.set(true)
         verbose.set(true)
-        android.set(false)
+        android.set(true)
         outputToConsole.set(true)
         outputColorName.set("RED")
-        ignoreFailures.set(true)
+        ignoreFailures.set(false)
+        additionalEditorconfig.set(
+            mapOf(
+                "ktlint_code_style" to "intellij_idea",
+                "ktlint_standard_string-template-indent" to "disabled",
+                "ktlint_standard_trailing-comma-on-call-site" to "disabled",
+                "ktlint_standard_trailing-comma-on-declaration-site" to "disabled",
+                "ktlint_function_naming_ignore_when_annotated_with" to "Composable",
+                "insert_final_newline" to "true",
+                "ktlint_standard_function-naming" to "disabled",
+                "ktlint_standard_multiline-expression-wrapping" to "disabled",
+                "ktlint_standard_comment-wrapping" to "disabled",
+                "ktlint_standard_parameter-list-wrapping" to "disabled",
+                "ktlint_standard_argument-list-wrapping" to "disabled",
+                "ktlint_standard_wrapping" to "disabled",
+            ),
+        )
         enableExperimentalRules.set(true)
         filter {
             exclude("**/generated/**")

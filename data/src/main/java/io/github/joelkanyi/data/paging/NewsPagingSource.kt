@@ -10,7 +10,7 @@ class NewsPagingSource(
     private val newsApi: NewsApi,
     private val country: String?,
     private val category: String?,
-    private val searchQuery: String?,
+    private val searchQuery: String?
 ) : PagingSource<Int, News>() {
     override fun getRefreshKey(state: PagingState<Int, News>): Int? {
         return state.anchorPosition
@@ -25,13 +25,13 @@ class NewsPagingSource(
                     category = category,
                     searchQuery = searchQuery,
                     pageSize = params.loadSize,
-                    page = nextPage,
+                    page = nextPage
                 )
 
             LoadResult.Page(
                 data = response.articles.map { it.toNews() },
                 prevKey = if (nextPage == FIRST_PAGE_INDEX) null else nextPage - 1,
-                nextKey = if (response.articles.isEmpty()) null else nextPage + 1,
+                nextKey = if (response.articles.isEmpty()) null else nextPage + 1
             )
         } catch (exception: Exception) {
             return LoadResult.Error(exception)

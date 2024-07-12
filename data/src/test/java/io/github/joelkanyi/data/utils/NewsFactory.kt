@@ -17,7 +17,7 @@ class NewsFactory {
                 source = "source $id",
                 title = "title $id",
                 url = "url $id",
-                imageUrl = "imageUrl $id",
+                imageUrl = "imageUrl $id"
             )
         return news
     }

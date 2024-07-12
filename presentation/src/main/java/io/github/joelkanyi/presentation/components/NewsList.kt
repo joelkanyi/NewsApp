@@ -21,11 +21,11 @@ import io.github.joelkanyi.presentation.utils.getPagingError
 @Composable
 fun NewsList(
     newsPaging: LazyPagingItems<NewsUiModel>,
-    onClickNews: (NewsUiModel) -> Unit,
+    onClickNews: (NewsUiModel) -> Unit
 ) {
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(newsPaging.itemCount) {
             val news = newsPaging[it]
@@ -34,7 +34,7 @@ fun NewsList(
                     news = news,
                     onClick = {
                         onClickNews(news)
-                    },
+                    }
                 )
             }
         }
@@ -44,7 +44,7 @@ fun NewsList(
                     item {
                         Box(
                             modifier = Modifier.fillParentMaxSize(),
-                            contentAlignment = Alignment.Center,
+                            contentAlignment = Alignment.Center
                         ) {
                             CircularProgressIndicator()
                         }
@@ -55,10 +55,10 @@ fun NewsList(
                     item {
                         Box(
                             modifier = Modifier.fillParentMaxSize(),
-                            contentAlignment = Alignment.Center,
+                            contentAlignment = Alignment.Center
                         ) {
                             EmptyStateComponent(
-                                message = "No data available",
+                                message = "No data available"
                             )
                         }
                     }
@@ -69,10 +69,10 @@ fun NewsList(
                     item {
                         Box(
                             modifier = Modifier.fillParentMaxSize(),
-                            contentAlignment = Alignment.Center,
+                            contentAlignment = Alignment.Center
                         ) {
                             ErrorStateComponent(
-                                message = error.getPagingError(),
+                                message = error.getPagingError()
                             )
                         }
                     }
@@ -82,14 +82,14 @@ fun NewsList(
                     item {
                         Box(
                             modifier = Modifier.fillMaxWidth(),
-                            contentAlignment = Alignment.Center,
+                            contentAlignment = Alignment.Center
                         ) {
                             CircularProgressIndicator(
                                 modifier =
-                                    Modifier
-                                        .size(16.dp)
-                                        .align(Alignment.Center),
-                                strokeWidth = 2.dp,
+                                Modifier
+                                    .size(16.dp)
+                                    .align(Alignment.Center),
+                                strokeWidth = 2.dp
                             )
                         }
                     }

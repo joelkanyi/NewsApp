@@ -15,69 +15,67 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
-class NewsListViewModel
-    @Inject
-    constructor(
-        private val getNewsUseCase: GetNewsUseCase,
-    ) : ViewModel() {
-        private val _uiState = MutableStateFlow(NewsListUiState())
-        val uiState = _uiState.asStateFlow()
+class NewsListViewModel @Inject constructor(
+    private val getNewsUseCase: GetNewsUseCase
+) : ViewModel() {
+    private val _uiState = MutableStateFlow(NewsListUiState())
+    val uiState = _uiState.asStateFlow()
 
-        fun getNews(
-            country: String? = null,
-            category: String? = null,
-        ) {
-            _uiState.update {
-                it.copy(
-                    news =
-                        getNewsUseCase(
-                            country = country?.toISO3166Alpha2(),
-                            category = category?.lowercase(),
-                        ).map { pagingData ->
-                            pagingData.map { news ->
-                                news.toUiModel()
-                            }
-                        }.cachedIn(viewModelScope),
-                )
-            }
-        }
-
-        fun setFiltersBottomSheetState(value: Boolean) {
-            _uiState.update {
-                it.copy(
-                    showNewsFilters = value,
-                )
-            }
-        }
-
-        fun setCountriesDialogState(value: Boolean) {
-            _uiState.update {
-                it.copy(
-                    showCountryDialog = value,
-                )
-            }
-        }
-
-        fun selectCountry(country: String) {
-            _uiState.update {
-                it.copy(
-                    selectedCountry = country,
-                )
-            }
-        }
-
-        fun selectCategory(category: String) {
-            _uiState.update {
-                it.copy(
-                    selectedCategory = category,
-                )
-            }
-        }
-
-        init {
-            getNews(
-                country = uiState.value.selectedCountry,
-                category = uiState.value.selectedCategory,
+    fun getNews(
+        country: String? = null,
+        category: String? = null
+    ) {
+        _uiState.update {
+            it.copy(
+                news =
+                getNewsUseCase(
+                    country = country?.toISO3166Alpha2(),
+                    category = category?.lowercase()
+                ).map { pagingData ->
+                    pagingData.map { news ->
+                        news.toUiModel()
+                    }
+                }.cachedIn(viewModelScope)
             )
         }
     }
+
+    fun setFiltersBottomSheetState(value: Boolean) {
+        _uiState.update {
+            it.copy(
+                showNewsFilters = value
+            )
+        }
+    }
+
+    fun setCountriesDialogState(value: Boolean) {
+        _uiState.update {
+            it.copy(
+                showCountryDialog = value
+            )
+        }
+    }
+
+    fun selectCountry(country: String) {
+        _uiState.update {
+            it.copy(
+                selectedCountry = country
+            )
+        }
+    }
+
+    fun selectCategory(category: String) {
+        _uiState.update {
+            it.copy(
+                selectedCategory = category
+            )
+        }
+    }
+
+    init {
+        getNews(
+            country = uiState.value.selectedCountry,
+            category = uiState.value.selectedCategory
+        )
+    }
+}

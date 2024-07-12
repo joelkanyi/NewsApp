@@ -18,32 +18,32 @@ import kotlin.reflect.typeOf
 @Composable
 fun AppNavHost(
     navController: NavHostController,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = NewsList,
+        startDestination = NewsList
     ) {
         composable<NewsList> {
             NewsListScreen(
-                navController = navController,
+                navController = navController
             )
         }
 
         composable<NewsDetails>(
-            typeMap = mapOf(typeOf<NewsUiModel>() to NewsUiModelParameterType),
+            typeMap = mapOf(typeOf<NewsUiModel>() to NewsUiModelParameterType)
         ) { backStackEntry ->
             val news = backStackEntry.toRoute<NewsDetails>().news
             NewsDetailsScreen(
                 news = news,
-                navController = navController,
+                navController = navController
             )
         }
 
         composable<SearchNews> {
             SearchNewsScreen(
-                navController = navController,
+                navController = navController
             )
         }
     }

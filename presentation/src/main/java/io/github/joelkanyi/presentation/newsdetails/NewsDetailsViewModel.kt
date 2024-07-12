@@ -12,24 +12,22 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class NewsDetailsViewModel
-    @Inject
-    constructor(
-        private val addFavoriteUseCase: AddFavoriteUseCase,
-        private val removeFavoriteUseCase: RemoveFavoriteUseCase,
-        private val isFavoriteUseCase: IsFavoriteUseCase,
-    ) : ViewModel() {
-        fun addFavorite(news: NewsUiModel) {
-            viewModelScope.launch {
-                addFavoriteUseCase(news.toNews())
-            }
+class NewsDetailsViewModel @Inject constructor(
+    private val addFavoriteUseCase: AddFavoriteUseCase,
+    private val removeFavoriteUseCase: RemoveFavoriteUseCase,
+    private val isFavoriteUseCase: IsFavoriteUseCase
+) : ViewModel() {
+    fun addFavorite(news: NewsUiModel) {
+        viewModelScope.launch {
+            addFavoriteUseCase(news.toNews())
         }
-
-        fun removeFavorite(news: NewsUiModel) {
-            viewModelScope.launch {
-                removeFavoriteUseCase(news.toNews())
-            }
-        }
-
-        fun isFavorite(news: NewsUiModel) = isFavoriteUseCase(news.toNews())
     }
+
+    fun removeFavorite(news: NewsUiModel) {
+        viewModelScope.launch {
+            removeFavoriteUseCase(news.toNews())
+        }
+    }
+
+    fun isFavorite(news: NewsUiModel) = isFavoriteUseCase(news.toNews())
+}

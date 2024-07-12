@@ -18,7 +18,7 @@ class FakeNewsApi : NewsApi {
         pageSize: Int,
         page: Int,
         searchQuery: String?,
-        apiKey: String,
+        apiKey: String
     ): NewsResponseDto {
         return if (shouldThrowException) {
             throw Exception("Fake exception")
@@ -26,7 +26,7 @@ class FakeNewsApi : NewsApi {
             NewsResponseDto(
                 articles = news,
                 status = "ok",
-                totalResults = news.size,
+                totalResults = news.size
             )
         }
     }

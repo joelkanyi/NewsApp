@@ -13,7 +13,7 @@ class NewsPagingSourceTest {
         listOf(
             newsFactory.createNews(),
             newsFactory.createNews(),
-            newsFactory.createNews(),
+            newsFactory.createNews()
         )
 
     private val fakeNewsApi =
@@ -29,14 +29,14 @@ class NewsPagingSourceTest {
                     newsApi = fakeNewsApi,
                     country = null,
                     category = null,
-                    searchQuery = null,
+                    searchQuery = null
                 )
 
             val expected =
                 PagingSource.LoadResult.Page(
                     data = fakeNews,
                     prevKey = null,
-                    nextKey = 1,
+                    nextKey = 1
                 )
 
             val actual =
@@ -44,8 +44,8 @@ class NewsPagingSourceTest {
                     PagingSource.LoadParams.Refresh(
                         key = null,
                         loadSize = 3,
-                        placeholdersEnabled = false,
-                    ),
+                        placeholdersEnabled = false
+                    )
                 )
 
             assertThat(actual).isEqualTo(expected)
@@ -61,7 +61,7 @@ class NewsPagingSourceTest {
                     newsApi = fakeNewsApi,
                     country = null,
                     category = null,
-                    searchQuery = null,
+                    searchQuery = null
                 )
 
             val result =
@@ -69,8 +69,8 @@ class NewsPagingSourceTest {
                     PagingSource.LoadParams.Refresh(
                         key = null,
                         loadSize = 3,
-                        placeholdersEnabled = false,
-                    ),
+                        placeholdersEnabled = false
+                    )
                 )
 
             assertThat(result is PagingSource.LoadResult.Error).isTrue()

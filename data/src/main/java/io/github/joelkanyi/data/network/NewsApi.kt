@@ -13,6 +13,6 @@ interface NewsApi {
         @Query("pageSize") pageSize: Int,
         @Query("page") page: Int,
         @Query("q") searchQuery: String?,
-        @Query("apiKey") apiKey: String = BuildConfig.API_KEY,
+        @Query("apiKey") apiKey: String = BuildConfig.API_KEY
     ): NewsResponseDto
 }
