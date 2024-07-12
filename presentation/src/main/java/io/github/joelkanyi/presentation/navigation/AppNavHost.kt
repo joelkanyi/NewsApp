@@ -7,11 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import io.github.joelkanyi.presentation.model.NewsUiModel
-import io.github.joelkanyi.presentation.newsdetails.NewsDetails
 import io.github.joelkanyi.presentation.newsdetails.NewsDetailsScreen
-import io.github.joelkanyi.presentation.newslist.NewsList
 import io.github.joelkanyi.presentation.newslist.NewsListScreen
-import io.github.joelkanyi.presentation.search.SearchNews
 import io.github.joelkanyi.presentation.search.SearchNewsScreen
 import kotlin.reflect.typeOf
 
@@ -23,25 +20,25 @@ fun AppNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = NewsList
+        startDestination = Destinations.NewsList
     ) {
-        composable<NewsList> {
+        composable<Destinations.NewsList> {
             NewsListScreen(
                 navController = navController
             )
         }
 
-        composable<NewsDetails>(
+        composable<Destinations.NewsDetails>(
             typeMap = mapOf(typeOf<NewsUiModel>() to NewsUiModelParameterType)
         ) { backStackEntry ->
-            val news = backStackEntry.toRoute<NewsDetails>().news
+            val news = backStackEntry.toRoute<Destinations.NewsDetails>().news
             NewsDetailsScreen(
                 news = news,
                 navController = navController
             )
         }
 
-        composable<SearchNews> {
+        composable<Destinations.SearchNews> {
             SearchNewsScreen(
                 navController = navController
             )

@@ -33,10 +33,6 @@ import io.github.joelkanyi.designsystem.components.EmptyStateComponent
 import io.github.joelkanyi.designsystem.theme.NewsAppTheme
 import io.github.joelkanyi.presentation.components.NewsList
 import io.github.joelkanyi.presentation.model.NewsUiModel
-import kotlinx.serialization.Serializable
-
-@Serializable
-object SearchNews
 
 @Composable
 fun SearchNewsScreen(

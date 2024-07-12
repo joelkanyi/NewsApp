@@ -35,11 +35,7 @@ import io.github.joelkanyi.designsystem.theme.NewsAppTheme
 import io.github.joelkanyi.presentation.components.NewsImage
 import io.github.joelkanyi.presentation.model.NewsUiModel
 import io.github.joelkanyi.presentation.utils.toHumanReadableDateTIme
-import kotlinx.serialization.Serializable
 import timber.log.Timber
-
-@Serializable
-data class NewsDetails(val news: NewsUiModel)
 
 @Composable
 fun NewsDetailsScreen(

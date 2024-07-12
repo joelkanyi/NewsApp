@@ -50,12 +50,7 @@ import io.github.joelkanyi.designsystem.components.BottomSheet
 import io.github.joelkanyi.designsystem.components.EmptyStateComponent
 import io.github.joelkanyi.designsystem.theme.NewsAppTheme
 import io.github.joelkanyi.presentation.components.NewsList
-import io.github.joelkanyi.presentation.newsdetails.NewsDetails
-import io.github.joelkanyi.presentation.search.SearchNews
-import kotlinx.serialization.Serializable
-
-@Serializable
-object NewsList
+import io.github.joelkanyi.presentation.navigation.Destinations
 
 @Composable
 fun NewsListScreen(
@@ -69,7 +64,7 @@ fun NewsListScreen(
         onAction = { action ->
             when (action) {
                 is NewsListUiAction.NavigateToNewsDetails -> {
-                    navController.navigate(NewsDetails(action.news))
+                    navController.navigate(Destinations.NewsDetails(action.news))
                 }
 
                 NewsListUiAction.DismissFilters -> {
@@ -81,7 +76,7 @@ fun NewsListScreen(
                 }
 
                 NewsListUiAction.NavigateToSearchNews -> {
-                    navController.navigate(SearchNews)
+                    navController.navigate(Destinations.SearchNews)
                 }
 
                 NewsListUiAction.ShowCountriesDialog -> {
