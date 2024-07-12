@@ -15,13 +15,13 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import io.github.joelkanyi.designsystem.components.EmptyStateComponent
 import io.github.joelkanyi.designsystem.components.ErrorStateComponent
-import io.github.joelkanyi.domain.model.News
+import io.github.joelkanyi.presentation.model.NewsUiModel
 import io.github.joelkanyi.presentation.utils.getPagingError
 
 @Composable
 fun NewsList(
-    newsPaging: LazyPagingItems<News>,
-    onClickNews: (News) -> Unit,
+    newsPaging: LazyPagingItems<NewsUiModel>,
+    onClickNews: (NewsUiModel) -> Unit,
 ) {
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 16.dp),

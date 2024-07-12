@@ -14,21 +14,24 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import io.github.joelkanyi.designsystem.theme.NewsAppTheme
-import io.github.joelkanyi.domain.model.News
+import io.github.joelkanyi.presentation.model.NewsUiModel
 import kotlinx.serialization.Serializable
 
+
 @Serializable
-data class NewsDetails(val news: News)
+data class NewsDetails(val news: NewsUiModel)
 
 @Composable
 fun NewsDetailsScreen(
-    news: News,
+    news: NewsUiModel,
     navController: NavController,
 ) {
     NewsDetailsScreenContent(
+        news = news,
         onClickBack = {
             navController.navigateUp()
         },
@@ -37,7 +40,10 @@ fun NewsDetailsScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NewsDetailsScreenContent(onClickBack: () -> Unit) {
+fun NewsDetailsScreenContent(
+    news: NewsUiModel,
+    onClickBack: () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -49,16 +55,20 @@ fun NewsDetailsScreenContent(onClickBack: () -> Unit) {
                     }
                 },
                 title = {
-                    Text(text = "News Details")
+                    Text(
+                        text = news.title,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
                 },
             )
         },
     ) {
         Box(
             modifier =
-                Modifier
-                    .padding(it)
-                    .fillMaxSize(),
+            Modifier
+                .padding(it)
+                .fillMaxSize(),
             contentAlignment = Alignment.Center,
         ) {
             Text(
@@ -73,6 +83,16 @@ fun NewsDetailsScreenContent(onClickBack: () -> Unit) {
 fun NewsDetailsScreenPreview() {
     NewsAppTheme {
         NewsDetailsScreenContent(
+            news = NewsUiModel(
+                title = "Title",
+                description = "Description",
+                url = "Url",
+                imageUrl = "UrlToImage",
+                publishedAt = "PublishedAt",
+                content = "Content",
+                source = "Source",
+                author = "Author",
+            ),
             onClickBack = {},
         )
     }

@@ -24,12 +24,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
-import io.github.joelkanyi.domain.model.News
+import io.github.joelkanyi.presentation.model.NewsUiModel
 import io.github.joelkanyi.presentation.utils.toRelativeTime
 
 @Composable
 fun NewsItem(
-    news: News,
+    news: NewsUiModel,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {

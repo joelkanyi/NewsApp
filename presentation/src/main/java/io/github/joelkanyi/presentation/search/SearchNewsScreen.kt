@@ -31,8 +31,8 @@ import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import io.github.joelkanyi.designsystem.components.EmptyStateComponent
 import io.github.joelkanyi.designsystem.theme.NewsAppTheme
-import io.github.joelkanyi.domain.model.News
 import io.github.joelkanyi.presentation.components.NewsList
+import io.github.joelkanyi.presentation.model.NewsUiModel
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -66,7 +66,7 @@ fun SearchNewsScreen(
 fun SearchNewsScreenContent(
     uiState: SearchNewsUiState,
     onClickBack: () -> Unit,
-    onClickNews: (News) -> Unit,
+    onClickNews: (NewsUiModel) -> Unit,
     onSearchValueChange: (String) -> Unit,
 ) {
     Scaffold(

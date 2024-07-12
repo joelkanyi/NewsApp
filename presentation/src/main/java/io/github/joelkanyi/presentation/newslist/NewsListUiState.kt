@@ -1,11 +1,11 @@
 package io.github.joelkanyi.presentation.newslist
 
 import androidx.paging.PagingData
-import io.github.joelkanyi.domain.model.News
+import io.github.joelkanyi.presentation.model.NewsUiModel
 import kotlinx.coroutines.flow.Flow
 
 data class NewsListUiState(
-    val news: Flow<PagingData<News>>? = null,
+    val news: Flow<PagingData<NewsUiModel>>? = null,
     val showNewsFilters: Boolean = false,
     val showCountryDialog: Boolean = false,
     val selectedCountry: String? = newsCountries.first(),

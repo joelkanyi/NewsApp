@@ -1,10 +1,10 @@
 package io.github.joelkanyi.presentation.search
 
 import androidx.paging.PagingData
-import io.github.joelkanyi.domain.model.News
+import io.github.joelkanyi.presentation.model.NewsUiModel
 import kotlinx.coroutines.flow.Flow
 
 data class SearchNewsUiState(
     val searchValue: String = "",
-    val news: Flow<PagingData<News>>? = null,
+    val news: Flow<PagingData<NewsUiModel>>? = null,
 )
