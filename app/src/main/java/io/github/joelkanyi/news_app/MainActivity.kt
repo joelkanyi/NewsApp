@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.joelkanyi.designsystem.theme.NewsAppTheme
 import io.github.joelkanyi.presentation.navigation.AppNavHost
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -18,6 +19,7 @@ class MainActivity : ComponentActivity() {
             NewsAppTheme {
                 val navController = rememberNavController()
                 AppNavHost(navController = navController)
+                Timber.e("MainActivity")
             }
         }
     }

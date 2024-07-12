@@ -28,6 +28,7 @@ turbine = "1.1.0"
 material3 = "1.3.0-beta04"
 ktlint = "12.1.1"
 detekt = "1.23.6"
+timber = "5.0.1"
 
 # project configs
 compileSdk = "34"
@@ -81,6 +82,8 @@ androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-com
 compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "compose-navigation" }
 
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
 # Testing
 truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
