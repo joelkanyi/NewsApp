@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.hilt.android) apply false
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.detekt)
 }
 
 subprojects {
@@ -25,5 +26,13 @@ subprojects {
             exclude("**/generated/**")
             include("**/kotlin/**")
         }
+    }
+
+    apply(plugin = "io.gitlab.arturbosch.detekt")
+    detekt {
+        parallel = true
+        buildUponDefaultConfig = true
+        allRules = true
+        config.setFrom("$rootDir/config/detekt/detekt.yml")
     }
 }
