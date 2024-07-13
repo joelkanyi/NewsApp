@@ -10,4 +10,7 @@
     <string name="favorites">Favorites</string>
     <string name="favorites_screen">favorites_screen</string>
     <string name="back_icon">Back Icon</string>
+    <string name="no_news_available">No news available</string>
+    <string name="news_filters">news_filters</string>
+    <string name="countries_dialog">countries_dialog</string>
 </resources>

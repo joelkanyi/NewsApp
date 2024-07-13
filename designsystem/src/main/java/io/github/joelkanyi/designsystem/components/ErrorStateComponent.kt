@@ -8,8 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import io.github.joelkanyi.designsystem.R
 
 @Composable
 fun ErrorStateComponent(
@@ -17,7 +19,7 @@ fun ErrorStateComponent(
     message: String = "An error occurred, please try again later."
 ) {
     Column(
-        modifier = modifier.testTag("error_state_component"),
+        modifier = modifier.testTag(stringResource(R.string.error_state_component)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {

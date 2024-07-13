@@ -187,7 +187,7 @@ fun NewsListScreenContent(
         BottomSheet(
             modifier =
             Modifier
-                .testTag("news_filters")
+                .testTag(stringResource(R.string.news_filters))
                 .fillMaxHeight(.5f),
             bottomSheetState = bottomSheetState,
             shape = RoundedCornerShape(0),
@@ -385,7 +385,7 @@ fun CountriesDialog(
     AlertDialog(
         modifier =
         Modifier
-            .testTag("countries_dialog")
+            .testTag(stringResource(R.string.countries_dialog))
             .fillMaxHeight(.5f),
         onDismissRequest = onDismiss,
         title = {

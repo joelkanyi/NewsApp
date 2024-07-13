@@ -1,42 +1,126 @@
 package io.github.joelkanyi.presentation.newslist
 
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
+import androidx.paging.PagingData
+import io.github.joelkanyi.designsystem.theme.NewsAppTheme
+import io.github.joelkanyi.presentation.R
+import io.github.joelkanyi.presentation.model.NewsUiModel
+import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
+import org.junit.Test
 
 class NewsListScreenTest {
     @get:Rule
-    val composeTestRule = createComposeRule()
-    /*lateinit var navController: TestNavHostController
+    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
-    @Before
-    fun setupAppNavHost() {
+    @Test
+    fun showLoadingState_whenNewsListIsLoading() {
+        /**
+         * Paging library needs to determine the actual state of the data. When you
+         * create an empty PagingData, it doesn't trigger a fetch, hence it remains
+         * in a loading state.
+         */
+        val loadingNews = PagingData.empty<NewsUiModel>()
+
         composeTestRule.setContent {
-            navController = TestNavHostController(LocalContext.current)
-            navController.navigatorProvider.addNavigator(ComposeNavigator())
-            AppNavHost(navController = navController)
+            NewsAppTheme {
+                NewsListScreenContent(
+                    uiState = NewsListUiState(news = flowOf(loadingNews)),
+                    onAction = {}
+                )
+            }
         }
-    }*/
 
-    /**
-     * Test cases for [SearchNewsScreen]
-     * test_initializationAndDefaultState_NewsListScreen
-     * test_onClickSearchIcon_NavigatesToSearchScreen
-     * test_onClickFiltersIcon_ShowsFiltersBottomSheet
-     * test_onClickNewsItem_NavigatesToNewsDetailsScreen
-     * test_selectCountryFromDialog_UpdatesSelectedCountry
-     * test_selectCategoryFromFilters_UpdatesSelectedCategory
-     * test_dismissFilters_ClosesFiltersBottomSheet
-     * test_showErrorState_OnErrorFetchingNews
-     * test_initializationAndDefaultState_SearchScreen
-     * test_updateSearchValue_UpdatesSearchQuery
-     * test_displaySearchResults_ShowsNewsList
-     * test_navigateBackFromSearchScreen_NavigatesToPreviousScreen
-     * test_onClickNewsItemInSearch_NavigatesToNewsDetailsScreen
-     * test_displayEmptyState_OnNoSearchResults
-     * test_showErrorState_OnErrorFetchingSearchResults
-     * test_endToEndUserFlow_AcrossScreens
-     * test_extremeValuesEdgeCases_SearchQueries
-     * test_uiRenderingPerformance_Validation
-     * test_scrollBehaviorAndResponsiveness_ValidatesScrolling
-     */
+        composeTestRule.onNodeWithTag(composeTestRule.activity.getString(io.github.joelkanyi.designsystem.R.string.loading_state_component))
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun showEmptyState_whenNewsListIsEmpty() {
+        composeTestRule.setContent {
+            NewsAppTheme {
+                NewsListScreenContent(
+                    uiState = NewsListUiState(),
+                    onAction = {}
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.no_news_available))
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun showNewsList_whenNewsListIsNotEmpty() {
+        val newsList = listOf(
+            NewsUiModel(
+                title = "Title 1",
+                description = "Description 1",
+                imageUrl = "https://example.com/image1.jpg",
+                url = "https://example.com/news1",
+                source = "Source 1",
+                publishedAt = "2021-09-01T00:00:00Z",
+                content = "Content 1",
+                author = "Author 1"
+            ),
+            NewsUiModel(
+                title = "Title 2",
+                description = "Description 2",
+                imageUrl = "https://example.com/image2.jpg",
+                url = "https://example.com/news2",
+                source = "Source 2",
+                publishedAt = "2021-09-02T00:00:00Z",
+                content = "Content 2",
+                author = "Author 2"
+            )
+        )
+
+        val news = PagingData.from(newsList)
+
+        composeTestRule.setContent {
+            NewsAppTheme {
+                NewsListScreenContent(
+                    uiState = NewsListUiState(news = flowOf(news)),
+                    onAction = {}
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithText("Title 1").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Title 2").assertIsDisplayed()
+    }
+
+    @Test
+    fun showNewsFilters_whenShowNewsFiltersIsTrue() {
+        composeTestRule.setContent {
+            NewsAppTheme {
+                NewsListScreenContent(
+                    uiState = NewsListUiState(showNewsFilters = true),
+                    onAction = {}
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithTag(composeTestRule.activity.getString(R.string.news_filters))
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun showCountriesDialog_whenShowCountriesDialogIsTrue() {
+        composeTestRule.setContent {
+            NewsAppTheme {
+                NewsListScreenContent(
+                    uiState = NewsListUiState(showCountryDialog = true),
+                    onAction = {}
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithTag(composeTestRule.activity.getString(R.string.countries_dialog))
+            .assertIsDisplayed()
+    }
 }

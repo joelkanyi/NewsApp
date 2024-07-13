@@ -10,11 +10,14 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import io.github.joelkanyi.designsystem.components.EmptyStateComponent
 import io.github.joelkanyi.designsystem.components.ErrorStateComponent
+import io.github.joelkanyi.designsystem.components.LoadingStateComponent
+import io.github.joelkanyi.presentation.R
 import io.github.joelkanyi.presentation.model.NewsUiModel
 import io.github.joelkanyi.presentation.utils.getPagingError
 
@@ -46,7 +49,7 @@ fun NewsList(
                             modifier = Modifier.fillParentMaxSize(),
                             contentAlignment = Alignment.Center
                         ) {
-                            CircularProgressIndicator()
+                            LoadingStateComponent()
                         }
                     }
                 }
@@ -58,7 +61,7 @@ fun NewsList(
                             contentAlignment = Alignment.Center
                         ) {
                             EmptyStateComponent(
-                                message = "No data available"
+                                message = stringResource(R.string.no_news_available)
                             )
                         }
                     }

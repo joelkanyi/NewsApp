@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="loading_state_component">loading_state_component</string>
+    <string name="empty_state_component">empty_state_component</string>
+    <string name="error_state_component">error_state_component</string>
+</resources>
