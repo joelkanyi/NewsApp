@@ -54,11 +54,15 @@ dependencies {
 
     implementation(libs.coroutines.android)
     implementation(libs.coroutines.core)
+    implementation(libs.androidx.junit.ktx)
 
     testImplementation(libs.junit)
+    androidTestImplementation(libs.junit)
     testImplementation(libs.truth)
+    androidTestImplementation(libs.truth)
     testImplementation(libs.mockk)
     testImplementation(libs.coroutines.test)
+    androidTestImplementation(libs.coroutines.test)
 
     // Domain
     implementation(projects.domain)
@@ -74,4 +78,12 @@ dependencies {
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
     implementation(libs.room.ktx)
+    testImplementation(libs.room.testing)
+
+    testImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.androidx.test.core)
+
+    androidTestImplementation(libs.androidx.espresso.core)
+
+    androidTestImplementation(libs.turbine)
 }
