@@ -3,9 +3,9 @@ package io.github.joelkanyi.presentation.newslist
 import io.github.joelkanyi.presentation.model.NewsUiModel
 
 sealed interface NewsListUiAction {
-    data object ShowFilters : NewsListUiAction
+    // data object ShowFilters : NewsListUiAction
 
-    data object DismissFilters : NewsListUiAction
+    // data object DismissFilters : NewsListUiAction
 
     data class NavigateToNewsDetails(val news: NewsUiModel) : NewsListUiAction
 

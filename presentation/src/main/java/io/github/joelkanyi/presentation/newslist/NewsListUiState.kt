@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 data class NewsListUiState(
     val news: Flow<PagingData<NewsUiModel>>? = null,
-    val showNewsFilters: Boolean = false,
     val showCountryDialog: Boolean = false,
     val selectedCountry: String? = newsCountries.first(),
     val selectedCategory: String? = null,

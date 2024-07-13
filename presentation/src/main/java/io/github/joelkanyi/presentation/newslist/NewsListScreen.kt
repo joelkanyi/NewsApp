@@ -37,6 +37,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -53,6 +54,7 @@ import io.github.joelkanyi.designsystem.theme.NewsAppTheme
 import io.github.joelkanyi.presentation.R
 import io.github.joelkanyi.presentation.components.NewsList
 import io.github.joelkanyi.presentation.navigation.Destinations
+import kotlinx.coroutines.launch
 
 @Composable
 fun NewsListScreen(
@@ -67,14 +69,6 @@ fun NewsListScreen(
             when (action) {
                 is NewsListUiAction.NavigateToNewsDetails -> {
                     navController.navigate(Destinations.NewsDetails(action.news))
-                }
-
-                NewsListUiAction.DismissFilters -> {
-                    viewModel.setFiltersBottomSheetState(false)
-                }
-
-                NewsListUiAction.ShowFilters -> {
-                    viewModel.setFiltersBottomSheetState(true)
                 }
 
                 NewsListUiAction.NavigateToSearchNews -> {
@@ -99,7 +93,6 @@ fun NewsListScreen(
                 }
 
                 is NewsListUiAction.ApplyFilters -> {
-                    viewModel.setFiltersBottomSheetState(false)
                     viewModel.getNews(
                         country = action.country,
                         category = action.category
@@ -118,6 +111,7 @@ fun NewsListScreenContent(
 ) {
     val newsPaging = uiState.news?.collectAsLazyPagingItems()
 
+    val scope = rememberCoroutineScope()
     val bottomSheetState =
         rememberModalBottomSheetState(
             skipPartiallyExpanded = true
@@ -150,7 +144,9 @@ fun NewsListScreenContent(
                     IconButton(
                         modifier = Modifier.testTag(stringResource(R.string.filters_icon)),
                         onClick = {
-                            onAction(NewsListUiAction.ShowFilters)
+                            scope.launch {
+                                bottomSheetState.show()
+                            }
                         }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Default.Sort,
@@ -183,16 +179,17 @@ fun NewsListScreenContent(
         }
     }
 
-    if (uiState.showNewsFilters) {
+    if (bottomSheetState.isVisible) {
         BottomSheet(
             modifier =
             Modifier
-                .testTag(stringResource(R.string.news_filters))
-                .fillMaxHeight(.5f),
+                .testTag(stringResource(R.string.news_filters)),
             bottomSheetState = bottomSheetState,
             shape = RoundedCornerShape(0),
             onDismissRequest = {
-                onAction(NewsListUiAction.DismissFilters)
+                scope.launch {
+                    bottomSheetState.hide()
+                }
             }
         ) {
             NewsFiltersContent(
@@ -205,6 +202,9 @@ fun NewsListScreenContent(
                     onAction(NewsListUiAction.SelectCategory(it))
                 },
                 onApplyFilter = {
+                    scope.launch {
+                        bottomSheetState.hide()
+                    }
                     onAction(
                         NewsListUiAction.ApplyFilters(
                             country = uiState.selectedCountry,

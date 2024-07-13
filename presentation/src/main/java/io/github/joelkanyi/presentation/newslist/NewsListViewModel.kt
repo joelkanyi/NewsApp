@@ -40,14 +40,6 @@ class NewsListViewModel @Inject constructor(
         }
     }
 
-    fun setFiltersBottomSheetState(value: Boolean) {
-        _uiState.update {
-            it.copy(
-                showNewsFilters = value
-            )
-        }
-    }
-
     fun setCountriesDialogState(value: Boolean) {
         _uiState.update {
             it.copy(

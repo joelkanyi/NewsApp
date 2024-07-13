@@ -6,11 +6,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -22,16 +20,10 @@ fun BottomSheet(
     containerColor: Color = MaterialTheme.colorScheme.background,
     content: @Composable () -> Unit
 ) {
-    val scope = rememberCoroutineScope()
     ModalBottomSheet(
         modifier = modifier.testTag("bottom_sheet"),
         containerColor = containerColor,
-        onDismissRequest = {
-            scope.launch {
-                bottomSheetState.hide()
-                onDismissRequest()
-            }
-        },
+        onDismissRequest = onDismissRequest,
         sheetState = bottomSheetState,
         shape = shape
     ) {

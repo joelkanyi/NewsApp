@@ -5,6 +5,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.paging.PagingData
 import io.github.joelkanyi.designsystem.theme.NewsAppTheme
 import io.github.joelkanyi.presentation.R
@@ -95,15 +96,18 @@ class NewsListScreenTest {
     }
 
     @Test
-    fun showNewsFilters_whenShowNewsFiltersIsTrue() {
+    fun showNewsFilters_whenFiltersIconIsClicked() {
         composeTestRule.setContent {
             NewsAppTheme {
                 NewsListScreenContent(
-                    uiState = NewsListUiState(showNewsFilters = true),
+                    uiState = NewsListUiState(),
                     onAction = {}
                 )
             }
         }
+
+        composeTestRule.onNodeWithTag(composeTestRule.activity.getString(R.string.filters_icon))
+            .performClick()
 
         composeTestRule.onNodeWithTag(composeTestRule.activity.getString(R.string.news_filters))
             .assertIsDisplayed()

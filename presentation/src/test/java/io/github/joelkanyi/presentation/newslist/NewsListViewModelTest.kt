@@ -78,23 +78,11 @@ class NewsListViewModelTest {
         }
 
     @Test
-    fun `test setFiltersBottomSheetState updates state with value`() =
-        runTest {
-            viewModel.setFiltersBottomSheetState(false)
-
-            viewModel.uiState.test {
-                val state = awaitItem()
-                assertThat(state.showNewsFilters).isEqualTo(false)
-            }
-        }
-
-    @Test
     fun `test initial state has default values`() =
         runTest {
             viewModel.uiState.test {
                 val state = awaitItem()
                 assertThat(state.selectedCategory).isNull()
-                assertThat(state.showNewsFilters).isFalse()
                 assertThat(state.showCountryDialog).isFalse()
                 assertThat(state.selectedCountry).isEqualTo(newsCountries.first())
                 // assertThat(state.news).isNull()
