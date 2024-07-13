@@ -1,6 +1,8 @@
 package io.github.joelkanyi.presentation.utils
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import androidx.paging.LoadState
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParseException
@@ -123,5 +125,23 @@ fun String.toHumanReadableDateTIme(): String {
         humanReadableDate
     } catch (e: Exception) {
         this
+    }
+}
+
+fun Context.shareLink(url: String) {
+    try {
+        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+            putExtra(Intent.EXTRA_TEXT, url)
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(
+            sendIntent,
+            null
+        )
+
+        startActivity(shareIntent)
+    } catch (e: Exception) {
+        e.printStackTrace()
     }
 }

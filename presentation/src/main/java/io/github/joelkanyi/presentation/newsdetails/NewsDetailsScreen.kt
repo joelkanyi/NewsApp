@@ -25,6 +25,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,8 +35,8 @@ import androidx.navigation.NavController
 import io.github.joelkanyi.designsystem.theme.NewsAppTheme
 import io.github.joelkanyi.presentation.components.NewsImage
 import io.github.joelkanyi.presentation.model.NewsUiModel
+import io.github.joelkanyi.presentation.utils.shareLink
 import io.github.joelkanyi.presentation.utils.toHumanReadableDateTIme
-import timber.log.Timber
 
 @Composable
 fun NewsDetailsScreen(
@@ -44,7 +45,7 @@ fun NewsDetailsScreen(
     viewModel: NewsDetailsViewModel = hiltViewModel()
 ) {
     val addedToFavorites by viewModel.isFavorite(news).collectAsState(false)
-    Timber.e("addedToFavorites: $addedToFavorites")
+    val context = LocalContext.current
 
     NewsDetailsScreenContent(
         news = news,
@@ -52,7 +53,9 @@ fun NewsDetailsScreen(
         onClickBack = {
             navController.navigateUp()
         },
-        onClickShare = { },
+        onClickShare = {
+            context.shareLink(news.url)
+        },
         onClickFavorite = {
             if (addedToFavorites) {
                 viewModel.removeFavorite(news)
@@ -80,9 +83,7 @@ fun NewsDetailsScreenContent(
             TopAppBar(
                 scrollBehavior = scrollBehavior,
                 navigationIcon = {
-                    IconButton(onClick = {
-                        onClickBack()
-                    }) {
+                    IconButton(onClick = onClickBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"
@@ -91,18 +92,16 @@ fun NewsDetailsScreenContent(
                 },
                 title = {},
                 actions = {
-                    IconButton(onClick = {
-                        onClickShare()
-                    }) {
+                    IconButton(
+                        onClick = onClickShare
+                    ) {
                         Icon(
                             imageVector = Icons.Filled.Share,
                             contentDescription = "Share"
                         )
                     }
 
-                    IconButton(onClick = {
-                        onClickFavorite()
-                    }) {
+                    IconButton(onClick = onClickFavorite) {
                         Icon(
                             imageVector =
                             if (addedToFavorites) {
