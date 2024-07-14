@@ -84,7 +84,9 @@ fun SearchNewsScreenContent(
             TopAppBar(
                 title = {
                     TextField(
-                        modifier = Modifier.focusRequester(focusRequester),
+                        modifier = Modifier
+                            .testTag(stringResource(R.string.search_news_text_field))
+                            .focusRequester(focusRequester),
                         value = uiState.searchValue,
                         onValueChange = onSearchValueChange,
                         placeholder = {
@@ -123,6 +125,7 @@ fun SearchNewsScreenContent(
                 },
                 actions = {
                     IconButton(
+                        modifier = Modifier.testTag(stringResource(R.string.clear_search)),
                         onClick = {
                             onSearchValueChange("")
                         }

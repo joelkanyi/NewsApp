@@ -13,4 +13,6 @@
     <string name="no_news_available">No news available</string>
     <string name="news_filters">news_filters</string>
     <string name="countries_dialog">countries_dialog</string>
+    <string name="search_news_text_field">search_news_textfield</string>
+    <string name="clear_search">clear_search</string>
 </resources>
