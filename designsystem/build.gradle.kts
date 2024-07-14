@@ -54,4 +54,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(libs.timber)
+
+    implementation(libs.accompanist.systemuicontroller)
 }

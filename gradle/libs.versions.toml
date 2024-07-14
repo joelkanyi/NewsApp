@@ -31,6 +31,7 @@ timber = "5.0.1"
 room = "2.6.1"
 androidx-test-core = "1.4.0"
 junitKtx = "1.2.1"
+accompanist-systemuicontroller = "0.34.0"
 
 # project configs
 compileSdk = "34"
@@ -91,6 +92,9 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
+
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist-systemuicontroller" }
+
 
 # Testing
 truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
