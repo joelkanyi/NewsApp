@@ -127,4 +127,23 @@ class NewsListScreenTest {
         composeTestRule.onNodeWithTag(composeTestRule.activity.getString(R.string.countries_dialog))
             .assertIsDisplayed()
     }
+
+
+    @Test
+    fun topAppBar_ShowsCorrectTitle() {
+        val title = "Technology News"
+
+        composeTestRule.setContent {
+            NewsAppTheme {
+                NewsListScreenContent(
+                    uiState = NewsListUiState(
+                        selectedCategory = title,
+                    ),
+                    onAction = {}
+                )
+            }
+        }
+
+        composeTestRule.onNodeWithText(title).assertIsDisplayed()
+    }
 }
