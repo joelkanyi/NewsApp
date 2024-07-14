@@ -27,7 +27,6 @@ private val LightColorScheme =
         tertiary = PrimaryColor
     )
 
-
 @Suppress("DEPRECATION")
 @Composable
 fun NewsAppTheme(

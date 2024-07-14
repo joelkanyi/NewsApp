@@ -19,4 +19,5 @@
     <string name="share_icon">Share Icon</string>
     <string name="added_to_favorite_icon">Added to Favorite Icon</string>
     <string name="not_added_to_favorite_icon">Not added to Favorite Icon</string>
+    <string name="settings">Settings</string>
 </resources>

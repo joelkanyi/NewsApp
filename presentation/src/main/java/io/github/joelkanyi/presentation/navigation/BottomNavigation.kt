@@ -20,4 +20,10 @@ enum class BottomNavigation(
         unselectedIcon = R.drawable.ic_favorite_outlined,
         route = Destinations.Favorites
     ),
+    Settings(
+        label = io.github.joelkanyi.presentation.R.string.settings,
+        selectedIcon = R.drawable.ic_settings_filled,
+        unselectedIcon = R.drawable.ic_settings_outlined,
+        route = Destinations.Settings
+    )
 }

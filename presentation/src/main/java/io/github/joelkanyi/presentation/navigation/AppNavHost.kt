@@ -11,6 +11,7 @@ import io.github.joelkanyi.presentation.model.NewsUiModel
 import io.github.joelkanyi.presentation.newsdetails.NewsDetailsScreen
 import io.github.joelkanyi.presentation.newslist.NewsListScreen
 import io.github.joelkanyi.presentation.search.SearchNewsScreen
+import io.github.joelkanyi.presentation.settings.SettingsScreen
 import kotlin.reflect.typeOf
 
 @Composable
@@ -47,6 +48,12 @@ fun AppNavHost(
 
         composable<Destinations.Favorites> {
             FavoritesScreen(
+                navController = navController
+            )
+        }
+
+        composable<Destinations.Settings> {
+            SettingsScreen(
                 navController = navController
             )
         }

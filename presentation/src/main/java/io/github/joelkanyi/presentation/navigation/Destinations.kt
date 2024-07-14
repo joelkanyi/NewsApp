@@ -15,4 +15,7 @@ sealed class Destinations {
 
     @Serializable
     data object Favorites
+
+    @Serializable
+    object Settings
 }

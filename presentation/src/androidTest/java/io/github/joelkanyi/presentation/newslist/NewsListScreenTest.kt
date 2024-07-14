@@ -128,7 +128,6 @@ class NewsListScreenTest {
             .assertIsDisplayed()
     }
 
-
     @Test
     fun topAppBar_ShowsCorrectTitle() {
         val title = "Technology News"
