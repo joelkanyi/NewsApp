@@ -34,7 +34,6 @@ class SearchNewsScreenTest {
                     onClickBack = {},
                     onClickNews = {},
                     onSearchValueChange = {
-
                     }
                 )
             }

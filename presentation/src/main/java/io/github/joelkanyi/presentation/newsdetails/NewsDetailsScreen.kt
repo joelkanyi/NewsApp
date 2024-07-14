@@ -26,6 +26,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,6 +35,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import io.github.joelkanyi.designsystem.theme.NewsAppTheme
+import io.github.joelkanyi.presentation.R
 import io.github.joelkanyi.presentation.components.NewsImage
 import io.github.joelkanyi.presentation.model.NewsUiModel
 import io.github.joelkanyi.presentation.utils.shareLink
@@ -83,25 +86,38 @@ fun NewsDetailsScreenContent(
             TopAppBar(
                 scrollBehavior = scrollBehavior,
                 navigationIcon = {
-                    IconButton(onClick = onClickBack) {
+                    IconButton(
+                        modifier = Modifier.testTag(stringResource(id = R.string.back_icon)),
+                        onClick = onClickBack
+                    ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(id = R.string.back_icon)
                         )
                     }
                 },
                 title = {},
                 actions = {
                     IconButton(
+                        modifier = Modifier.testTag(stringResource(id = R.string.share_icon)),
                         onClick = onClickShare
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Share,
-                            contentDescription = "Share"
+                            contentDescription = stringResource(R.string.share_icon)
                         )
                     }
 
-                    IconButton(onClick = onClickFavorite) {
+                    IconButton(
+                        modifier = Modifier.testTag(
+                            if (addedToFavorites) {
+                                stringResource(R.string.added_to_favorite_icon)
+                            } else {
+                                stringResource(R.string.not_added_to_favorite_icon)
+                            }
+                        ),
+                        onClick = onClickFavorite
+                    ) {
                         Icon(
                             imageVector =
                             if (addedToFavorites) {
@@ -109,7 +125,11 @@ fun NewsDetailsScreenContent(
                             } else {
                                 Icons.Default.FavoriteBorder
                             },
-                            contentDescription = "Favorite"
+                            contentDescription = if (addedToFavorites) {
+                                stringResource(R.string.added_to_favorite_icon)
+                            } else {
+                                stringResource(R.string.not_added_to_favorite_icon)
+                            }
                         )
                     }
                 }
@@ -137,7 +157,7 @@ fun NewsDetailsScreenContent(
                     if (news.author.isEmpty()) {
                         news.source
                     } else {
-                        "By ${news.author}, ${news.source}"
+                        stringResource(R.string.by, news.author, news.source)
                     },
                     style =
                     MaterialTheme.typography.bodySmall.copy(
