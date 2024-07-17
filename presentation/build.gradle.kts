@@ -89,4 +89,6 @@ dependencies {
     testImplementation(libs.turbine)
 
     implementation(libs.timber)
+
+    implementation(libs.androidx.appcompat)
 }

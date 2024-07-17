@@ -1,9 +1,9 @@
 package io.github.joelkanyi.newsapp
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +18,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -34,13 +35,17 @@ import io.github.joelkanyi.presentation.navigation.AppNavHost
 import io.github.joelkanyi.presentation.navigation.BottomNavigation
 import io.github.joelkanyi.presentation.navigation.Destinations
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val viewModel by viewModels<MainViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            NewsAppTheme {
+            val theme by viewModel.theme.collectAsState()
+
+            NewsAppTheme(theme) {
                 val navController = rememberNavController()
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = navBackStackEntry?.destination?.route
@@ -50,7 +55,7 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     modifier = Modifier
-                        .testTag("scaffold")
+                        .testTag("main_scaffold")
                         .fillMaxSize(),
                     bottomBar = {
                         if (showBottomNavigation) {

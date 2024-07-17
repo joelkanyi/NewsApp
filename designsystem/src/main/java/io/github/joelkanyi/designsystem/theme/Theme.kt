@@ -1,6 +1,8 @@
 package io.github.joelkanyi.designsystem.theme
 
 import android.os.Build
+import androidx.annotation.ChecksSdkIntAtLeast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -30,21 +32,31 @@ private val LightColorScheme =
 @Suppress("DEPRECATION")
 @Composable
 fun NewsAppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
+    theme: Int = Theme.FOLLOW_SYSTEM.themeValue,
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    val colorScheme =
-        when {
-            dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-                val context = LocalContext.current
-                if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-            }
+    val context = LocalContext.current
 
-            darkTheme -> DarkColorScheme
-            else -> LightColorScheme
+    val autoColors = if (isSystemInDarkTheme()) DarkColorScheme else LightColorScheme
+
+    // Dynamic color is available on Android 12+
+    val dynamicColors = if (supportsDynamicTheming() && dynamicColor) {
+        if (isSystemInDarkTheme()) {
+            dynamicDarkColorScheme(context)
+        } else {
+            dynamicLightColorScheme(context)
         }
+    } else {
+        autoColors
+    }
+
+    val colorScheme = when (theme) {
+        Theme.LIGHT_THEME.themeValue -> LightColorScheme
+        Theme.DARK_THEME.themeValue -> DarkColorScheme
+        Theme.MATERIAL_YOU.themeValue -> dynamicColors
+        else -> autoColors
+    }
 
     val systemUiController = rememberSystemUiController()
 
@@ -62,4 +74,24 @@ fun NewsAppTheme(
         typography = Typography,
         content = content
     )
+}
+
+@ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
+private fun supportsDynamicTheming() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+
+enum class Theme(
+    val themeValue: Int,
+) {
+    MATERIAL_YOU(
+        themeValue = 12,
+    ),
+    FOLLOW_SYSTEM(
+        themeValue = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,
+    ),
+    LIGHT_THEME(
+        themeValue = AppCompatDelegate.MODE_NIGHT_NO,
+    ),
+    DARK_THEME(
+        themeValue = AppCompatDelegate.MODE_NIGHT_YES,
+    ),
 }

@@ -74,6 +74,9 @@ dependencies {
 
     implementation(libs.timber)
 
+    implementation(libs.androidx.appcompat)
+    implementation(libs.datastore.preferences)
+
     // Room
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)

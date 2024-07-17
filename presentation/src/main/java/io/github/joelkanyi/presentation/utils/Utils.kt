@@ -3,6 +3,7 @@ package io.github.joelkanyi.presentation.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.paging.LoadState
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParseException
@@ -143,5 +144,15 @@ fun Context.shareLink(url: String) {
         startActivity(shareIntent)
     } catch (e: Exception) {
         e.printStackTrace()
+    }
+}
+
+fun Int.getThemeName(): String {
+    return when (this) {
+        AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> "Use System Settings"
+        AppCompatDelegate.MODE_NIGHT_NO -> "Light Mode"
+        AppCompatDelegate.MODE_NIGHT_YES -> "Dark Mode"
+        12 -> "Material You"
+        else -> "Use System Settings"
     }
 }

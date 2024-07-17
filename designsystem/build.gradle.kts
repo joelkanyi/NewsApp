@@ -56,4 +56,5 @@ dependencies {
     implementation(libs.timber)
 
     implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.androidx.appcompat)
 }
