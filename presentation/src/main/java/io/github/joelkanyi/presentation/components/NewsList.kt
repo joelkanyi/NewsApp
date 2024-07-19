@@ -24,11 +24,13 @@ import io.github.joelkanyi.presentation.utils.getPagingError
 
 @Composable
 fun NewsList(
+    modifier: Modifier = Modifier,
+    onClickNews: (NewsUiModel) -> Unit,
     newsPaging: LazyPagingItems<NewsUiModel>,
-    onClickNews: (NewsUiModel) -> Unit
 ) {
     val context = LocalContext.current
     LazyColumn(
+        modifier = modifier,
         contentPadding = PaddingValues(
             horizontal = 16.dp,
             vertical = 8.dp

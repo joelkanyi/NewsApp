@@ -129,7 +129,7 @@ fun SearchNewsScreenContent(
         ) {
             if (newsPaging != null) {
                 NewsList(
-                    newsPaging,
+                    newsPaging = newsPaging,
                     onClickNews = {
                         onClickNews(it)
                     }

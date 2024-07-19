@@ -33,11 +33,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -58,6 +61,7 @@ import io.github.joelkanyi.designsystem.theme.NewsAppTheme
 import io.github.joelkanyi.presentation.R
 import io.github.joelkanyi.presentation.components.NewsList
 import io.github.joelkanyi.presentation.navigation.Destinations
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -162,15 +166,31 @@ fun NewsListScreenContent(
             )
         }
     ) { innerPadding ->
-        Box(
-            modifier =
-            Modifier
+        val pullToRefreshState = rememberPullToRefreshState()
+        var isRefreshing by remember { mutableStateOf(false) }
+        val coroutineScope = rememberCoroutineScope()
+        val onRefresh: () -> Unit = {
+            isRefreshing = true
+            newsPaging?.refresh()
+            coroutineScope.launch {
+                delay(1500)
+                isRefreshing = false
+            }
+        }
+
+        PullToRefreshBox(
+            modifier = Modifier
                 .padding(innerPadding)
-                .fillMaxSize()
+                .fillMaxSize(),
+            state = pullToRefreshState,
+            isRefreshing = isRefreshing,
+            onRefresh = onRefresh,
         ) {
             if (newsPaging != null) {
                 NewsList(
-                    newsPaging,
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    newsPaging = newsPaging,
                     onClickNews = {
                         onAction(NewsListUiAction.NavigateToNewsDetails(it))
                     }
