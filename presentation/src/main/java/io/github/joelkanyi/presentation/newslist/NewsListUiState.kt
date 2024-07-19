@@ -7,14 +7,15 @@ import kotlinx.coroutines.flow.Flow
 data class NewsListUiState(
     val news: Flow<PagingData<NewsUiModel>>? = null,
     val showCountryDialog: Boolean = false,
+    val newsCategories: List<String> = categories,
+    val newsCountries: List<String> = countries,
     val selectedCountry: String? = newsCountries.first(),
-    val selectedCategory: String? = null,
-    val initialized: Boolean = false
+    val selectedCategory: String? = newsCategories.first(),
 )
 
-val newsCategories =
+val categories =
     listOf(
-        // "All News",
+        "All News",
         "Business",
         "Entertainment",
         "General",
@@ -24,7 +25,7 @@ val newsCategories =
         "Technology"
     )
 
-val newsCountries =
+val countries =
     listOf(
         "United States",
         "United Kingdom",

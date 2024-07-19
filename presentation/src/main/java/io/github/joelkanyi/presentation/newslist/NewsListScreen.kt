@@ -37,12 +37,16 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -89,10 +93,11 @@ fun NewsListScreen(
                 }
 
                 is NewsListUiAction.SelectCategory -> {
-                    viewModel.selectCategory(action.category)
                 }
 
                 is NewsListUiAction.ApplyFilters -> {
+                    action.category?.let { viewModel.selectCategory(it) }
+
                     viewModel.getNews(
                         country = action.country,
                         category = action.category
@@ -195,20 +200,18 @@ fun NewsListScreenContent(
             NewsFiltersContent(
                 selectedCountry = uiState.selectedCountry,
                 selectedCategory = uiState.selectedCategory,
+                categories = uiState.newsCategories,
                 onClickSelectCountry = {
                     onAction(NewsListUiAction.ShowCountriesDialog)
                 },
-                onSelectCategory = {
-                    onAction(NewsListUiAction.SelectCategory(it))
-                },
-                onApplyFilter = {
+                onApplyFilter = { temporaryCategory ->
                     scope.launch {
                         bottomSheetState.hide()
                     }
                     onAction(
                         NewsListUiAction.ApplyFilters(
                             country = uiState.selectedCountry,
-                            category = uiState.selectedCategory
+                            category = temporaryCategory
                         )
                     )
                 }
@@ -218,7 +221,7 @@ fun NewsListScreenContent(
 
     if (uiState.showCountryDialog) {
         CountriesDialog(
-            countries = newsCountries,
+            countries = uiState.newsCountries,
             selectedCountry = uiState.selectedCountry,
             onDismiss = {
                 onAction(NewsListUiAction.DismissCountriesDialog)
@@ -236,15 +239,19 @@ fun NewsFiltersContent(
     modifier: Modifier = Modifier,
     selectedCountry: String?,
     selectedCategory: String?,
+    categories: List<String>,
     onClickSelectCountry: () -> Unit,
-    onSelectCategory: (String) -> Unit,
-    onApplyFilter: () -> Unit
+    onApplyFilter: (selectedCategory: String?) -> Unit
 ) {
+    var temporaryCategory by rememberSaveable {
+        mutableStateOf(selectedCategory)
+    }
+
     LazyColumn(
         modifier =
         modifier
             .fillMaxWidth(),
-        contentPadding = PaddingValues(horizontal = 16.dp),
+        contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
@@ -253,7 +260,9 @@ fun NewsFiltersContent(
             ) {
                 Text(
                     text = stringResource(R.string.select_country),
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontWeight = FontWeight.ExtraBold
+                    )
                 )
 
                 Row(
@@ -282,19 +291,21 @@ fun NewsFiltersContent(
             ) {
                 Text(
                     text = stringResource(R.string.select_category),
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontWeight = FontWeight.ExtraBold
+                    )
                 )
 
                 FlowRow(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    newsCategories.forEach { category ->
+                    categories.forEach { category ->
                         CategoryItem(
-                            isSelected = category == selectedCategory,
+                            isSelected = category == temporaryCategory,
                             name = category,
                             onClick = {
-                                onSelectCategory(category)
+                                temporaryCategory = category
                             }
                         )
                     }
@@ -309,7 +320,11 @@ fun NewsFiltersContent(
         item {
             Button(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = onApplyFilter
+                onClick = {
+                    onApplyFilter(
+                        temporaryCategory
+                    )
+                }
             ) {
                 Text(
                     text = stringResource(R.string.okay),
@@ -344,7 +359,7 @@ fun CategoryItem(
             .background(
                 color =
                 if (isSelected) {
-                    MaterialTheme.colorScheme.primary.copy(.1f)
+                    MaterialTheme.colorScheme.primary
                 } else {
                     Color.Transparent
                 }
@@ -365,7 +380,7 @@ fun CategoryItem(
             MaterialTheme.typography.bodyMedium.copy(
                 color =
                 if (isSelected) {
-                    MaterialTheme.colorScheme.primary
+                    MaterialTheme.colorScheme.onPrimary
                 } else {
                     MaterialTheme.colorScheme.onSurface
                 }

@@ -192,4 +192,8 @@ fun Context.getAppVersionCode(): Int {
     }
 }
 
+fun String?.mapAllNewsFilterToNull(): String? {
+    return if (this == "All News") null else this
+}
+
 const val LANGUAGE_SYSTEM_DEFAULT = 0

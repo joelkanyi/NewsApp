@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import io.github.joelkanyi.designsystem.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,6 +28,9 @@ fun BottomSheet(
         containerColor = containerColor,
         onDismissRequest = onDismissRequest,
         sheetState = bottomSheetState,
+        dragHandle = null,
+        tonalElevation = 0.dp,
+        scrimColor = MaterialTheme.colorScheme.onBackground.copy(.8f),
         shape = shape
     ) {
         content()

@@ -7,6 +7,7 @@ import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.joelkanyi.domain.usecase.news.GetNewsUseCase
 import io.github.joelkanyi.presentation.model.NewsUiModel.Companion.toUiModel
+import io.github.joelkanyi.presentation.utils.mapAllNewsFilterToNull
 import io.github.joelkanyi.presentation.utils.toISO3166Alpha2
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -30,7 +31,7 @@ class NewsListViewModel @Inject constructor(
                 news =
                 getNewsUseCase(
                     country = country?.toISO3166Alpha2(),
-                    category = category?.lowercase()
+                    category = category?.mapAllNewsFilterToNull()?.lowercase()
                 ).map { pagingData ->
                     pagingData.map { news ->
                         news.toUiModel()
