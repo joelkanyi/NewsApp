@@ -43,6 +43,8 @@ import io.github.joelkanyi.designsystem.theme.Theme
 import io.github.joelkanyi.presentation.model.AppTheme
 import io.github.joelkanyi.presentation.model.SettingsOption
 import io.github.joelkanyi.presentation.navigation.Destinations
+import io.github.joelkanyi.presentation.utils.getAppVersionCode
+import io.github.joelkanyi.presentation.utils.getAppVersionName
 import io.github.joelkanyi.presentation.utils.getLanguageName
 import io.github.joelkanyi.presentation.utils.getThemeName
 
@@ -63,7 +65,7 @@ fun SettingsScreen(
         settingsOptions = context.settingsOptions(
             selectedTheme = theme,
             selectedLanguage = language,
-            appVersion = "1.0.0"
+            appVersion = "${context.getAppVersionName()} (${context.getAppVersionCode()})"
         ),
         themeOptions = context.themes(),
         shouldShowThemesDialog = shouldShowThemesDialog,

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package io.github.joelkanyi.presentation.utils
 
 import android.annotation.SuppressLint
@@ -169,6 +171,24 @@ fun Int.getLanguageName(context: Context): String {
         1 -> context.getString(R.string.la_en)
         2 -> context.getString(R.string.la_sw)
         else -> context.getString(R.string.follow_system)
+    }
+}
+
+fun Context.getAppVersionName(): String {
+    return try {
+        val pInfo = packageManager.getPackageInfo(packageName, 0)
+        pInfo.versionName
+    } catch (e: Exception) {
+        ""
+    }
+}
+
+fun Context.getAppVersionCode(): Int {
+    return try {
+        val pInfo = packageManager.getPackageInfo(packageName, 0)
+        pInfo.versionCode
+    } catch (e: Exception) {
+        0
     }
 }
 
