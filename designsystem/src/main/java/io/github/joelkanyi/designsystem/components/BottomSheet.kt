@@ -30,7 +30,7 @@ fun BottomSheet(
         sheetState = bottomSheetState,
         dragHandle = null,
         tonalElevation = 0.dp,
-        scrimColor = MaterialTheme.colorScheme.onBackground.copy(.8f),
+        scrimColor = MaterialTheme.colorScheme.onSurface.copy(.2f),
         shape = shape
     ) {
         content()

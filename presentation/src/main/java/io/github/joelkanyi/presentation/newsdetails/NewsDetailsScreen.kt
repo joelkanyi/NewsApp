@@ -81,6 +81,7 @@ fun NewsDetailsScreenContent(
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.surface,
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
@@ -129,7 +130,8 @@ fun NewsDetailsScreenContent(
                                 stringResource(R.string.added_to_favorite_icon)
                             } else {
                                 stringResource(R.string.not_added_to_favorite_icon)
-                            }
+                            },
+                            tint = MaterialTheme.colorScheme.primary
                         )
                     }
                 }

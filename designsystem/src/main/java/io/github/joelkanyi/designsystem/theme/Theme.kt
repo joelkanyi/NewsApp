@@ -15,19 +15,43 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
-private val DarkColorScheme =
-    darkColorScheme(
-        primary = Color.White,
-        secondary = PrimaryColor,
-        tertiary = PrimaryColor
-    )
+private val LightColorScheme = lightColorScheme(
+    primary = PrimaryColor,
+    onPrimary = PrimaryTextColor,
+    secondary = SecondaryColor,
+    onSecondary = SecondaryTextColor,
+    tertiary = PrimaryLightColor,
+    onTertiary = PrimaryTextColor,
+    background = BackgroundLightColor,
+    onBackground = Color.Black,
+    surface = SurfaceLight,
+    onSurface = Color.Black,
+    surfaceVariant = SurfaceLight,
+    onSurfaceVariant = Color.Black,
+    secondaryContainer = PrimaryColor,
+    onSecondaryContainer = Color.White,
+    error = ErrorColor,
+    onError = OnErrorColor,
+)
 
-private val LightColorScheme =
-    lightColorScheme(
-        primary = PrimaryColor,
-        secondary = PrimaryColor,
-        tertiary = PrimaryColor
-    )
+private val DarkColorScheme = darkColorScheme(
+    primary = PrimaryColor,
+    onPrimary = PrimaryTextColor,
+    secondary = SecondaryLightColor,
+    onSecondary = SecondaryTextColor,
+    tertiary = PrimaryLightColor,
+    onTertiary = PrimaryTextColor,
+    background = BackgroundDarkColor,
+    onBackground = Color.White,
+    surface = SurfaceDark,
+    onSurface = Color.White,
+    surfaceVariant = SurfaceDark,
+    onSurfaceVariant = Color.White,
+    secondaryContainer = PrimaryColor,
+    onSecondaryContainer = Color.White,
+    error = ErrorColor,
+    onError = OnErrorColor,
+)
 
 @Suppress("DEPRECATION")
 @Composable
@@ -62,10 +86,10 @@ fun NewsAppTheme(
 
     SideEffect {
         systemUiController.setStatusBarColor(
-            color = colorScheme.background
+            color = colorScheme.surface
         )
         systemUiController.setNavigationBarColor(
-            color = colorScheme.background
+            color = colorScheme.surface
         )
     }
 

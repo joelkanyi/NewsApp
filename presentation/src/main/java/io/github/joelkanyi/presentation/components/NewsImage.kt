@@ -58,7 +58,7 @@ fun NewsImage(
                     modifier = Modifier.size(48.dp),
                     imageVector = Icons.Outlined.Image,
                     contentDescription = stringResource(R.string.error_loading_image),
-                    tint = MaterialTheme.colorScheme.primary.copy(
+                    tint = MaterialTheme.colorScheme.onBackground.copy(
                         alpha = .5f
                     )
                 )

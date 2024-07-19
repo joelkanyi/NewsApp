@@ -70,6 +70,7 @@ private fun LanguageScreenContent(
     onLanguageSelected: (Int) -> Unit = {},
 ) {
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.surface,
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(

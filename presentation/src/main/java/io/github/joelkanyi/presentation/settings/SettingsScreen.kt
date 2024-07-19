@@ -102,6 +102,7 @@ fun SettingsScreenContent(
     themeOptions: List<AppTheme>,
 ) {
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.surface,
         modifier = Modifier.run {
             testTag(stringResource(io.github.joelkanyi.presentation.R.string.settings_screen))
                 .fillMaxSize()
