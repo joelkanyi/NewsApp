@@ -83,31 +83,10 @@ fun SearchNewsScreenContent(
 
             TopAppBar(
                 title = {
-                    TextField(
-                        modifier = Modifier
-                            .testTag(stringResource(R.string.search_news_text_field))
-                            .focusRequester(focusRequester),
-                        value = uiState.searchValue,
-                        onValueChange = onSearchValueChange,
-                        placeholder = {
-                            Text(
-                                text = stringResource(R.string.search_placeholder),
-                                style =
-                                MaterialTheme.typography.bodyMedium.copy(
-                                    color = MaterialTheme.colorScheme.onBackground.copy(.5f)
-                                )
-                            )
-                        },
-                        textStyle = MaterialTheme.typography.bodyMedium,
-                        colors =
-                        TextFieldDefaults.colors(
-                            disabledContainerColor = Color.Transparent,
-                            focusedContainerColor = Color.Transparent,
-                            unfocusedContainerColor = Color.Transparent,
-                            disabledIndicatorColor = Color.Transparent,
-                            focusedIndicatorColor = Color.Transparent,
-                            unfocusedIndicatorColor = Color.Transparent
-                        )
+                    SearchTextField(
+                        focusRequester = focusRequester,
+                        searchValue = uiState.searchValue,
+                        onSearchValueChange = onSearchValueChange
                     )
                 },
                 navigationIcon = {
@@ -163,6 +142,41 @@ fun SearchNewsScreenContent(
             }
         }
     }
+}
+
+@Composable
+fun SearchTextField(
+    focusRequester: FocusRequester,
+    searchValue: String,
+    onSearchValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    TextField(
+        modifier = modifier
+            .testTag(stringResource(R.string.search_news_text_field))
+            .focusRequester(focusRequester),
+        value = searchValue,
+        onValueChange = onSearchValueChange,
+        placeholder = {
+            Text(
+                text = stringResource(R.string.search_placeholder),
+                style =
+                MaterialTheme.typography.bodyMedium.copy(
+                    color = MaterialTheme.colorScheme.onBackground.copy(.5f)
+                )
+            )
+        },
+        textStyle = MaterialTheme.typography.bodyMedium,
+        colors =
+        TextFieldDefaults.colors(
+            disabledContainerColor = Color.Transparent,
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
+        )
+    )
 }
 
 @Preview

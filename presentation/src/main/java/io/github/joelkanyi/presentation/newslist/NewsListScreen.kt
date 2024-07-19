@@ -403,6 +403,8 @@ fun CountriesDialog(
             .testTag(stringResource(R.string.countries_dialog))
             .fillMaxHeight(.5f),
         onDismissRequest = onDismiss,
+        tonalElevation = 0.dp,
+        shape = MaterialTheme.shapes.medium,
         title = {
             Text(
                 text = stringResource(R.string.select_country),
@@ -458,7 +460,7 @@ fun CountryItem(
             Icon(
                 imageVector = Icons.Default.Check,
                 contentDescription = null,
-                tint = Color.Green
+                tint = MaterialTheme.colorScheme.primary
             )
         }
     }
