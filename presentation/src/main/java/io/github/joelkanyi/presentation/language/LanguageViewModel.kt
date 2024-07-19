@@ -1,4 +1,4 @@
-package io.github.joelkanyi.presentation.settings
+package io.github.joelkanyi.presentation.language
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,18 +12,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingsViewModel @Inject constructor(
-    private val preferenceRepository: PreferenceRepository
-
+class LanguageViewModel @Inject constructor(
+    private val repository: PreferenceRepository,
 ) : ViewModel() {
-    val theme = preferenceRepository.getTheme()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = 0,
-        )
-
-    val language = preferenceRepository.getLanguage()
+    val language = repository.getLanguage()
         .map {
             it
         }.stateIn(
@@ -32,9 +24,9 @@ class SettingsViewModel @Inject constructor(
             initialValue = LANGUAGE_SYSTEM_DEFAULT,
         )
 
-    fun updateTheme(themeValue: Int) {
+    fun setLanguage(language: Int) {
         viewModelScope.launch {
-            preferenceRepository.saveTheme(themeValue)
+            repository.setLanguage(language)
         }
     }
 }

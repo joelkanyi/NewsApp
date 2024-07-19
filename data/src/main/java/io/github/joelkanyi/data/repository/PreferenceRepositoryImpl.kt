@@ -23,4 +23,25 @@ class PreferenceRepositoryImpl(
             preferences[Constants.THEME_OPTIONS] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         }
     }
+
+    override suspend fun setLanguage(languageNumber: Int) {
+        dataStore.edit { preferences ->
+            preferences[Constants.LANGUAGE_KEY] = languageNumber
+        }
+    }
+
+    override fun getLanguage(): Flow<Int> =
+        dataStore.data.map { preferences ->
+            preferences[Constants.LANGUAGE_KEY] ?: LANGUAGE_SYSTEM_DEFAULT
+        }
+
+    suspend fun clear() {
+        dataStore.edit { preferences ->
+            preferences.clear()
+        }
+    }
+
+    companion object {
+        const val LANGUAGE_SYSTEM_DEFAULT = 0
+    }
 }

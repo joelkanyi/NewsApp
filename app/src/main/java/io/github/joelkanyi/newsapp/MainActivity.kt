@@ -1,9 +1,9 @@
 package io.github.joelkanyi.newsapp
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -36,7 +36,7 @@ import io.github.joelkanyi.presentation.navigation.BottomNavigation
 import io.github.joelkanyi.presentation.navigation.Destinations
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<MainViewModel>()
 
@@ -75,7 +75,7 @@ class MainActivity : ComponentActivity() {
 
                                             NavigationBarItem(
                                                 modifier = Modifier
-                                                    .testTag("hello"),
+                                                    .testTag(navigationItem.name),
                                                 selected = isSelected,
                                                 label = {
                                                     Text(

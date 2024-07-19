@@ -18,4 +18,7 @@ sealed class Destinations {
 
     @Serializable
     object Settings
+
+    @Serializable
+    object Language
 }

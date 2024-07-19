@@ -91,7 +91,7 @@ fun SearchNewsScreenContent(
                         onValueChange = onSearchValueChange,
                         placeholder = {
                             Text(
-                                text = "Search...",
+                                text = stringResource(R.string.search_placeholder),
                                 style =
                                 MaterialTheme.typography.bodyMedium.copy(
                                     color = MaterialTheme.colorScheme.onBackground.copy(.5f)
@@ -158,7 +158,7 @@ fun SearchNewsScreenContent(
             } else {
                 EmptyStateComponent(
                     modifier = Modifier.align(Alignment.Center),
-                    message = "No news available"
+                    message = stringResource(R.string.no_news_available)
                 )
             }
         }

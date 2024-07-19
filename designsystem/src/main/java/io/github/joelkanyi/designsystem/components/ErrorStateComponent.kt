@@ -16,7 +16,7 @@ import io.github.joelkanyi.designsystem.R
 @Composable
 fun ErrorStateComponent(
     modifier: Modifier = Modifier,
-    message: String = "An error occurred, please try again later."
+    message: String = stringResource(R.string.an_error_occurred_please_try_again_later)
 ) {
     Column(
         modifier = modifier.testTag(stringResource(R.string.error_state_component)),

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.paging.LoadState
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParseException
+import io.github.joelkanyi.presentation.R
 import retrofit2.HttpException
 import java.io.IOException
 import java.io.Reader
@@ -48,9 +49,13 @@ fun String.toISO3166Alpha2(): String {
     }
 }
 
-fun errorMessage(httpException: HttpException): String {
+fun errorMessage(
+    httpException: HttpException,
+    context: Context,
+): String {
     val errorResponse = convertErrorBody<ErrorResponse>(httpException)
-    return errorResponse?.message ?: "An unknown error occurred, please try again"
+    return errorResponse?.message
+        ?: context.getString(R.string.an_unknown_error_occurred_please_try_again)
 }
 
 inline fun <reified T> convertErrorBody(throwable: HttpException): T? {
@@ -68,18 +73,21 @@ inline fun <reified T> Reader.readerToObject(): T {
     return gson.fromJson(this, T::class.java)
 }
 
-fun LoadState.Error.getPagingError(): String {
+fun LoadState.Error.getPagingError(context: Context): String {
     return when (val err = this.error) {
         is HttpException -> {
-            errorMessage(err)
+            errorMessage(
+                httpException = err,
+                context = context
+            )
         }
 
         is IOException -> {
-            "A network error occurred, please check your connection and try again"
+            context.getString(R.string.a_network_error_occurred_please_check_your_connection_and_try_again)
         }
 
         else -> {
-            "An unknown error occurred, please try again"
+            context.getString(R.string.an_unknown_error_occurred_please_try_again)
         }
     }
 }
@@ -114,9 +122,7 @@ fun String.toRelativeTime(): String {
     }
 }
 
-/**
- * Given 2024-07-11T02:48:00Z, return Friday, 11 July 2024, 02:48 AM
- */
+/** Given 2024-07-11T02:48:00Z, return Friday, 11 July 2024, 02:48 AM */
 @SuppressLint("SimpleDateFormat")
 fun String.toHumanReadableDateTIme(): String {
     return try {
@@ -147,12 +153,23 @@ fun Context.shareLink(url: String) {
     }
 }
 
-fun Int.getThemeName(): String {
+fun Int.getThemeName(context: Context): String {
     return when (this) {
-        AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> "Use System Settings"
-        AppCompatDelegate.MODE_NIGHT_NO -> "Light Mode"
-        AppCompatDelegate.MODE_NIGHT_YES -> "Dark Mode"
-        12 -> "Material You"
-        else -> "Use System Settings"
+        AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> context.getString(R.string.use_system_settings)
+        AppCompatDelegate.MODE_NIGHT_NO -> context.getString(R.string.light_mode)
+        AppCompatDelegate.MODE_NIGHT_YES -> context.getString(R.string.dark_mode)
+        12 -> context.getString(R.string.material_you)
+        else -> context.getString(R.string.use_system_settings)
     }
 }
+
+fun Int.getLanguageName(context: Context): String {
+    return when (this) {
+        LANGUAGE_SYSTEM_DEFAULT -> context.getString(R.string.follow_system)
+        1 -> context.getString(R.string.la_en)
+        2 -> context.getString(R.string.la_sw)
+        else -> context.getString(R.string.follow_system)
+    }
+}
+
+const val LANGUAGE_SYSTEM_DEFAULT = 0

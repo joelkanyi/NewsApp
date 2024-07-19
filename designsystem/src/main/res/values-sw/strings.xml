@@ -3,7 +3,7 @@
     <string translatable="false"  name="loading_state_component">loading_state_component</string>
     <string translatable="false"  name="empty_state_component">empty_state_component</string>
     <string translatable="false"  name="error_state_component">error_state_component</string>
-    <string name="no_data_available">No data available</string>
-    <string name="an_error_occurred_please_try_again_later">An error occurred, please try again later.</string>
+    <string name="no_data_available">Hakuna data iliyopo</string>
+    <string name="an_error_occurred_please_try_again_later">Hitilafu imetokea, tafadhali jaribu tena baadaye.</string>
     <string translatable="false"  name="bottom_sheet">bottom_sheet</string>
 </resources>

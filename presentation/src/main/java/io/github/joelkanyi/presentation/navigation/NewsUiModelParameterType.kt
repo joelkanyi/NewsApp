@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package io.github.joelkanyi.presentation.navigation
 
 import android.net.Uri

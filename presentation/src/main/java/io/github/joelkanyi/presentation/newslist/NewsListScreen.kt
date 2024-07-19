@@ -125,7 +125,7 @@ fun NewsListScreenContent(
             TopAppBar(
                 title = {
                     Text(
-                        text = uiState.selectedCategory ?: "All News",
+                        text = uiState.selectedCategory ?: stringResource(R.string.all_news),
                         style = MaterialTheme.typography.titleMedium
                     )
                 },
@@ -173,7 +173,7 @@ fun NewsListScreenContent(
             } else {
                 EmptyStateComponent(
                     modifier = Modifier.align(Alignment.Center),
-                    message = "No news available"
+                    message = stringResource(R.string.no_news_available)
                 )
             }
         }
@@ -252,7 +252,7 @@ fun NewsFiltersContent(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Text(
-                    text = "Select Country",
+                    text = stringResource(R.string.select_country),
                     style = MaterialTheme.typography.titleMedium
                 )
 
@@ -265,7 +265,7 @@ fun NewsFiltersContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = selectedCountry ?: "Select country",
+                        text = selectedCountry ?: stringResource(R.string.select_country),
                         style = MaterialTheme.typography.bodyMedium
                     )
                     Icon(
@@ -281,7 +281,7 @@ fun NewsFiltersContent(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
-                    text = "Select Category",
+                    text = stringResource(R.string.select_category),
                     style = MaterialTheme.typography.titleMedium
                 )
 
@@ -312,7 +312,7 @@ fun NewsFiltersContent(
                 onClick = onApplyFilter
             ) {
                 Text(
-                    text = "Okay",
+                    text = stringResource(R.string.okay),
                     style = MaterialTheme.typography.labelMedium
                 )
             }
@@ -390,7 +390,7 @@ fun CountriesDialog(
         onDismissRequest = onDismiss,
         title = {
             Text(
-                text = "Select Country",
+                text = stringResource(R.string.select_country),
                 style = MaterialTheme.typography.titleMedium
             )
         },

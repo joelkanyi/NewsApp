@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string translatable="false"  name="news_list_screen">news_list_screen</string>
+    <string name="search_icon">Ikoni ya Utafutaji</string>
+    <string name="search">Tafuta</string>
+    <string name="filters_icon">Ikoni ya Vichujio</string>
+    <string name="filters">Vichujio</string>
+    <string translatable="false"  name="search_news_screen">search_news_screen</string>
+    <string name="news">Habari</string>
+    <string name="favorites">Vipendwa</string>
+    <string translatable="false"  name="favorites_screen">favorites_screen</string>
+    <string name="back_icon">Ikoni ya Nyuma</string>
+    <string name="no_news_available">Hakuna habari zilizopo</string>
+    <string translatable="false"  name="news_filters">news_filters</string>
+    <string translatable="false"  name="countries_dialog">countries_dialog</string>
+    <string translatable="false"  name="search_news_text_field">search_news_textfield</string>
+    <string translatable="false"  name="clear_search">clear_search</string>
+    <string name="by">Na %1$s, %2$s</string>
+    <string name="share_icon">Ikoni ya Kushiriki</string>
+    <string name="added_to_favorite_icon">Imeongezwa kwenye Vipendwa</string>
+    <string name="not_added_to_favorite_icon">Haijaongezwa kwenye Vipendwa</string>
+    <string name="settings">Mipangilio</string>
+    <string name="language">Lugha</string>
+    <string name="follow_system">Fuata Mfumo</string>
+    <string name="la_sw" translatable="false">Kiswahili</string>
+    <string name="la_en" translatable="false">English</string>
+    <string name="error_loading_image">Hitilafu ya kupakia picha</string>
+    <string name="no_favorites_yet">Hakuna vipendwa bado</string>
+    <string name="all_news">Habari Zote</string>
+    <string name="select_country">Chagua Nchi</string>
+    <string name="select_category">Chagua Jamii</string>
+    <string name="okay">Sawa</string>
+    <string name="search_placeholder" tools:ignore="TypographyEllipsis">Tafuta...</string>
+    <string name="theme">Mandhari</string>
+    <string translatable="false"  name="settings_screen">settings_screen</string>
+    <string name="select_theme">Chagua Mandhari</string>
+    <string name="app_version">Toleo la Programu</string>
+    <string name="use_system_settings">Tumia Mipangilio ya Mfumo</string>
+    <string name="light_mode">Njia ya Mwanga</string>
+    <string name="dark_mode">Njia ya Giza</string>
+    <string name="material_you">Material You</string>
+    <string name="a_network_error_occurred_please_check_your_connection_and_try_again">Hitilafu ya mtandao imetokea, tafadhali angalia muunganisho wako na ujaribu tena</string>
+    <string name="an_unknown_error_occurred_please_try_again">Hitilafu isiyojulikana imetokea, tafadhali jaribu tena</string>
+</resources>

@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import io.github.joelkanyi.presentation.favorites.FavoritesScreen
+import io.github.joelkanyi.presentation.language.LanguageScreen
 import io.github.joelkanyi.presentation.model.NewsUiModel
 import io.github.joelkanyi.presentation.newsdetails.NewsDetailsScreen
 import io.github.joelkanyi.presentation.newslist.NewsListScreen
@@ -54,6 +55,12 @@ fun AppNavHost(
 
         composable<Destinations.Settings> {
             SettingsScreen(
+                navController = navController
+            )
+        }
+
+        composable<Destinations.Language> {
+            LanguageScreen(
                 navController = navController
             )
         }

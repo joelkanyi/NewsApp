@@ -16,7 +16,7 @@ import io.github.joelkanyi.designsystem.R
 @Composable
 fun EmptyStateComponent(
     modifier: Modifier = Modifier,
-    message: String = "No data available"
+    message: String = stringResource(R.string.no_data_available)
 ) {
     Column(
         modifier = modifier.testTag(stringResource(R.string.empty_state_component)),

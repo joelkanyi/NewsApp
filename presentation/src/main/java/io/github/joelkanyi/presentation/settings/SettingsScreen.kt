@@ -1,5 +1,6 @@
 package io.github.joelkanyi.presentation.settings
 
+import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -28,8 +29,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -39,6 +42,8 @@ import io.github.joelkanyi.designsystem.theme.NewsAppTheme
 import io.github.joelkanyi.designsystem.theme.Theme
 import io.github.joelkanyi.presentation.model.AppTheme
 import io.github.joelkanyi.presentation.model.SettingsOption
+import io.github.joelkanyi.presentation.navigation.Destinations
+import io.github.joelkanyi.presentation.utils.getLanguageName
 import io.github.joelkanyi.presentation.utils.getThemeName
 
 @Composable
@@ -51,10 +56,16 @@ fun SettingsScreen(
     }
 
     val theme by viewModel.theme.collectAsState()
+    val language by viewModel.language.collectAsState()
+    val context = LocalContext.current
 
     SettingsScreenContent(
-        settingsOptions = settingsOptions(theme),
-        themeOptions = themes,
+        settingsOptions = context.settingsOptions(
+            selectedTheme = theme,
+            selectedLanguage = language,
+            appVersion = "1.0.0"
+        ),
+        themeOptions = context.themes(),
         shouldShowThemesDialog = shouldShowThemesDialog,
         selectedTheme = theme,
         onDismissThemesDialog = {
@@ -65,9 +76,12 @@ fun SettingsScreen(
         },
         onClickOption = {
             when (it) {
-                "Theme" -> shouldShowThemesDialog = true
-                "Language" -> {
-                    navController.navigate("language")
+                context.getString(io.github.joelkanyi.presentation.R.string.theme) -> {
+                    shouldShowThemesDialog = true
+                }
+
+                context.getString(io.github.joelkanyi.presentation.R.string.language) -> {
+                    navController.navigate(Destinations.Language)
                 }
             }
         }
@@ -86,14 +100,15 @@ fun SettingsScreenContent(
     themeOptions: List<AppTheme>,
 ) {
     Scaffold(
-        modifier = Modifier
-            .testTag("settings_screen")
-            .fillMaxSize(),
+        modifier = Modifier.run {
+            testTag(stringResource(io.github.joelkanyi.presentation.R.string.settings_screen))
+                .fillMaxSize()
+        },
         topBar = {
             TopAppBar(
                 title = {
                     Text(
-                        text = "Settings",
+                        text = stringResource(io.github.joelkanyi.presentation.R.string.settings),
                         style = MaterialTheme.typography.titleMedium
                     )
                 }
@@ -174,7 +189,7 @@ fun ThemesDialog(
         onDismissRequest = { onDismiss() },
         title = {
             Text(
-                text = "Themes",
+                text = stringResource(io.github.joelkanyi.presentation.R.string.select_theme),
                 style = MaterialTheme.typography.titleLarge
             )
         },
@@ -248,9 +263,14 @@ fun ThemeItem(
 @Composable
 fun PreviewSettingsScreen() {
     NewsAppTheme {
+        val context = LocalContext.current
         SettingsScreenContent(
-            themeOptions = themes,
-            settingsOptions = settingsOptions(Theme.FOLLOW_SYSTEM.themeValue),
+            themeOptions = context.themes(),
+            settingsOptions = context.settingsOptions(
+                selectedTheme = Theme.FOLLOW_SYSTEM.themeValue,
+                selectedLanguage = 0,
+                appVersion = "1.0.0"
+            ),
             shouldShowThemesDialog = false,
             selectedTheme = Theme.FOLLOW_SYSTEM.themeValue,
             onDismissThemesDialog = {},
@@ -260,44 +280,46 @@ fun PreviewSettingsScreen() {
     }
 }
 
-fun settingsOptions(
+fun Context.settingsOptions(
     selectedTheme: Int,
+    selectedLanguage: Int,
+    appVersion: String,
 ) = listOf(
     SettingsOption(
-        title = "Theme",
-        description = selectedTheme.getThemeName(),
+        title = getString(io.github.joelkanyi.presentation.R.string.theme),
+        description = selectedTheme.getThemeName(context = this),
         icon = R.drawable.ic_theme,
     ),
     SettingsOption(
-        title = "Language",
-        description = "English",
+        title = getString(io.github.joelkanyi.presentation.R.string.language),
+        description = selectedLanguage.getLanguageName(context = this),
         icon = R.drawable.ic_language,
     ),
     SettingsOption(
-        title = "App Version",
-        description = "0.0.1-debug",
+        title = getString(io.github.joelkanyi.presentation.R.string.app_version),
+        description = appVersion,
         icon = R.drawable.ic_info,
     )
 )
 
-val themes = listOf(
+fun Context.themes() = listOf(
     AppTheme(
-        themeName = "Use System Settings",
+        themeName = getString(io.github.joelkanyi.presentation.R.string.use_system_settings),
         themeValue = Theme.FOLLOW_SYSTEM.themeValue,
         icon = R.drawable.settings_suggest
     ),
     AppTheme(
-        themeName = "Light Mode",
+        themeName = getString(io.github.joelkanyi.presentation.R.string.light_mode),
         themeValue = Theme.LIGHT_THEME.themeValue,
         icon = R.drawable.light_mode
     ),
     AppTheme(
-        themeName = "Dark Mode",
+        themeName = getString(io.github.joelkanyi.presentation.R.string.dark_mode),
         themeValue = Theme.DARK_THEME.themeValue,
         icon = R.drawable.dark_mode
     ),
     AppTheme(
-        themeName = "Material You",
+        themeName = getString(io.github.joelkanyi.presentation.R.string.material_you),
         themeValue = Theme.MATERIAL_YOU.themeValue,
         icon = R.drawable.wallpaper
     )

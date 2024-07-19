@@ -11,9 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
+import io.github.joelkanyi.presentation.R
 
 @Composable
 fun NewsImage(
@@ -55,7 +57,7 @@ fun NewsImage(
                     painterResource(
                         id = io.github.joelkanyi.designsystem.R.drawable.image_placeholder
                     ),
-                    contentDescription = "Error loading image",
+                    contentDescription = stringResource(R.string.error_loading_image),
                     modifier = Modifier.size(48.dp)
                 )
             }

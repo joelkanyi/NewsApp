@@ -9,4 +9,5 @@ object Constants {
     internal const val NEWS_TABLE_NAME = "news"
     const val NEWS_APP_PREFERENCES = "news_app_preferences"
     val THEME_OPTIONS = intPreferencesKey(name = "theme_option")
+    val LANGUAGE_KEY = intPreferencesKey(name = "language_key")
 }

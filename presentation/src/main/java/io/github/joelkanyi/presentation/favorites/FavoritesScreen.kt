@@ -58,7 +58,7 @@ fun FavoritesScreenContent(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Favorites",
+                        text = stringResource(R.string.favorites),
                         style = MaterialTheme.typography.titleMedium
                     )
                 }
@@ -73,7 +73,7 @@ fun FavoritesScreenContent(
             if (favorites.isEmpty()) {
                 EmptyStateComponent(
                     modifier = Modifier.align(Alignment.Center),
-                    message = "No favorites yet"
+                    message = stringResource(R.string.no_favorites_yet)
                 )
             } else {
                 LazyColumn(

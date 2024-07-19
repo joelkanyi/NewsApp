@@ -104,4 +104,6 @@ dependencies {
     implementation(libs.room.ktx)
 
     implementation(libs.datastore.preferences)
+
+    implementation(libs.androidx.appcompat)
 }

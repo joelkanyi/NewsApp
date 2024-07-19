@@ -9,6 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
+import io.github.joelkanyi.designsystem.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -21,7 +23,7 @@ fun BottomSheet(
     content: @Composable () -> Unit
 ) {
     ModalBottomSheet(
-        modifier = modifier.testTag("bottom_sheet"),
+        modifier = modifier.testTag(stringResource(R.string.bottom_sheet)),
         containerColor = containerColor,
         onDismissRequest = onDismissRequest,
         sheetState = bottomSheetState,
