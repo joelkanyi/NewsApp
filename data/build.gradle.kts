@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 /*
  * Copyright 2024 Joel Kanyi.
 
@@ -22,9 +24,8 @@ android {
         consumerProguardFiles("consumer-rules.pro")
 
         // Read API_KEY from environment variable or gradle.properties
-        val apiKey: String = System.getenv("API_KEY") ?: project.findProperty("API_KEY") as String
+        val apiKey: String = System.getenv("API_KEY") ?: gradleLocalProperties(rootDir, providers).getProperty("API_KEY") as String ?: ""
         buildConfigField("String", "API_KEY", "\"$apiKey\"")
-
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
         }
