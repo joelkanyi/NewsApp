@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.data.network
 
 import io.github.joelkanyi.data.network.dto.NewsResponseDto
@@ -19,15 +25,13 @@ class FakeNewsApi : NewsApi {
         page: Int,
         searchQuery: String?,
         apiKey: String
-    ): NewsResponseDto {
-        return if (shouldThrowException) {
-            throw Exception("Fake exception")
-        } else {
-            NewsResponseDto(
-                articles = news,
-                status = "ok",
-                totalResults = news.size
-            )
-        }
+    ): NewsResponseDto = if (shouldThrowException) {
+        throw Exception("Fake exception")
+    } else {
+        NewsResponseDto(
+            articles = news,
+            status = "ok",
+            totalResults = news.size
+        )
     }
 }

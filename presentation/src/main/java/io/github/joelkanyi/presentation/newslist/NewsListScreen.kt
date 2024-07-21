@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.presentation.newslist
 
 import androidx.compose.foundation.BorderStroke
@@ -67,11 +73,13 @@ import kotlinx.coroutines.launch
 @Composable
 fun NewsListScreen(
     navController: NavController,
+    modifier: Modifier = Modifier,
     viewModel: NewsListViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
     NewsListScreenContent(
+        modifier = modifier,
         uiState = uiState,
         onAction = { action ->
             when (action) {
@@ -116,7 +124,8 @@ fun NewsListScreen(
 @Composable
 fun NewsListScreenContent(
     uiState: NewsListUiState,
-    onAction: (NewsListUiAction) -> Unit
+    onAction: (NewsListUiAction) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val newsPaging = uiState.news?.collectAsLazyPagingItems()
 
@@ -127,7 +136,7 @@ fun NewsListScreenContent(
         )
 
     Scaffold(
-        modifier = Modifier
+        modifier = modifier
             .testTag(stringResource(R.string.news_list_screen))
             .fillMaxSize(),
         topBar = {
@@ -256,20 +265,19 @@ fun NewsListScreenContent(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun NewsFiltersContent(
-    modifier: Modifier = Modifier,
     selectedCountry: String?,
     selectedCategory: String?,
     categories: List<String>,
     onClickSelectCountry: () -> Unit,
-    onApplyFilter: (selectedCategory: String?) -> Unit
+    onApplyFilter: (selectedCategory: String?) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     var temporaryCategory by rememberSaveable {
         mutableStateOf(selectedCategory)
     }
 
     LazyColumn(
-        modifier =
-        modifier
+        modifier = modifier
             .fillMaxWidth(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -286,8 +294,7 @@ fun NewsFiltersContent(
                 )
 
                 Row(
-                    modifier =
-                    modifier
+                    modifier = Modifier
                         .fillMaxWidth()
                         .clickable { onClickSelectCountry() },
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -363,8 +370,7 @@ fun CategoryItem(
     modifier: Modifier = Modifier
 ) {
     Box(
-        modifier =
-        modifier
+        modifier = modifier
             .border(
                 BorderStroke(
                     width = .5.dp,
@@ -418,8 +424,7 @@ fun CountriesDialog(
     modifier: Modifier = Modifier
 ) {
     AlertDialog(
-        modifier =
-        Modifier
+        modifier = modifier
             .testTag(stringResource(R.string.countries_dialog))
             .fillMaxHeight(.5f),
         onDismissRequest = onDismiss,
@@ -463,8 +468,7 @@ fun CountryItem(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier =
-        modifier
+        modifier = modifier
             .fillMaxWidth()
             .clickable {
                 onClick()
@@ -488,7 +492,7 @@ fun CountryItem(
 
 @Preview
 @Composable
-fun NewsListScreenPreview() {
+private fun NewsListScreenPreview() {
     NewsAppTheme {
         NewsListScreenContent(
             uiState = NewsListUiState(),

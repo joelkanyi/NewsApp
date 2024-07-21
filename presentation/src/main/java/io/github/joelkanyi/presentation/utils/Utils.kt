@@ -1,4 +1,8 @@
-@file:Suppress("DEPRECATION")
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 package io.github.joelkanyi.presentation.utils
 
@@ -20,35 +24,33 @@ import java.time.temporal.ChronoUnit
 import java.util.Date
 import java.util.concurrent.TimeUnit
 
-fun String.toISO3166Alpha2(): String {
-    return when (this.lowercase()) {
-        "kenya" -> "ke"
-        "united states" -> "us"
-        "united kingdom" -> "gb"
-        "australia" -> "au"
-        "canada" -> "ca"
-        "india" -> "in"
-        "germany" -> "de"
-        "france" -> "fr"
-        "italy" -> "it"
-        "netherlands" -> "nl"
-        "norway" -> "no"
-        "sweden" -> "se"
-        "china" -> "cn"
-        "japan" -> "jp"
-        "south korea" -> "kr"
-        "russia" -> "ru"
-        "brazil" -> "br"
-        "argentina" -> "ar"
-        "mexico" -> "mx"
-        "south africa" -> "za"
-        "nigeria" -> "ng"
-        "egypt" -> "eg"
-        "saudi arabia" -> "sa"
-        "united arab emirates" -> "ae"
-        "kuwait" -> "kw"
-        else -> ""
-    }
+fun String.toISO3166Alpha2(): String = when (this.lowercase()) {
+    "kenya" -> "ke"
+    "united states" -> "us"
+    "united kingdom" -> "gb"
+    "australia" -> "au"
+    "canada" -> "ca"
+    "india" -> "in"
+    "germany" -> "de"
+    "france" -> "fr"
+    "italy" -> "it"
+    "netherlands" -> "nl"
+    "norway" -> "no"
+    "sweden" -> "se"
+    "china" -> "cn"
+    "japan" -> "jp"
+    "south korea" -> "kr"
+    "russia" -> "ru"
+    "brazil" -> "br"
+    "argentina" -> "ar"
+    "mexico" -> "mx"
+    "south africa" -> "za"
+    "nigeria" -> "ng"
+    "egypt" -> "eg"
+    "saudi arabia" -> "sa"
+    "united arab emirates" -> "ae"
+    "kuwait" -> "kw"
+    else -> ""
 }
 
 fun errorMessage(
@@ -60,12 +62,10 @@ fun errorMessage(
         ?: context.getString(R.string.an_unknown_error_occurred_please_try_again)
 }
 
-inline fun <reified T> convertErrorBody(throwable: HttpException): T? {
-    return try {
-        throwable.response()?.errorBody()?.charStream()?.use { it.readerToObject() }
-    } catch (e: JsonParseException) {
-        null
-    }
+inline fun <reified T> convertErrorBody(throwable: HttpException): T? = try {
+    throwable.response()?.errorBody()?.charStream()?.use { it.readerToObject() }
+} catch (e: JsonParseException) {
+    null
 }
 
 inline fun <reified T> Reader.readerToObject(): T {
@@ -75,22 +75,20 @@ inline fun <reified T> Reader.readerToObject(): T {
     return gson.fromJson(this, T::class.java)
 }
 
-fun LoadState.Error.getPagingError(context: Context): String {
-    return when (val err = this.error) {
-        is HttpException -> {
-            errorMessage(
-                httpException = err,
-                context = context
-            )
-        }
+fun LoadState.Error.getPagingError(context: Context): String = when (val err = this.error) {
+    is HttpException -> {
+        errorMessage(
+            httpException = err,
+            context = context
+        )
+    }
 
-        is IOException -> {
-            context.getString(R.string.a_network_error_occurred_please_check_your_connection_and_try_again)
-        }
+    is IOException -> {
+        context.getString(R.string.a_network_error_occurred_please_check_your_connection_and_try_again)
+    }
 
-        else -> {
-            context.getString(R.string.an_unknown_error_occurred_please_try_again)
-        }
+    else -> {
+        context.getString(R.string.an_unknown_error_occurred_please_try_again)
     }
 }
 
@@ -126,15 +124,13 @@ fun String.toRelativeTime(): String {
 
 /** Given 2024-07-11T02:48:00Z, return Friday, 11 July 2024, 02:48 AM */
 @SuppressLint("SimpleDateFormat")
-fun String.toHumanReadableDateTIme(): String {
-    return try {
-        val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        val date = formatter.parse(this)
-        val humanReadableDate = SimpleDateFormat("EEEE, dd MMMM yyyy, hh:mm a").format(date as Date)
-        humanReadableDate
-    } catch (e: Exception) {
-        this
-    }
+fun String.toHumanReadableDateTIme(): String = try {
+    val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+    val date = formatter.parse(this)
+    val humanReadableDate = SimpleDateFormat("EEEE, dd MMMM yyyy, hh:mm a").format(date as Date)
+    humanReadableDate
+} catch (e: Exception) {
+    this
 }
 
 fun Context.shareLink(url: String) {
@@ -155,45 +151,35 @@ fun Context.shareLink(url: String) {
     }
 }
 
-fun Int.getThemeName(context: Context): String {
-    return when (this) {
-        AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> context.getString(R.string.use_system_settings)
-        AppCompatDelegate.MODE_NIGHT_NO -> context.getString(R.string.light_mode)
-        AppCompatDelegate.MODE_NIGHT_YES -> context.getString(R.string.dark_mode)
-        12 -> context.getString(R.string.material_you)
-        else -> context.getString(R.string.use_system_settings)
-    }
+fun Int.getThemeName(context: Context): String = when (this) {
+    AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> context.getString(R.string.use_system_settings)
+    AppCompatDelegate.MODE_NIGHT_NO -> context.getString(R.string.light_mode)
+    AppCompatDelegate.MODE_NIGHT_YES -> context.getString(R.string.dark_mode)
+    12 -> context.getString(R.string.material_you)
+    else -> context.getString(R.string.use_system_settings)
 }
 
-fun Int.getLanguageName(context: Context): String {
-    return when (this) {
-        LANGUAGE_SYSTEM_DEFAULT -> context.getString(R.string.follow_system)
-        1 -> context.getString(R.string.la_en)
-        2 -> context.getString(R.string.la_sw)
-        else -> context.getString(R.string.follow_system)
-    }
+fun Int.getLanguageName(context: Context): String = when (this) {
+    LANGUAGE_SYSTEM_DEFAULT -> context.getString(R.string.follow_system)
+    1 -> context.getString(R.string.la_en)
+    2 -> context.getString(R.string.la_sw)
+    else -> context.getString(R.string.follow_system)
 }
 
-fun Context.getAppVersionName(): String {
-    return try {
-        val pInfo = packageManager.getPackageInfo(packageName, 0)
-        pInfo.versionName
-    } catch (e: Exception) {
-        ""
-    }
+fun Context.getAppVersionName(): String = try {
+    val pInfo = packageManager.getPackageInfo(packageName, 0)
+    pInfo.versionName
+} catch (e: Exception) {
+    ""
 }
 
-fun Context.getAppVersionCode(): Int {
-    return try {
-        val pInfo = packageManager.getPackageInfo(packageName, 0)
-        pInfo.versionCode
-    } catch (e: Exception) {
-        0
-    }
+fun Context.getAppVersionCode(): Int = try {
+    val pInfo = packageManager.getPackageInfo(packageName, 0)
+    pInfo.versionCode
+} catch (e: Exception) {
+    0
 }
 
-fun String?.mapAllNewsFilterToNull(): String? {
-    return if (this == "All News") null else this
-}
+fun String?.mapAllNewsFilterToNull(): String? = if (this == "All News") null else this
 
 const val LANGUAGE_SYSTEM_DEFAULT = 0

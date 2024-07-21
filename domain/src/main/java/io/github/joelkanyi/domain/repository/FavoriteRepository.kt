@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.domain.repository
 
 import io.github.joelkanyi.domain.model.News

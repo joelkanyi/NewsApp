@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.data.repository
 
 import androidx.paging.Pager
@@ -18,21 +24,19 @@ class NewsRepositoryImpl @Inject constructor(
         country: String?,
         category: String?,
         searchQuery: String?
-    ): Flow<PagingData<News>> {
-        return Pager(
-            config =
-            PagingConfig(
-                pageSize = PAGE_SIZE,
-                enablePlaceholders = false
-            ),
-            pagingSourceFactory = {
-                NewsPagingSource(
-                    newsApi = newsApi,
-                    country = country,
-                    category = category,
-                    searchQuery = searchQuery
-                )
-            }
-        ).flow
-    }
+    ): Flow<PagingData<News>> = Pager(
+        config =
+        PagingConfig(
+            pageSize = PAGE_SIZE,
+            enablePlaceholders = false
+        ),
+        pagingSourceFactory = {
+            NewsPagingSource(
+                newsApi = newsApi,
+                country = country,
+                category = category,
+                searchQuery = searchQuery
+            )
+        }
+    ).flow
 }

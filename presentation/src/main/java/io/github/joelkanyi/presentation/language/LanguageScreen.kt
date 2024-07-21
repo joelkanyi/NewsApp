@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.presentation.language
 
 import androidx.compose.foundation.layout.Arrangement
@@ -46,15 +52,17 @@ import io.github.joelkanyi.presentation.utils.LANGUAGE_SYSTEM_DEFAULT
 @Composable
 fun LanguageScreen(
     navController: NavController,
+    modifier: Modifier = Modifier,
     viewModel: LanguageViewModel = hiltViewModel(),
 ) {
     val language by viewModel.language.collectAsState()
 
     LanguageScreenContent(
-        onBackPressed = { navController.popBackStack() },
+        onPressBack = { navController.popBackStack() },
         languageMap = languageMap,
+        modifier = modifier,
         selectedLanguage = language.getLanguageNumber(),
-        onLanguageSelected = {
+        onSelectLanguage = {
             viewModel.setLanguage(it)
             setLanguage(getLanguageConfiguration(it))
         },
@@ -64,14 +72,15 @@ fun LanguageScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun LanguageScreenContent(
-    onBackPressed: () -> Unit = {},
     languageMap: Map<Int, String>,
     selectedLanguage: Int,
-    onLanguageSelected: (Int) -> Unit = {},
+    onPressBack: () -> Unit,
+    onSelectLanguage: (Int) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
+        modifier = modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.surface,
-        modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
                 title = {
@@ -83,7 +92,7 @@ private fun LanguageScreenContent(
                 navigationIcon = {
                     IconButton(
                         modifier = Modifier.testTag(stringResource(R.string.back_icon)),
-                        onClick = onBackPressed
+                        onClick = onPressBack
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Default.ArrowBack,
@@ -102,7 +111,10 @@ private fun LanguageScreenContent(
                 LanguageItem(
                     text = stringResource(R.string.follow_system),
                     selected = selectedLanguage == LANGUAGE_SYSTEM_DEFAULT,
-                ) { onLanguageSelected(LANGUAGE_SYSTEM_DEFAULT) }
+                    onClick = {
+                        onSelectLanguage(LANGUAGE_SYSTEM_DEFAULT)
+                    }
+                )
             }
 
             items(languageMap.size) {
@@ -110,7 +122,10 @@ private fun LanguageScreenContent(
                 LanguageItem(
                     text = getLanguageDesc(languageData.key),
                     selected = selectedLanguage == languageData.key,
-                ) { onLanguageSelected(languageData.key) }
+                    onClick = {
+                        onSelectLanguage(languageData.key)
+                    }
+                )
             }
         }
     }
@@ -118,21 +133,19 @@ private fun LanguageScreenContent(
 
 @Composable
 fun LanguageItem(
-    modifier: Modifier = Modifier,
     text: String,
     selected: Boolean,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Surface(
-        modifier =
-        Modifier.selectable(
+        modifier = modifier.selectable(
             selected = selected,
             onClick = onClick,
         ),
     ) {
         Row(
-            modifier =
-            modifier
+            modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -169,7 +182,8 @@ private fun LanguagePagePreview() {
         LanguageScreenContent(
             languageMap = map,
             selectedLanguage = language,
-            onLanguageSelected = { language = it },
+            onSelectLanguage = { language = it },
+            onPressBack = { },
         )
     }
 }

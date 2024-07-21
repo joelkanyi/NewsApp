@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.data.repository
 
 import androidx.appcompat.app.AppCompatDelegate
@@ -18,10 +24,8 @@ class PreferenceRepositoryImpl(
         }
     }
 
-    override fun getTheme(): Flow<Int> {
-        return dataStore.data.map { preferences ->
-            preferences[Constants.THEME_OPTIONS] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-        }
+    override fun getTheme(): Flow<Int> = dataStore.data.map { preferences ->
+        preferences[Constants.THEME_OPTIONS] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     }
 
     override suspend fun setLanguage(languageNumber: Int) {

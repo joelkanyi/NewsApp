@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.domain.usecase
 
 import androidx.paging.PagingData
@@ -42,20 +48,18 @@ class GetNewsUseCaseTest {
             coVerify { repository.getNews(any(), any(), any()) }
         }
 
-    private fun sampleNews(): PagingData<News> {
-        return PagingData.from(
-            listOf(
-                News(
-                    title = "title",
-                    description = "description",
-                    url = "url",
-                    imageUrl = "urlToImage",
-                    publishedAt = "publishedAt",
-                    content = "content",
-                    source = "source",
-                    author = "author"
-                )
+    private fun sampleNews(): PagingData<News> = PagingData.from(
+        listOf(
+            News(
+                title = "title",
+                description = "description",
+                url = "url",
+                imageUrl = "urlToImage",
+                publishedAt = "publishedAt",
+                content = "content",
+                source = "source",
+                author = "author"
             )
         )
-    }
+    )
 }

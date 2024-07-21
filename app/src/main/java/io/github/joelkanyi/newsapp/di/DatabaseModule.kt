@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.newsapp.di
 
 import android.content.Context
@@ -18,13 +24,11 @@ object DatabaseModule {
     @Singleton
     fun provideDatabase(
         @ApplicationContext context: Context
-    ): NewsDatabase {
-        return Room.databaseBuilder(
-            context,
-            NewsDatabase::class.java,
-            DATABASE_NAME
-        ).build()
-    }
+    ): NewsDatabase = Room.databaseBuilder(
+        context,
+        NewsDatabase::class.java,
+        DATABASE_NAME
+    ).build()
 
     @Provides
     @Singleton

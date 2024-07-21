@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.presentation.favorites
 
 import androidx.compose.foundation.layout.Arrangement
@@ -33,11 +39,13 @@ import io.github.joelkanyi.presentation.navigation.Destinations
 @Composable
 fun FavoritesScreen(
     navController: NavController,
+    modifier: Modifier = Modifier,
     viewModel: FavoritesViewModel = hiltViewModel()
 ) {
     val favorites by viewModel.favorites.collectAsState(initial = emptyList())
     FavoritesScreenContent(
         favorites = favorites,
+        modifier = modifier,
         onNewsClick = { news ->
             navController.navigate(Destinations.NewsDetails(news))
         }
@@ -49,9 +57,10 @@ fun FavoritesScreen(
 fun FavoritesScreenContent(
     favorites: List<NewsUiModel>,
     onNewsClick: (NewsUiModel) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Scaffold(
-        modifier = Modifier
+        modifier = modifier
             .testTag(stringResource(R.string.favorites_screen))
             .fillMaxSize(),
         topBar = {

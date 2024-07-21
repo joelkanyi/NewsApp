@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.presentation.settings
 
 import android.content.Context
@@ -51,6 +57,7 @@ import io.github.joelkanyi.presentation.utils.getThemeName
 @Composable
 fun SettingsScreen(
     navController: NavController,
+    modifier: Modifier = Modifier,
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     var shouldShowThemesDialog by rememberSaveable {
@@ -62,6 +69,7 @@ fun SettingsScreen(
     val context = LocalContext.current
 
     SettingsScreenContent(
+        modifier = modifier,
         settingsOptions = context.settingsOptions(
             selectedTheme = theme,
             selectedLanguage = language,
@@ -100,13 +108,13 @@ fun SettingsScreenContent(
     onClickOption: (String) -> Unit,
     settingsOptions: List<SettingsOption>,
     themeOptions: List<AppTheme>,
+    modifier: Modifier = Modifier
 ) {
     Scaffold(
+        modifier = modifier
+            .testTag(stringResource(io.github.joelkanyi.presentation.R.string.settings_screen))
+            .fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.surface,
-        modifier = Modifier.run {
-            testTag(stringResource(io.github.joelkanyi.presentation.R.string.settings_screen))
-                .fillMaxSize()
-        },
         topBar = {
             TopAppBar(
                 title = {
@@ -185,8 +193,10 @@ fun ThemesDialog(
     onDismiss: () -> Unit,
     onSelectTheme: (Int) -> Unit,
     selectedTheme: Int,
+    modifier: Modifier = Modifier
 ) {
     AlertDialog(
+        modifier = modifier,
         containerColor = MaterialTheme.colorScheme.background,
         shape = RoundedCornerShape(0),
         onDismissRequest = { onDismiss() },
@@ -222,9 +232,10 @@ fun ThemeItem(
     icon: Int,
     onSelectTheme: (Int) -> Unit,
     isSelected: Boolean,
+    modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .clickable {
                 onSelectTheme(themeValue)
@@ -264,7 +275,7 @@ fun ThemeItem(
 
 @Preview
 @Composable
-fun PreviewSettingsScreen() {
+private fun PreviewSettingsScreen() {
     NewsAppTheme {
         val context = LocalContext.current
         SettingsScreenContent(

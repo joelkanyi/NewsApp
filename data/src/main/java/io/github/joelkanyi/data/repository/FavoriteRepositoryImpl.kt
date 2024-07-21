@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.data.repository
 
 import io.github.joelkanyi.data.cache.NewsDao
@@ -20,15 +26,11 @@ class FavoriteRepositoryImpl @Inject constructor(
         newsDao.delete(news.toEntity())
     }
 
-    override fun getFavorites(): Flow<List<News>> {
-        return newsDao.getAll().map { newsList ->
-            newsList.map {
-                it.toNews()
-            }
+    override fun getFavorites(): Flow<List<News>> = newsDao.getAll().map { newsList ->
+        newsList.map {
+            it.toNews()
         }
     }
 
-    override fun isFavorite(news: News): Flow<Boolean> {
-        return newsDao.isFavorite(news.title)
-    }
+    override fun isFavorite(news: News): Flow<Boolean> = newsDao.isFavorite(news.title)
 }

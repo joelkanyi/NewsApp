@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.presentation.newslist
 
 import androidx.paging.PagingData
@@ -82,9 +88,9 @@ class NewsListViewModelTest {
         runTest {
             viewModel.uiState.test {
                 val state = awaitItem()
-                assertThat(state.selectedCategory).isNull()
+                assertThat(state.selectedCategory).isEqualTo("All News")
                 assertThat(state.showCountryDialog).isFalse()
-                assertThat(state.selectedCountry).isEqualTo(newsCountries.first())
+                assertThat(state.selectedCountry).isEqualTo(countries.first())
                 // assertThat(state.news).isNull()
             }
         }
@@ -103,20 +109,18 @@ class NewsListViewModelTest {
             }
         }
 
-    private fun sampleNews(): PagingData<News> {
-        return PagingData.from(
-            listOf(
-                News(
-                    title = "title",
-                    description = "description",
-                    url = "url",
-                    imageUrl = "urlToImage",
-                    publishedAt = "publishedAt",
-                    content = "content",
-                    source = "source",
-                    author = "author"
-                )
+    private fun sampleNews(): PagingData<News> = PagingData.from(
+        listOf(
+            News(
+                title = "title",
+                description = "description",
+                url = "url",
+                imageUrl = "urlToImage",
+                publishedAt = "publishedAt",
+                content = "content",
+                source = "source",
+                author = "author"
             )
         )
-    }
+    )
 }

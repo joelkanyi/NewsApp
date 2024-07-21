@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.presentation.newsdetails
 
 import androidx.compose.foundation.layout.Arrangement
@@ -45,12 +51,14 @@ import io.github.joelkanyi.presentation.utils.toHumanReadableDateTIme
 fun NewsDetailsScreen(
     news: NewsUiModel,
     navController: NavController,
+    modifier: Modifier = Modifier,
     viewModel: NewsDetailsViewModel = hiltViewModel()
 ) {
     val addedToFavorites by viewModel.isFavorite(news).collectAsState(false)
     val context = LocalContext.current
 
     NewsDetailsScreenContent(
+        modifier = modifier,
         news = news,
         addedToFavorites = addedToFavorites,
         onClickBack = {
@@ -76,13 +84,14 @@ fun NewsDetailsScreenContent(
     addedToFavorites: Boolean,
     onClickBack: () -> Unit,
     onClickShare: () -> Unit,
-    onClickFavorite: () -> Unit
+    onClickFavorite: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         containerColor = MaterialTheme.colorScheme.surface,
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
                 scrollBehavior = scrollBehavior,
@@ -139,8 +148,7 @@ fun NewsDetailsScreenContent(
         }
     ) {
         LazyColumn(
-            modifier =
-            Modifier
+            modifier = Modifier
                 .padding(it)
                 .fillMaxSize(),
             contentPadding = PaddingValues(horizontal = 16.dp),
@@ -210,7 +218,7 @@ fun NewsDetailsScreenContent(
 
 @Preview
 @Composable
-fun NewsDetailsScreenPreview() {
+private fun NewsDetailsScreenPreview() {
     NewsAppTheme {
         NewsDetailsScreenContent(
             addedToFavorites = true,

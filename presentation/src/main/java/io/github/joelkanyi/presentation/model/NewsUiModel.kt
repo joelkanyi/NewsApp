@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.presentation.model
 
 import android.os.Parcelable
@@ -18,30 +24,26 @@ data class NewsUiModel(
     val url: String
 ) : Parcelable {
     companion object {
-        fun News.toUiModel(): NewsUiModel {
-            return NewsUiModel(
-                author = author,
-                content = content,
-                description = description,
-                publishedAt = publishedAt,
-                source = source,
-                title = title,
-                url = url,
-                imageUrl = imageUrl
-            )
-        }
+        fun News.toUiModel(): NewsUiModel = NewsUiModel(
+            author = author,
+            content = content,
+            description = description,
+            publishedAt = publishedAt,
+            source = source,
+            title = title,
+            url = url,
+            imageUrl = imageUrl
+        )
 
-        fun NewsUiModel.toNews(): News {
-            return News(
-                author = author,
-                content = content,
-                description = description,
-                publishedAt = publishedAt,
-                source = source,
-                title = title,
-                url = url,
-                imageUrl = imageUrl
-            )
-        }
+        fun NewsUiModel.toNews(): News = News(
+            author = author,
+            content = content,
+            description = description,
+            publishedAt = publishedAt,
+            source = source,
+            title = title,
+            url = url,
+            imageUrl = imageUrl
+        )
     }
 }

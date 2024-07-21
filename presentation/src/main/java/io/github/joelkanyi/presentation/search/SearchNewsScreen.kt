@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.presentation.search
 
 import androidx.compose.foundation.layout.Box
@@ -41,11 +47,13 @@ import io.github.joelkanyi.presentation.navigation.Destinations
 @Composable
 fun SearchNewsScreen(
     navController: NavController,
+    modifier: Modifier = Modifier,
     viewModel: SearchNewsViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
     SearchNewsScreenContent(
+        modifier = modifier,
         uiState = uiState,
         onClickNews = {
             navController.navigate(Destinations.NewsDetails(it))
@@ -68,10 +76,11 @@ fun SearchNewsScreenContent(
     uiState: SearchNewsUiState,
     onClickBack: () -> Unit,
     onClickNews: (NewsUiModel) -> Unit,
-    onSearchValueChange: (String) -> Unit
+    onSearchValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
-        modifier = Modifier
+        modifier = modifier
             .testTag(stringResource(R.string.search_news_screen))
             .fillMaxSize(),
         topBar = {
@@ -181,7 +190,7 @@ fun SearchTextField(
 
 @Preview
 @Composable
-fun SearchNewsScreenPreview() {
+private fun SearchNewsScreenPreview() {
     NewsAppTheme {
         SearchNewsScreenContent(
             uiState = SearchNewsUiState(),

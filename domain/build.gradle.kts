@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 plugins {
     id("java-library")
     alias(libs.plugins.jetbrains.kotlin.jvm)

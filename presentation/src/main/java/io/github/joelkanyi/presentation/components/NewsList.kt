@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
@@ -24,9 +30,9 @@ import io.github.joelkanyi.presentation.utils.getPagingError
 
 @Composable
 fun NewsList(
-    modifier: Modifier = Modifier,
     onClickNews: (NewsUiModel) -> Unit,
     newsPaging: LazyPagingItems<NewsUiModel>,
+    modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
     LazyColumn(

@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.data.paging
 
 import androidx.paging.PagingSource
@@ -12,9 +18,7 @@ class NewsPagingSource(
     private val category: String?,
     private val searchQuery: String?
 ) : PagingSource<Int, News>() {
-    override fun getRefreshKey(state: PagingState<Int, News>): Int? {
-        return state.anchorPosition
-    }
+    override fun getRefreshKey(state: PagingState<Int, News>): Int? = state.anchorPosition
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, News> {
         return try {

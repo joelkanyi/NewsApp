@@ -1,4 +1,8 @@
-@file:Suppress("DEPRECATION")
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 package io.github.joelkanyi.presentation.navigation
 
@@ -23,9 +27,7 @@ object NewsUiModelParameterType : NavType<NewsUiModel>(
     override fun get(
         bundle: Bundle,
         key: String
-    ): NewsUiModel? {
-        return bundle.getParcelable(key)
-    }
+    ): NewsUiModel? = bundle.getParcelable(key)
 
     override fun serializeAsValue(value: NewsUiModel): String {
         // Serialized values must always be Uri encoded

@@ -1,3 +1,9 @@
+/*
+ * Copyright 2024 Joel Kanyi.
+
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package io.github.joelkanyi.data.cache
 
 import androidx.room.Entity
@@ -16,30 +22,26 @@ data class NewsEntity(
     val url: String
 ) {
     companion object {
-        fun News.toEntity(): NewsEntity {
-            return NewsEntity(
-                title = title,
-                description = description,
-                content = content,
-                imageUrl = imageUrl,
-                source = source,
-                publishedAt = publishedAt,
-                author = author,
-                url = url
-            )
-        }
+        fun News.toEntity(): NewsEntity = NewsEntity(
+            title = title,
+            description = description,
+            content = content,
+            imageUrl = imageUrl,
+            source = source,
+            publishedAt = publishedAt,
+            author = author,
+            url = url
+        )
 
-        fun NewsEntity.toNews(): News {
-            return News(
-                title = title,
-                description = description,
-                content = content,
-                imageUrl = imageUrl,
-                source = source,
-                publishedAt = publishedAt,
-                author = author,
-                url = url
-            )
-        }
+        fun NewsEntity.toNews(): News = News(
+            title = title,
+            description = description,
+            content = content,
+            imageUrl = imageUrl,
+            source = source,
+            publishedAt = publishedAt,
+            author = author,
+            url = url
+        )
     }
 }
