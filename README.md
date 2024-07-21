@@ -92,6 +92,21 @@ Here's a breakdown of the module dependencies:
 - I wrote tests for the UI in the presentation layer.
 - I wrote some tests for navigation.
 
+### Code Analysis
+This projects uses spotless, ktlint, and detekt for code analysis.
+
+> **Note:** I removed detekt from the code analysis because currently it does not work with Kotlin 2.0
+
+Grant execute permission to the `codeAnalysis.sh` file:
+```shell
+chmod +x codeAnalysis.sh
+```
+
+Run the code analysis:
+```shell
+./codeAnalysis.sh
+```
+
 ### Libraries
 - [Jetpack Compose](https://developer.android.com/jetpack/compose) - Modern toolkit for building native UI
 - [Retrofit](https://square.github.io/retrofit/) - A type-safe HTTP client for Android and Java
